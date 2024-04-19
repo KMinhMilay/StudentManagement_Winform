@@ -42,14 +42,14 @@
             groupBox1.Controls.Add(listBox1);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(979, 402);
+            groupBox1.Size = new Size(1076, 500);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Lịch sử hệ thống";
             // 
             // button2
             // 
-            button2.Location = new Point(847, 28);
+            button2.Location = new Point(963, 28);
             button2.Name = "button2";
             button2.Size = new Size(107, 37);
             button2.TabIndex = 2;
@@ -58,7 +58,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(846, 71);
+            button1.Location = new Point(962, 71);
             button1.Name = "button1";
             button1.Size = new Size(108, 37);
             button1.TabIndex = 1;
@@ -72,14 +72,14 @@
             listBox1.ItemHeight = 15;
             listBox1.Location = new Point(24, 28);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(791, 349);
+            listBox1.Size = new Size(932, 454);
             listBox1.TabIndex = 0;
             // 
             // frmTransHistory
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1003, 426);
+            ClientSize = new Size(1100, 524);
             Controls.Add(groupBox1);
             Name = "frmTransHistory";
             Text = "Hệ Thống";
