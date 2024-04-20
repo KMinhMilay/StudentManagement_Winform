@@ -266,7 +266,7 @@
             // 
             // textBox6
             // 
-            textBox6.Location = new Point(283, 240);
+            textBox6.Location = new Point(279, 253);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(112, 23);
             textBox6.TabIndex = 56;
@@ -274,7 +274,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(283, 208);
+            label16.Location = new Point(279, 224);
             label16.Name = "label16";
             label16.Size = new Size(44, 15);
             label16.TabIndex = 55;
@@ -285,7 +285,7 @@
             comboBox5.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox5.FormattingEnabled = true;
             comboBox5.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox5.Location = new Point(283, 171);
+            comboBox5.Location = new Point(279, 187);
             comboBox5.Name = "comboBox5";
             comboBox5.Size = new Size(112, 23);
             comboBox5.TabIndex = 54;
@@ -293,7 +293,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(283, 144);
+            label11.Location = new Point(279, 160);
             label11.Name = "label11";
             label11.Size = new Size(112, 15);
             label11.TabIndex = 53;
@@ -304,7 +304,7 @@
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.FormattingEnabled = true;
             comboBox3.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox3.Location = new Point(283, 107);
+            comboBox3.Location = new Point(279, 123);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(112, 23);
             comboBox3.TabIndex = 52;
@@ -312,7 +312,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(283, 80);
+            label1.Location = new Point(279, 96);
             label1.Name = "label1";
             label1.Size = new Size(90, 15);
             label1.TabIndex = 49;
@@ -321,7 +321,7 @@
             // labelMTK
             // 
             labelMTK.AutoSize = true;
-            labelMTK.Location = new Point(121, 50);
+            labelMTK.Location = new Point(128, 50);
             labelMTK.Name = "labelMTK";
             labelMTK.Size = new Size(86, 15);
             labelMTK.TabIndex = 48;

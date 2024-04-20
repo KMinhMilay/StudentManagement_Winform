@@ -30,6 +30,20 @@
         {
             groupBox1 = new GroupBox();
             listView1 = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
+            columnHeader4 = new ColumnHeader();
+            columnHeader5 = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
+            columnHeader7 = new ColumnHeader();
+            columnHeader8 = new ColumnHeader();
+            columnHeader9 = new ColumnHeader();
+            columnHeader10 = new ColumnHeader();
+            columnHeader11 = new ColumnHeader();
+            columnHeader12 = new ColumnHeader();
+            columnHeader13 = new ColumnHeader();
+            columnHeader14 = new ColumnHeader();
             groupBox2 = new GroupBox();
             comboBox5 = new ComboBox();
             label16 = new Label();
@@ -74,20 +88,6 @@
             label14 = new Label();
             label13 = new Label();
             label12 = new Label();
-            columnHeader1 = new ColumnHeader();
-            columnHeader2 = new ColumnHeader();
-            columnHeader3 = new ColumnHeader();
-            columnHeader4 = new ColumnHeader();
-            columnHeader5 = new ColumnHeader();
-            columnHeader6 = new ColumnHeader();
-            columnHeader7 = new ColumnHeader();
-            columnHeader8 = new ColumnHeader();
-            columnHeader9 = new ColumnHeader();
-            columnHeader10 = new ColumnHeader();
-            columnHeader11 = new ColumnHeader();
-            columnHeader12 = new ColumnHeader();
-            columnHeader13 = new ColumnHeader();
-            columnHeader14 = new ColumnHeader();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -113,6 +113,62 @@
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "ID";
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Họ và tên đệm";
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Tên";
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "Năm sinh";
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Giới tính";
+            // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "Quê quán";
+            // 
+            // columnHeader7
+            // 
+            columnHeader7.Text = "Địa chỉ";
+            // 
+            // columnHeader8
+            // 
+            columnHeader8.Text = "Email";
+            // 
+            // columnHeader9
+            // 
+            columnHeader9.Text = "SĐT";
+            // 
+            // columnHeader10
+            // 
+            columnHeader10.Text = "Lớp";
+            // 
+            // columnHeader11
+            // 
+            columnHeader11.Text = "GVCN";
+            // 
+            // columnHeader12
+            // 
+            columnHeader12.Text = "SDT phụ huynh";
+            // 
+            // columnHeader13
+            // 
+            columnHeader13.Text = "Tên Phụ huynh";
+            // 
+            // columnHeader14
+            // 
+            columnHeader14.Text = "Trạng thái";
             // 
             // groupBox2
             // 
@@ -206,7 +262,7 @@
             // labelMTK
             // 
             labelMTK.AutoSize = true;
-            labelMTK.Location = new Point(121, 50);
+            labelMTK.Location = new Point(128, 50);
             labelMTK.Name = "labelMTK";
             labelMTK.Size = new Size(86, 15);
             labelMTK.TabIndex = 48;
@@ -296,7 +352,7 @@
             comboBox2.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
             comboBox2.Location = new Point(111, 205);
             comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(122, 23);
+            comboBox2.Size = new Size(128, 23);
             comboBox2.TabIndex = 43;
             // 
             // label7
@@ -312,7 +368,7 @@
             // 
             textBox5.Location = new Point(111, 305);
             textBox5.Name = "textBox5";
-            textBox5.Size = new Size(122, 23);
+            textBox5.Size = new Size(128, 23);
             textBox5.TabIndex = 42;
             // 
             // label8
@@ -328,7 +384,7 @@
             // 
             textBox4.Location = new Point(111, 272);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(122, 23);
+            textBox4.Size = new Size(128, 23);
             textBox4.TabIndex = 41;
             // 
             // label9
@@ -344,7 +400,7 @@
             // 
             textBox3.Location = new Point(111, 240);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(122, 23);
+            textBox3.Size = new Size(128, 23);
             textBox3.TabIndex = 40;
             // 
             // label10
@@ -363,14 +419,14 @@
             comboBox1.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
             comboBox1.Location = new Point(111, 171);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(122, 23);
+            comboBox1.Size = new Size(128, 23);
             comboBox1.TabIndex = 39;
             // 
             // textBox1
             // 
             textBox1.Location = new Point(111, 77);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(122, 23);
+            textBox1.Size = new Size(128, 23);
             textBox1.TabIndex = 36;
             // 
             // dateTimePicker1
@@ -378,14 +434,14 @@
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(111, 139);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(122, 23);
+            dateTimePicker1.Size = new Size(128, 23);
             dateTimePicker1.TabIndex = 38;
             // 
             // textBox2
             // 
             textBox2.Location = new Point(111, 107);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(122, 23);
+            textBox2.Size = new Size(128, 23);
             textBox2.TabIndex = 37;
             // 
             // groupBox3
@@ -529,62 +585,6 @@
             label12.Size = new Size(121, 15);
             label12.TabIndex = 0;
             label12.Text = "Tìm kiếm theo Mã hs:";
-            // 
-            // columnHeader1
-            // 
-            columnHeader1.Text = "ID";
-            // 
-            // columnHeader2
-            // 
-            columnHeader2.Text = "Họ và tên đệm";
-            // 
-            // columnHeader3
-            // 
-            columnHeader3.Text = "Tên";
-            // 
-            // columnHeader4
-            // 
-            columnHeader4.Text = "Năm sinh";
-            // 
-            // columnHeader5
-            // 
-            columnHeader5.Text = "Giới tính";
-            // 
-            // columnHeader6
-            // 
-            columnHeader6.Text = "Quê quán";
-            // 
-            // columnHeader7
-            // 
-            columnHeader7.Text = "Địa chỉ";
-            // 
-            // columnHeader8
-            // 
-            columnHeader8.Text = "Email";
-            // 
-            // columnHeader9
-            // 
-            columnHeader9.Text = "SĐT";
-            // 
-            // columnHeader10
-            // 
-            columnHeader10.Text = "Lớp";
-            // 
-            // columnHeader11
-            // 
-            columnHeader11.Text = "GVCN";
-            // 
-            // columnHeader12
-            // 
-            columnHeader12.Text = "SDT phụ huynh";
-            // 
-            // columnHeader13
-            // 
-            columnHeader13.Text = "Tên Phụ huynh";
-            // 
-            // columnHeader14
-            // 
-            columnHeader14.Text = "Trạng thái";
             // 
             // frmQLHocSinh
             // 
