@@ -30,13 +30,13 @@
         {
             panel_left = new Panel();
             btnHistory = new Button();
-            panel_main = new Panel();
             btnDSGV = new Button();
             button5 = new Button();
             btnTTCN = new Button();
             btnXepLoai = new Button();
             btnDiem = new Button();
             btnDSHS = new Button();
+            panel_main = new Panel();
             label1 = new Label();
             panel_top = new Panel();
             panel_left.SuspendLayout();
@@ -62,25 +62,17 @@
             btnHistory.Location = new Point(3, 322);
             btnHistory.Name = "btnHistory";
             btnHistory.Size = new Size(148, 42);
-            btnHistory.TabIndex = 6;
+            btnHistory.TabIndex = 5;
             btnHistory.Text = "Lịch sử thao tác";
             btnHistory.UseVisualStyleBackColor = true;
             btnHistory.Click += btnHistory_Click;
-            // 
-            // panel_main
-            // 
-            panel_main.Anchor = AnchorStyles.None;
-            panel_main.Location = new Point(154, 26);
-            panel_main.Name = "panel_main";
-            panel_main.Size = new Size(1116, 563);
-            panel_main.TabIndex = 4;
             // 
             // btnDSGV
             // 
             btnDSGV.Location = new Point(3, 274);
             btnDSGV.Name = "btnDSGV";
             btnDSGV.Size = new Size(148, 42);
-            btnDSGV.TabIndex = 5;
+            btnDSGV.TabIndex = 4;
             btnDSGV.Text = "Danh sách giáo viên";
             btnDSGV.UseVisualStyleBackColor = true;
             btnDSGV.Click += btnDSGV_Click;
@@ -93,13 +85,14 @@
             button5.TabIndex = 4;
             button5.Text = "Đăng xuất";
             button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // btnTTCN
             // 
             btnTTCN.Location = new Point(3, 82);
             btnTTCN.Name = "btnTTCN";
             btnTTCN.Size = new Size(148, 42);
-            btnTTCN.TabIndex = 3;
+            btnTTCN.TabIndex = 1;
             btnTTCN.Text = "Thông tin cá nhân";
             btnTTCN.UseVisualStyleBackColor = true;
             btnTTCN.Click += btnTTCN_Click;
@@ -119,7 +112,7 @@
             btnDiem.Location = new Point(3, 130);
             btnDiem.Name = "btnDiem";
             btnDiem.Size = new Size(148, 42);
-            btnDiem.TabIndex = 1;
+            btnDiem.TabIndex = 2;
             btnDiem.Text = "Điểm số\r\n";
             btnDiem.UseVisualStyleBackColor = true;
             btnDiem.Click += btnDiem_Click;
@@ -129,10 +122,18 @@
             btnDSHS.Location = new Point(3, 226);
             btnDSHS.Name = "btnDSHS";
             btnDSHS.Size = new Size(148, 42);
-            btnDSHS.TabIndex = 0;
+            btnDSHS.TabIndex = 3;
             btnDSHS.Text = "Danh sách học sinh";
             btnDSHS.UseVisualStyleBackColor = true;
             btnDSHS.Click += btnDSHS_Click;
+            // 
+            // panel_main
+            // 
+            panel_main.Anchor = AnchorStyles.None;
+            panel_main.Location = new Point(154, 26);
+            panel_main.Name = "panel_main";
+            panel_main.Size = new Size(1116, 563);
+            panel_main.TabIndex = 4;
             // 
             // label1
             // 

@@ -37,8 +37,9 @@ namespace QuanLiHocSinh
 
         private void btnTTCN_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new frmQLHocSinh());
+            OpenChildForm(new frmTTCaNhan());
             label1.Text = btnTTCN.Text;
+
         }
 
         private void btnDiem_Click(object sender, EventArgs e)
@@ -75,6 +76,12 @@ namespace QuanLiHocSinh
             OpenChildForm(new frmTransHistory());
             label1.Text = btnHistory.Text;
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            new frmDangNhap().Show();
         }
     }
 

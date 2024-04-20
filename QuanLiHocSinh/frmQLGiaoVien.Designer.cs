@@ -70,6 +70,18 @@
             textBox2 = new TextBox();
             groupBox1 = new GroupBox();
             listView1 = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
+            columnHeader4 = new ColumnHeader();
+            columnHeader5 = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
+            columnHeader7 = new ColumnHeader();
+            columnHeader8 = new ColumnHeader();
+            columnHeader9 = new ColumnHeader();
+            columnHeader10 = new ColumnHeader();
+            columnHeader11 = new ColumnHeader();
+            columnHeader12 = new ColumnHeader();
             groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -471,12 +483,61 @@
             // 
             // listView1
             // 
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8, columnHeader9, columnHeader10, columnHeader11, columnHeader12 });
             listView1.Location = new Point(12, 26);
             listView1.Name = "listView1";
             listView1.Size = new Size(633, 332);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "ID ";
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Họ và tên đệm";
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Tên";
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "Năm sinh";
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Giới tính";
+            // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "Quê quán";
+            // 
+            // columnHeader7
+            // 
+            columnHeader7.Text = "Địa chỉ";
+            // 
+            // columnHeader8
+            // 
+            columnHeader8.Text = "Email";
+            // 
+            // columnHeader9
+            // 
+            columnHeader9.Text = "SĐT";
+            // 
+            // columnHeader10
+            // 
+            columnHeader10.Text = "Lớp chủ nhiệm";
+            // 
+            // columnHeader11
+            // 
+            columnHeader11.Text = "Môn học phụ trách";
+            // 
+            // columnHeader12
+            // 
+            columnHeader12.Text = "Lương";
             // 
             // frmQLGiaoVien
             // 
@@ -542,5 +603,17 @@
         private Label label16;
         private ComboBox comboBox5;
         private Label label11;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
+        private ColumnHeader columnHeader5;
+        private ColumnHeader columnHeader6;
+        private ColumnHeader columnHeader7;
+        private ColumnHeader columnHeader8;
+        private ColumnHeader columnHeader9;
+        private ColumnHeader columnHeader10;
+        private ColumnHeader columnHeader11;
+        private ColumnHeader columnHeader12;
     }
 }
