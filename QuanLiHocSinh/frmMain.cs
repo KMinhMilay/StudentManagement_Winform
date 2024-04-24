@@ -7,14 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QuanLiHocSinh.DAO;
+using QuanLiHocSinh.DTO;
 
 namespace QuanLiHocSinh
 {
     public partial class frmMain : Form
     {
-        public frmMain()
+        private Account account;
+        public frmMain(Account account)
         {
+            this.account = account;
             InitializeComponent();
+            btnDSHS.Visible = isAccessibleToStudentList();
+            btnDSGV.Visible = isAccessibleToTeacherList();
+            btnHistory.Visible = isAccessibleTotransactionHistory();
         }
         private Form currentFormChild;
         private void OpenChildForm(Form childForm)
@@ -81,7 +88,18 @@ namespace QuanLiHocSinh
         private void button5_Click(object sender, EventArgs e)
         {
             this.Close();
-            new frmDangNhap().Show();
+        }
+        private bool isAccessibleToStudentList()
+        {
+            return this.account.role == "loptruong" || this.account.role == "giaovien" || this.account.role == "admin";
+        }
+        private bool isAccessibleToTeacherList()
+        {
+            return this.account.role == "admin";
+        }
+        private bool isAccessibleTotransactionHistory()
+        {
+            return this.account.role == "admin";
         }
     }
 
