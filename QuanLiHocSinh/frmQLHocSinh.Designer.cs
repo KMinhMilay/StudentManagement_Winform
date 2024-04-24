@@ -88,6 +88,7 @@
             label14 = new Label();
             label13 = new Label();
             label12 = new Label();
+            button7 = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -107,9 +108,9 @@
             // listView1
             // 
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8, columnHeader9, columnHeader10, columnHeader11, columnHeader12, columnHeader13, columnHeader14 });
-            listView1.Location = new Point(12, 26);
+            listView1.Location = new Point(12, 305);
             listView1.Name = "listView1";
-            listView1.Size = new Size(633, 332);
+            listView1.Size = new Size(74, 53);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -172,6 +173,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(button7);
             groupBox2.Controls.Add(comboBox5);
             groupBox2.Controls.Add(label16);
             groupBox2.Controls.Add(comboBox3);
@@ -586,6 +588,15 @@
             label12.TabIndex = 0;
             label12.Text = "Tìm kiếm theo Mã hs:";
             // 
+            // button7
+            // 
+            button7.Location = new Point(178, 344);
+            button7.Name = "button7";
+            button7.Size = new Size(73, 25);
+            button7.TabIndex = 6;
+            button7.Text = "Xác nhận";
+            button7.UseVisualStyleBackColor = true;
+            // 
             // frmQLHocSinh
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -668,5 +679,6 @@
         private ColumnHeader columnHeader12;
         private ColumnHeader columnHeader13;
         private ColumnHeader columnHeader14;
+        private Button button7;
     }
 }
