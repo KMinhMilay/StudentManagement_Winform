@@ -15,6 +15,31 @@ namespace QuanLiHocSinh
         public frmQLGiaoVien()
         {
             InitializeComponent();
+            hideFrmAddGV();
+        }
+        void showFrmAddGV()
+        {
+
+            labelAddGV.Visible = true;
+            btnAccept.Visible = true;
+            btnBack.Visible = true;
+        }
+        void hideFrmAddGV()
+        {
+            labelAddGV.Visible = false;
+            btnAccept.Visible = false;
+            btnBack.Visible = false;
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            listViewGiaoVien.Visible = false;
+            showFrmAddGV();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            listViewGiaoVien.Visible = true;
+            hideFrmAddGV();
         }
     }
 }

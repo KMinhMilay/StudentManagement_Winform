@@ -44,6 +44,8 @@
             button2 = new Button();
             button1 = new Button();
             groupBox2 = new GroupBox();
+            btnBack = new Button();
+            btnAccept = new Button();
             textBox6 = new TextBox();
             label16 = new Label();
             comboBox5 = new ComboBox();
@@ -69,7 +71,8 @@
             dateTimePicker1 = new DateTimePicker();
             textBox2 = new TextBox();
             groupBox1 = new GroupBox();
-            listView1 = new ListView();
+            labelAddGV = new Label();
+            listViewGiaoVien = new ListView();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
@@ -203,6 +206,7 @@
             button3.TabIndex = 2;
             button3.Text = "THÊM";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button5
             // 
@@ -233,6 +237,8 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(btnBack);
+            groupBox2.Controls.Add(btnAccept);
             groupBox2.Controls.Add(textBox6);
             groupBox2.Controls.Add(label16);
             groupBox2.Controls.Add(comboBox5);
@@ -264,9 +270,28 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Thông tin";
             // 
+            // btnBack
+            // 
+            btnBack.Location = new Point(234, 333);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(73, 25);
+            btnBack.TabIndex = 57;
+            btnBack.Text = "Trở về";
+            btnBack.UseVisualStyleBackColor = true;
+            btnBack.Click += btnBack_Click;
+            // 
+            // btnAccept
+            // 
+            btnAccept.Location = new Point(146, 333);
+            btnAccept.Name = "btnAccept";
+            btnAccept.Size = new Size(73, 25);
+            btnAccept.TabIndex = 56;
+            btnAccept.Text = "Xác nhận";
+            btnAccept.UseVisualStyleBackColor = true;
+            // 
             // textBox6
             // 
-            textBox6.Location = new Point(279, 253);
+            textBox6.Location = new Point(279, 245);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(112, 23);
             textBox6.TabIndex = 56;
@@ -274,7 +299,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(279, 224);
+            label16.Location = new Point(279, 216);
             label16.Name = "label16";
             label16.Size = new Size(44, 15);
             label16.TabIndex = 55;
@@ -285,7 +310,7 @@
             comboBox5.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox5.FormattingEnabled = true;
             comboBox5.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox5.Location = new Point(279, 187);
+            comboBox5.Location = new Point(279, 179);
             comboBox5.Name = "comboBox5";
             comboBox5.Size = new Size(112, 23);
             comboBox5.TabIndex = 54;
@@ -293,7 +318,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(279, 160);
+            label11.Location = new Point(279, 152);
             label11.Name = "label11";
             label11.Size = new Size(112, 15);
             label11.TabIndex = 53;
@@ -304,7 +329,7 @@
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.FormattingEnabled = true;
             comboBox3.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox3.Location = new Point(279, 123);
+            comboBox3.Location = new Point(279, 115);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(112, 23);
             comboBox3.TabIndex = 52;
@@ -312,7 +337,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(279, 96);
+            label1.Location = new Point(279, 88);
             label1.Name = "label1";
             label1.Size = new Size(90, 15);
             label1.TabIndex = 49;
@@ -321,7 +346,7 @@
             // labelMTK
             // 
             labelMTK.AutoSize = true;
-            labelMTK.Location = new Point(128, 50);
+            labelMTK.Location = new Point(128, 42);
             labelMTK.Name = "labelMTK";
             labelMTK.Size = new Size(86, 15);
             labelMTK.TabIndex = 48;
@@ -330,7 +355,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(16, 50);
+            label2.Location = new Point(16, 42);
             label2.Name = "label2";
             label2.Size = new Size(73, 15);
             label2.TabIndex = 27;
@@ -339,7 +364,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(16, 80);
+            label3.Location = new Point(16, 72);
             label3.Name = "label3";
             label3.Size = new Size(88, 15);
             label3.TabIndex = 28;
@@ -348,7 +373,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(16, 110);
+            label4.Location = new Point(16, 102);
             label4.Name = "label4";
             label4.Size = new Size(31, 15);
             label4.TabIndex = 29;
@@ -357,7 +382,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(16, 143);
+            label5.Location = new Point(16, 135);
             label5.Name = "label5";
             label5.Size = new Size(58, 15);
             label5.TabIndex = 30;
@@ -366,7 +391,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(16, 174);
+            label6.Location = new Point(16, 166);
             label6.Name = "label6";
             label6.Size = new Size(58, 15);
             label6.TabIndex = 31;
@@ -377,7 +402,7 @@
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.FormattingEnabled = true;
             comboBox2.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox2.Location = new Point(111, 205);
+            comboBox2.Location = new Point(111, 197);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(128, 23);
             comboBox2.TabIndex = 43;
@@ -385,7 +410,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(16, 208);
+            label7.Location = new Point(16, 200);
             label7.Name = "label7";
             label7.Size = new Size(62, 15);
             label7.TabIndex = 32;
@@ -393,7 +418,7 @@
             // 
             // textBox5
             // 
-            textBox5.Location = new Point(111, 305);
+            textBox5.Location = new Point(111, 297);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(128, 23);
             textBox5.TabIndex = 42;
@@ -401,7 +426,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(16, 243);
+            label8.Location = new Point(16, 235);
             label8.Name = "label8";
             label8.Size = new Size(46, 15);
             label8.TabIndex = 33;
@@ -409,7 +434,7 @@
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(111, 272);
+            textBox4.Location = new Point(111, 264);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(128, 23);
             textBox4.TabIndex = 41;
@@ -417,7 +442,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(16, 275);
+            label9.Location = new Point(16, 267);
             label9.Name = "label9";
             label9.Size = new Size(42, 15);
             label9.TabIndex = 34;
@@ -425,7 +450,7 @@
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(111, 240);
+            textBox3.Location = new Point(111, 232);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(128, 23);
             textBox3.TabIndex = 40;
@@ -433,7 +458,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(16, 308);
+            label10.Location = new Point(16, 300);
             label10.Name = "label10";
             label10.Size = new Size(29, 15);
             label10.TabIndex = 35;
@@ -444,14 +469,14 @@
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox1.Location = new Point(111, 171);
+            comboBox1.Location = new Point(111, 163);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(128, 23);
             comboBox1.TabIndex = 39;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(111, 77);
+            textBox1.Location = new Point(111, 69);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(128, 23);
             textBox1.TabIndex = 36;
@@ -459,21 +484,22 @@
             // dateTimePicker1
             // 
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(111, 139);
+            dateTimePicker1.Location = new Point(111, 131);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(128, 23);
             dateTimePicker1.TabIndex = 38;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(111, 107);
+            textBox2.Location = new Point(111, 99);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(128, 23);
             textBox2.TabIndex = 37;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(listView1);
+            groupBox1.Controls.Add(labelAddGV);
+            groupBox1.Controls.Add(listViewGiaoVien);
             groupBox1.Location = new Point(10, 73);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(655, 375);
@@ -481,15 +507,25 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Danh sách";
             // 
-            // listView1
+            // labelAddGV
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8, columnHeader9, columnHeader10, columnHeader11, columnHeader12 });
-            listView1.Location = new Point(12, 26);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(633, 332);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Details;
+            labelAddGV.AutoSize = true;
+            labelAddGV.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            labelAddGV.Location = new Point(225, 171);
+            labelAddGV.Name = "labelAddGV";
+            labelAddGV.Size = new Size(212, 32);
+            labelAddGV.TabIndex = 11;
+            labelAddGV.Text = "THÊM GIÁO VIÊN";
+            // 
+            // listViewGiaoVien
+            // 
+            listViewGiaoVien.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8, columnHeader9, columnHeader10, columnHeader11, columnHeader12 });
+            listViewGiaoVien.Location = new Point(12, 26);
+            listViewGiaoVien.Name = "listViewGiaoVien";
+            listViewGiaoVien.Size = new Size(633, 332);
+            listViewGiaoVien.TabIndex = 0;
+            listViewGiaoVien.UseCompatibleStateImageBehavior = false;
+            listViewGiaoVien.View = View.Details;
             // 
             // columnHeader1
             // 
@@ -556,6 +592,7 @@
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -596,7 +633,7 @@
         private DateTimePicker dateTimePicker1;
         private TextBox textBox2;
         private GroupBox groupBox1;
-        private ListView listView1;
+        private ListView listViewGiaoVien;
         private TextBox textBox7;
         private Label label13;
         private TextBox textBox6;
@@ -615,5 +652,8 @@
         private ColumnHeader columnHeader10;
         private ColumnHeader columnHeader11;
         private ColumnHeader columnHeader12;
+        private Label labelAddGV;
+        private Button btnBack;
+        private Button btnAccept;
     }
 }
