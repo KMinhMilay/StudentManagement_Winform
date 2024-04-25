@@ -91,7 +91,7 @@ namespace QuanLiHocSinh
         }
         private bool isAccessibleToStudentList()
         {
-            return this.account.role == "loptruong" || this.account.role == "giaovien" || this.account.role == "admin";
+            return this.account.role == "loptruong" || this.account.accountType == "giaovien";
         }
         private bool isAccessibleToTeacherList()
         {
