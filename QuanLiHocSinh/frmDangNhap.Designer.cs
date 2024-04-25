@@ -38,6 +38,7 @@
             rbtnAdmin = new RadioButton();
             btnLogin = new Button();
             btnExit = new Button();
+            cbxShowHide = new CheckBox();
             SuspendLayout();
             // 
             // label1
@@ -71,11 +72,12 @@
             txbPassword.Name = "txbPassword";
             txbPassword.Size = new Size(231, 23);
             txbPassword.TabIndex = 3;
+            txbPassword.UseSystemPasswordChar = true;
             // 
             // rbtnStudent
             // 
             rbtnStudent.AutoSize = true;
-            rbtnStudent.Location = new Point(266, 242);
+            rbtnStudent.Location = new Point(266, 253);
             rbtnStudent.Name = "rbtnStudent";
             rbtnStudent.Size = new Size(72, 19);
             rbtnStudent.TabIndex = 4;
@@ -86,7 +88,7 @@
             // rbtnClassMonitor
             // 
             rbtnClassMonitor.AutoSize = true;
-            rbtnClassMonitor.Location = new Point(344, 242);
+            rbtnClassMonitor.Location = new Point(344, 253);
             rbtnClassMonitor.Name = "rbtnClassMonitor";
             rbtnClassMonitor.Size = new Size(84, 19);
             rbtnClassMonitor.TabIndex = 5;
@@ -97,7 +99,7 @@
             // rbtnTeacher
             // 
             rbtnTeacher.AutoSize = true;
-            rbtnTeacher.Location = new Point(434, 242);
+            rbtnTeacher.Location = new Point(434, 253);
             rbtnTeacher.Name = "rbtnTeacher";
             rbtnTeacher.Size = new Size(74, 19);
             rbtnTeacher.TabIndex = 6;
@@ -108,7 +110,7 @@
             // rbtnAdmin
             // 
             rbtnAdmin.AutoSize = true;
-            rbtnAdmin.Location = new Point(514, 242);
+            rbtnAdmin.Location = new Point(514, 253);
             rbtnAdmin.Name = "rbtnAdmin";
             rbtnAdmin.Size = new Size(93, 19);
             rbtnAdmin.TabIndex = 7;
@@ -118,7 +120,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(433, 279);
+            btnLogin.Location = new Point(433, 290);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(75, 31);
             btnLogin.TabIndex = 8;
@@ -128,7 +130,7 @@
             // 
             // btnExit
             // 
-            btnExit.Location = new Point(519, 279);
+            btnExit.Location = new Point(519, 290);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(75, 31);
             btnExit.TabIndex = 9;
@@ -136,11 +138,23 @@
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
             // 
+            // cbxShowHide
+            // 
+            cbxShowHide.AutoSize = true;
+            cbxShowHide.Location = new Point(363, 220);
+            cbxShowHide.Name = "cbxShowHide";
+            cbxShowHide.Size = new Size(104, 19);
+            cbxShowHide.TabIndex = 10;
+            cbxShowHide.Text = "Hiện mật khẩu";
+            cbxShowHide.UseVisualStyleBackColor = true;
+            cbxShowHide.CheckedChanged += cbxShowHide_CheckedChanged;
+            // 
             // frmDangNhap
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(822, 418);
+            Controls.Add(cbxShowHide);
             Controls.Add(btnExit);
             Controls.Add(btnLogin);
             Controls.Add(rbtnAdmin);
@@ -170,5 +184,6 @@
         private RadioButton rbtnAdmin;
         private Button btnLogin;
         private Button btnExit;
+        private CheckBox cbxShowHide;
     }
 }

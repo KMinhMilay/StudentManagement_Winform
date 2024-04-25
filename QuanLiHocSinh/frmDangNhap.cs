@@ -49,5 +49,17 @@ namespace QuanLiHocSinh
         {
             this.Close();
         }
+
+        private void cbxShowHide_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxShowHide.Checked)
+            {
+                txbPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txbPassword.UseSystemPasswordChar = true;
+            }
+        }
     }
 }
