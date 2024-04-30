@@ -44,7 +44,7 @@ namespace QuanLiHocSinh
 
         private void btnTTCN_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new frmTTCaNhan());
+            OpenChildForm(new frmTTCaNhan(this.account));
             label1.Text = btnTTCN.Text;
 
         }
