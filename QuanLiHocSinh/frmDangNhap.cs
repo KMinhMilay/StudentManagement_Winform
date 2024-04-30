@@ -61,5 +61,13 @@ namespace QuanLiHocSinh
                 txbPassword.UseSystemPasswordChar = true;
             }
         }
+
+        private void frmDangNhap_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Thoát chương trình", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }
