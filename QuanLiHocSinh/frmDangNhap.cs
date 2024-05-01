@@ -64,7 +64,7 @@ namespace QuanLiHocSinh
 
         private void frmDangNhap_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Thoát chương trình", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
+            if (MessageBox.Show("Bạn có muốn thoát chương trình?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) != DialogResult.OK)
             {
                 e.Cancel = true;
             }
