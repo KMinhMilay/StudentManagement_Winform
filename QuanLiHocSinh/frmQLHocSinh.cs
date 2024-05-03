@@ -297,7 +297,7 @@ namespace QuanLiHocSinh
                             }
                             else
                             {
-
+                                //Đổi lớp ở đây
                             }
 
                         }
@@ -657,7 +657,6 @@ namespace QuanLiHocSinh
 
         private void button5_Click(object sender, EventArgs e)
         {
-            // Hiển thị hộp thoại lưu tệp Excel
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
             saveFileDialog.FilterIndex = 1;
@@ -667,21 +666,17 @@ namespace QuanLiHocSinh
             {
                 try
                 {
-                    // Kiểm tra nếu tệp đã tồn tại
                     FileInfo existingFile = new FileInfo(saveFileDialog.FileName);
                     if (existingFile.Exists)
                     {
-                        // Tải tệp Excel đã tồn tại
                         using (ExcelPackage package = new ExcelPackage(existingFile))
                         {
-                            // Lấy hoặc tạo một worksheet mới có tên "Data"
                             ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault(ws => ws.Name == "Data");
                             if (worksheet == null)
                             {
                                 worksheet = package.Workbook.Worksheets.Add("Data");
                             }
 
-                            // Điều chỉnh cấu trúc và ghi tên cột
                             int col = 1;
                             foreach (ColumnHeader columnHeader in listViewHocSinh.Columns)
                             {
@@ -691,11 +686,10 @@ namespace QuanLiHocSinh
                                 col++;
                             }
 
-                            // Ghi dữ liệu từ ListView vào tệp Excel
-                            int row = 2; // Bắt đầu từ dòng 2 để tránh ghi đè lên tên cột
+                            int row = 2;
                             foreach (ListViewItem item in listViewHocSinh.Items)
                             {
-                                col = 1; // Reset cột về 1 cho mỗi dòng mới
+                                col = 1;
                                 foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
                                 {
                                     worksheet.Cells[row, col].Value = subItem.Text;
@@ -704,20 +698,16 @@ namespace QuanLiHocSinh
                                 row++;
                             }
 
-                            // Lưu lại tệp Excel
                             package.Save();
                             MessageBox.Show("Dữ liệu đã được ghi đè thành công.");
                         }
                     }
                     else
                     {
-                        // Tạo một tệp Excel mới nếu tệp không tồn tại
                         using (ExcelPackage package = new ExcelPackage(existingFile))
                         {
-                            // Tạo một worksheet mới có tên "Data"
                             ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Data");
 
-                            // Điều chỉnh cấu trúc và ghi tên cột
                             int col = 1;
                             foreach (ColumnHeader columnHeader in listViewHocSinh.Columns)
                             {
@@ -727,11 +717,10 @@ namespace QuanLiHocSinh
                                 col++;
                             }
 
-                            // Ghi dữ liệu từ ListView vào tệp Excel
-                            int row = 2; // Bắt đầu từ dòng 2 để tránh ghi đè lên tên cột
+                            int row = 2;
                             foreach (ListViewItem item in listViewHocSinh.Items)
                             {
-                                col = 1; // Reset cột về 1 cho mỗi dòng mới
+                                col = 1;
                                 foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
                                 {
                                     worksheet.Cells[row, col].Value = subItem.Text;
@@ -740,7 +729,6 @@ namespace QuanLiHocSinh
                                 row++;
                             }
 
-                            // Lưu tệp Excel mới
                             package.Save();
                             MessageBox.Show("Dữ liệu đã được xuất thành công.");
                         }
