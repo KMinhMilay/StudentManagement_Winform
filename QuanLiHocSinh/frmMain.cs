@@ -66,8 +66,16 @@ namespace QuanLiHocSinh
 
         private void btnDSHS_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new frmQLHocSinh());
-            label1.Text = btnDSHS.Text;
+            if (account.role != "0")
+            {
+                OpenChildForm(new frmQLHocSinh("3", "admin"));
+                label1.Text = btnDSHS.Text;
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
         }
 
