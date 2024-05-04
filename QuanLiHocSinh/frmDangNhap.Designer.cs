@@ -168,6 +168,7 @@
             Name = "frmDangNhap";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Đăng Nhập";
+            FormClosing += frmDangNhap_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }
