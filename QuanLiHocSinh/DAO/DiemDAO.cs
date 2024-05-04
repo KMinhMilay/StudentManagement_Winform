@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System;
+using DTO;
 //using System.Data;
 
 namespace DAO
