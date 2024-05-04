@@ -28,22 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            groupBox1 = new GroupBox();
-            button1 = new Button();
-            button2 = new Button();
-            labelMTK = new Label();
-            textBox8 = new TextBox();
-            textBox9 = new TextBox();
+            grpbxPersonalInfo = new GroupBox();
+            pnlStudentParent = new Panel();
+            txbParentName = new TextBox();
             label17 = new Label();
+            txbParentPhoneNumber = new TextBox();
             label18 = new Label();
-            comboBox2 = new ComboBox();
-            textBox5 = new TextBox();
-            textBox4 = new TextBox();
-            textBox3 = new TextBox();
-            comboBox1 = new ComboBox();
-            dateTimePicker1 = new DateTimePicker();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
+            button1 = new Button();
+            btnUpdate = new Button();
+            labelMTK = new Label();
+            cbxHometown = new ComboBox();
+            txbPhoneNumber = new TextBox();
+            txbEmail = new TextBox();
+            txbAddress = new TextBox();
+            cbxGender = new ComboBox();
+            datetimeBirthdate = new DateTimePicker();
+            txbFirstname = new TextBox();
+            txbLastname = new TextBox();
             label10 = new Label();
             label9 = new Label();
             label8 = new Label();
@@ -53,54 +54,96 @@
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
-            button4 = new Button();
+            btnChangePassword = new Button();
             groupBox3 = new GroupBox();
-            label16 = new Label();
-            label15 = new Label();
-            label14 = new Label();
-            label13 = new Label();
-            textBox6 = new TextBox();
-            textBox7 = new TextBox();
+            lblOtherInfo4 = new Label();
+            lblOtherInfo3 = new Label();
+            lblOtherInfo2 = new Label();
+            lblOtherInfo1 = new Label();
+            txbNewPassword = new TextBox();
+            txbPassword = new TextBox();
             label11 = new Label();
             label12 = new Label();
             groupBox4 = new GroupBox();
-            groupBox1.SuspendLayout();
+            cbxShowHide = new CheckBox();
+            grpbxPersonalInfo.SuspendLayout();
+            pnlStudentParent.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
             SuspendLayout();
             // 
-            // groupBox1
+            // grpbxPersonalInfo
             // 
-            groupBox1.Controls.Add(button1);
-            groupBox1.Controls.Add(button2);
-            groupBox1.Controls.Add(labelMTK);
-            groupBox1.Controls.Add(textBox8);
-            groupBox1.Controls.Add(textBox9);
-            groupBox1.Controls.Add(label17);
-            groupBox1.Controls.Add(label18);
-            groupBox1.Controls.Add(comboBox2);
-            groupBox1.Controls.Add(textBox5);
-            groupBox1.Controls.Add(textBox4);
-            groupBox1.Controls.Add(textBox3);
-            groupBox1.Controls.Add(comboBox1);
-            groupBox1.Controls.Add(dateTimePicker1);
-            groupBox1.Controls.Add(textBox2);
-            groupBox1.Controls.Add(textBox1);
-            groupBox1.Controls.Add(label10);
-            groupBox1.Controls.Add(label9);
-            groupBox1.Controls.Add(label8);
-            groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Location = new Point(12, 11);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(759, 501);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Thông tin của bạn";
+            grpbxPersonalInfo.Controls.Add(pnlStudentParent);
+            grpbxPersonalInfo.Controls.Add(button1);
+            grpbxPersonalInfo.Controls.Add(btnUpdate);
+            grpbxPersonalInfo.Controls.Add(labelMTK);
+            grpbxPersonalInfo.Controls.Add(cbxHometown);
+            grpbxPersonalInfo.Controls.Add(txbPhoneNumber);
+            grpbxPersonalInfo.Controls.Add(txbEmail);
+            grpbxPersonalInfo.Controls.Add(txbAddress);
+            grpbxPersonalInfo.Controls.Add(cbxGender);
+            grpbxPersonalInfo.Controls.Add(datetimeBirthdate);
+            grpbxPersonalInfo.Controls.Add(txbFirstname);
+            grpbxPersonalInfo.Controls.Add(txbLastname);
+            grpbxPersonalInfo.Controls.Add(label10);
+            grpbxPersonalInfo.Controls.Add(label9);
+            grpbxPersonalInfo.Controls.Add(label8);
+            grpbxPersonalInfo.Controls.Add(label7);
+            grpbxPersonalInfo.Controls.Add(label6);
+            grpbxPersonalInfo.Controls.Add(label5);
+            grpbxPersonalInfo.Controls.Add(label4);
+            grpbxPersonalInfo.Controls.Add(label3);
+            grpbxPersonalInfo.Controls.Add(label2);
+            grpbxPersonalInfo.Location = new Point(12, 11);
+            grpbxPersonalInfo.Name = "grpbxPersonalInfo";
+            grpbxPersonalInfo.Size = new Size(759, 501);
+            grpbxPersonalInfo.TabIndex = 0;
+            grpbxPersonalInfo.TabStop = false;
+            grpbxPersonalInfo.Text = "Thông tin của bạn";
+            // 
+            // pnlStudentParent
+            // 
+            pnlStudentParent.Controls.Add(txbParentName);
+            pnlStudentParent.Controls.Add(label17);
+            pnlStudentParent.Controls.Add(txbParentPhoneNumber);
+            pnlStudentParent.Controls.Add(label18);
+            pnlStudentParent.Location = new Point(403, 209);
+            pnlStudentParent.Name = "pnlStudentParent";
+            pnlStudentParent.Size = new Size(333, 87);
+            pnlStudentParent.TabIndex = 28;
+            // 
+            // txbParentName
+            // 
+            txbParentName.Location = new Point(129, 46);
+            txbParentName.Name = "txbParentName";
+            txbParentName.Size = new Size(183, 23);
+            txbParentName.TabIndex = 25;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(16, 49);
+            label17.Name = "label17";
+            label17.Size = new Size(80, 15);
+            label17.TabIndex = 23;
+            label17.Text = "Họ và tên PH:";
+            // 
+            // txbParentPhoneNumber
+            // 
+            txbParentPhoneNumber.Location = new Point(129, 12);
+            txbParentPhoneNumber.Name = "txbParentPhoneNumber";
+            txbParentPhoneNumber.Size = new Size(183, 23);
+            txbParentPhoneNumber.TabIndex = 24;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(16, 15);
+            label18.Name = "label18";
+            label18.Size = new Size(98, 15);
+            label18.TabIndex = 22;
+            label18.Text = "Số điện thoại PH:";
             // 
             // button1
             // 
@@ -112,118 +155,89 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // button2
+            // btnUpdate
             // 
-            button2.Location = new Point(403, 440);
-            button2.Name = "button2";
-            button2.Size = new Size(85, 32);
-            button2.TabIndex = 2;
-            button2.Text = "CẬP NHẬT";
-            button2.UseVisualStyleBackColor = true;
+            btnUpdate.Location = new Point(403, 440);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(85, 32);
+            btnUpdate.TabIndex = 2;
+            btnUpdate.Text = "CẬP NHẬT";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // labelMTK
             // 
             labelMTK.AutoSize = true;
-            labelMTK.Location = new Point(204, 91);
+            labelMTK.Location = new Point(167, 91);
             labelMTK.Name = "labelMTK";
-            labelMTK.Size = new Size(86, 15);
+            labelMTK.Size = new Size(76, 15);
             labelMTK.TabIndex = 26;
-            labelMTK.Text = "\"Mã tài khoản\"";
+            labelMTK.Text = "Mã tài khoản";
             // 
-            // textBox8
+            // cbxHometown
             // 
-            textBox8.Location = new Point(532, 254);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(183, 23);
-            textBox8.TabIndex = 25;
+            cbxHometown.DropDownHeight = 150;
+            cbxHometown.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxHometown.FormattingEnabled = true;
+            cbxHometown.IntegralHeight = false;
+            cbxHometown.Items.AddRange(new object[] { "An Giang", "Bà Rịa-Vũng Tàu", "Bạc Liêu", "Bắc Kạn", "Bắc Giang", "Bắc Ninh", "Bến Tre", "Bình Dương", "Bình Định", "Bình Phước", "Bình Thuận", "Cà Mau", "Cao Bằng", "Cần Thơ", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tây", "Hà Tĩnh", "Hải Dương", "Hải Phòng", "Hòa Bình", "TP. Hồ Chí Minh", "Hậu Giang", "Hưng Yên", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lào Cai", "Lạng Sơn", "Lâm Đồng", "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên – Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái" });
+            cbxHometown.Location = new Point(167, 255);
+            cbxHometown.Name = "cbxHometown";
+            cbxHometown.Size = new Size(201, 23);
+            cbxHometown.TabIndex = 16;
             // 
-            // textBox9
+            // txbPhoneNumber
             // 
-            textBox9.Location = new Point(532, 221);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(183, 23);
-            textBox9.TabIndex = 24;
+            txbPhoneNumber.Location = new Point(167, 355);
+            txbPhoneNumber.Name = "txbPhoneNumber";
+            txbPhoneNumber.Size = new Size(201, 23);
+            txbPhoneNumber.TabIndex = 15;
             // 
-            // label17
+            // txbEmail
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(419, 257);
-            label17.Name = "label17";
-            label17.Size = new Size(80, 15);
-            label17.TabIndex = 23;
-            label17.Text = "Họ và tên PH:";
+            txbEmail.Location = new Point(167, 322);
+            txbEmail.Name = "txbEmail";
+            txbEmail.Size = new Size(201, 23);
+            txbEmail.TabIndex = 14;
             // 
-            // label18
+            // txbAddress
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(419, 224);
-            label18.Name = "label18";
-            label18.Size = new Size(98, 15);
-            label18.TabIndex = 22;
-            label18.Text = "Số điện thoại PH:";
+            txbAddress.Location = new Point(167, 290);
+            txbAddress.Name = "txbAddress";
+            txbAddress.Size = new Size(201, 23);
+            txbAddress.TabIndex = 13;
             // 
-            // comboBox2
+            // cbxGender
             // 
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox2.Location = new Point(167, 255);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(201, 23);
-            comboBox2.TabIndex = 16;
+            cbxGender.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxGender.FormattingEnabled = true;
+            cbxGender.Items.AddRange(new object[] { "Nam", "Nữ" });
+            cbxGender.Location = new Point(167, 221);
+            cbxGender.Name = "cbxGender";
+            cbxGender.Size = new Size(201, 23);
+            cbxGender.TabIndex = 12;
             // 
-            // textBox5
+            // datetimeBirthdate
             // 
-            textBox5.Location = new Point(167, 355);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(201, 23);
-            textBox5.TabIndex = 15;
+            datetimeBirthdate.Format = DateTimePickerFormat.Short;
+            datetimeBirthdate.Location = new Point(167, 187);
+            datetimeBirthdate.Name = "datetimeBirthdate";
+            datetimeBirthdate.Size = new Size(201, 23);
+            datetimeBirthdate.TabIndex = 11;
             // 
-            // textBox4
+            // txbFirstname
             // 
-            textBox4.Location = new Point(167, 322);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(201, 23);
-            textBox4.TabIndex = 14;
+            txbFirstname.Location = new Point(167, 154);
+            txbFirstname.Name = "txbFirstname";
+            txbFirstname.Size = new Size(201, 23);
+            txbFirstname.TabIndex = 10;
             // 
-            // textBox3
+            // txbLastname
             // 
-            textBox3.Location = new Point(167, 290);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(201, 23);
-            textBox3.TabIndex = 13;
-            // 
-            // comboBox1
-            // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox1.Location = new Point(167, 221);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(201, 23);
-            comboBox1.TabIndex = 12;
-            // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(167, 187);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(201, 23);
-            dateTimePicker1.TabIndex = 11;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(167, 154);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(201, 23);
-            textBox2.TabIndex = 10;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(167, 121);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(201, 23);
-            textBox1.TabIndex = 9;
+            txbLastname.Location = new Point(167, 121);
+            txbLastname.Name = "txbLastname";
+            txbLastname.Size = new Size(201, 23);
+            txbLastname.TabIndex = 9;
             // 
             // label10
             // 
@@ -308,21 +322,22 @@
             label2.Text = "ID tài khoản:";
             label2.Click += label2_Click;
             // 
-            // button4
+            // btnChangePassword
             // 
-            button4.Location = new Point(202, 121);
-            button4.Name = "button4";
-            button4.Size = new Size(85, 33);
-            button4.TabIndex = 4;
-            button4.Text = "ĐỔI";
-            button4.UseVisualStyleBackColor = true;
+            btnChangePassword.Location = new Point(202, 148);
+            btnChangePassword.Name = "btnChangePassword";
+            btnChangePassword.Size = new Size(85, 33);
+            btnChangePassword.TabIndex = 4;
+            btnChangePassword.Text = "ĐỔI";
+            btnChangePassword.UseVisualStyleBackColor = true;
+            btnChangePassword.Click += btnChangePassword_Click;
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(label16);
-            groupBox3.Controls.Add(label15);
-            groupBox3.Controls.Add(label14);
-            groupBox3.Controls.Add(label13);
+            groupBox3.Controls.Add(lblOtherInfo4);
+            groupBox3.Controls.Add(lblOtherInfo3);
+            groupBox3.Controls.Add(lblOtherInfo2);
+            groupBox3.Controls.Add(lblOtherInfo1);
             groupBox3.Location = new Point(792, 220);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(296, 292);
@@ -330,56 +345,58 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Thông tin khác";
             // 
-            // label16
+            // lblOtherInfo4
             // 
-            label16.AutoSize = true;
-            label16.Location = new Point(29, 188);
-            label16.Name = "label16";
-            label16.Size = new Size(62, 15);
-            label16.TabIndex = 3;
-            label16.Text = "Trạng thái:";
+            lblOtherInfo4.AutoSize = true;
+            lblOtherInfo4.Location = new Point(29, 188);
+            lblOtherInfo4.Name = "lblOtherInfo4";
+            lblOtherInfo4.Size = new Size(65, 15);
+            lblOtherInfo4.TabIndex = 3;
+            lblOtherInfo4.Text = "Trạng thái: ";
             // 
-            // label15
+            // lblOtherInfo3
             // 
-            label15.AutoSize = true;
-            label15.Location = new Point(29, 155);
-            label15.Name = "label15";
-            label15.Size = new Size(44, 15);
-            label15.TabIndex = 2;
-            label15.Text = "Lương:";
+            lblOtherInfo3.AutoSize = true;
+            lblOtherInfo3.Location = new Point(29, 155);
+            lblOtherInfo3.Name = "lblOtherInfo3";
+            lblOtherInfo3.Size = new Size(47, 15);
+            lblOtherInfo3.TabIndex = 2;
+            lblOtherInfo3.Text = "Lương: ";
             // 
-            // label14
+            // lblOtherInfo2
             // 
-            label14.AutoSize = true;
-            label14.Location = new Point(29, 121);
-            label14.Name = "label14";
-            label14.Size = new Size(89, 15);
-            label14.TabIndex = 1;
-            label14.Text = "Phụ trách môn:";
+            lblOtherInfo2.AutoSize = true;
+            lblOtherInfo2.Location = new Point(29, 121);
+            lblOtherInfo2.Name = "lblOtherInfo2";
+            lblOtherInfo2.Size = new Size(92, 15);
+            lblOtherInfo2.TabIndex = 1;
+            lblOtherInfo2.Text = "Phụ trách môn: ";
             // 
-            // label13
+            // lblOtherInfo1
             // 
-            label13.AutoSize = true;
-            label13.Location = new Point(29, 82);
-            label13.Name = "label13";
-            label13.Size = new Size(90, 15);
-            label13.TabIndex = 0;
-            label13.Text = "Lớp chủ nhiệm:";
+            lblOtherInfo1.AutoSize = true;
+            lblOtherInfo1.Location = new Point(29, 82);
+            lblOtherInfo1.Name = "lblOtherInfo1";
+            lblOtherInfo1.Size = new Size(93, 15);
+            lblOtherInfo1.TabIndex = 0;
+            lblOtherInfo1.Text = "Lớp chủ nhiệm: ";
             // 
-            // textBox6
+            // txbNewPassword
             // 
-            textBox6.Location = new Point(136, 88);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(151, 23);
-            textBox6.TabIndex = 20;
-            textBox6.TextChanged += textBox6_TextChanged;
+            txbNewPassword.Location = new Point(136, 88);
+            txbNewPassword.Name = "txbNewPassword";
+            txbNewPassword.Size = new Size(151, 23);
+            txbNewPassword.TabIndex = 20;
+            txbNewPassword.UseSystemPasswordChar = true;
+            txbNewPassword.TextChanged += textBox6_TextChanged;
             // 
-            // textBox7
+            // txbPassword
             // 
-            textBox7.Location = new Point(136, 55);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(151, 23);
-            textBox7.TabIndex = 19;
+            txbPassword.Location = new Point(136, 55);
+            txbPassword.Name = "txbPassword";
+            txbPassword.Size = new Size(151, 23);
+            txbPassword.TabIndex = 19;
+            txbPassword.UseSystemPasswordChar = true;
             // 
             // label11
             // 
@@ -401,11 +418,12 @@
             // 
             // groupBox4
             // 
-            groupBox4.Controls.Add(button4);
+            groupBox4.Controls.Add(cbxShowHide);
+            groupBox4.Controls.Add(btnChangePassword);
             groupBox4.Controls.Add(label12);
             groupBox4.Controls.Add(label11);
-            groupBox4.Controls.Add(textBox7);
-            groupBox4.Controls.Add(textBox6);
+            groupBox4.Controls.Add(txbPassword);
+            groupBox4.Controls.Add(txbNewPassword);
             groupBox4.Location = new Point(792, 11);
             groupBox4.Name = "groupBox4";
             groupBox4.Size = new Size(296, 190);
@@ -413,18 +431,32 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Đổi mật khẩu";
             // 
+            // cbxShowHide
+            // 
+            cbxShowHide.AutoSize = true;
+            cbxShowHide.Location = new Point(136, 120);
+            cbxShowHide.Name = "cbxShowHide";
+            cbxShowHide.Size = new Size(104, 19);
+            cbxShowHide.TabIndex = 21;
+            cbxShowHide.Text = "Hiện mật khẩu";
+            cbxShowHide.UseVisualStyleBackColor = true;
+            cbxShowHide.CheckedChanged += cbxShowHide_CheckedChanged;
+            // 
             // frmTTCaNhan
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1100, 524);
             Controls.Add(groupBox4);
-            Controls.Add(groupBox1);
+            Controls.Add(grpbxPersonalInfo);
             Controls.Add(groupBox3);
             Name = "frmTTCaNhan";
             Text = "Thông tin cá nhân";
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            Load += frmTTCaNhan_Load;
+            grpbxPersonalInfo.ResumeLayout(false);
+            grpbxPersonalInfo.PerformLayout();
+            pnlStudentParent.ResumeLayout(false);
+            pnlStudentParent.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             groupBox4.ResumeLayout(false);
@@ -434,7 +466,7 @@
 
         #endregion
 
-        private GroupBox groupBox1;
+        private GroupBox grpbxPersonalInfo;
         private Label label2;
         private Label label4;
         private Label label3;
@@ -443,32 +475,34 @@
         private Label label7;
         private Label label6;
         private Label label5;
-        private TextBox textBox1;
+        private TextBox txbLastname;
         private Label label10;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private ComboBox comboBox1;
-        private DateTimePicker dateTimePicker1;
-        private TextBox textBox2;
-        private ComboBox comboBox2;
-        private TextBox textBox5;
-        private TextBox textBox6;
-        private TextBox textBox7;
+        private TextBox txbEmail;
+        private TextBox txbAddress;
+        private ComboBox cbxGender;
+        private DateTimePicker datetimeBirthdate;
+        private TextBox txbFirstname;
+        private ComboBox cbxHometown;
+        private TextBox txbPhoneNumber;
+        private TextBox txbNewPassword;
+        private TextBox txbPassword;
         private Label label11;
         private Label label12;
         private GroupBox groupBox3;
-        private Label label15;
-        private Label label14;
-        private Label label13;
-        private TextBox textBox8;
-        private Label label16;
-        private TextBox textBox9;
+        private Label lblOtherInfo3;
+        private Label lblOtherInfo2;
+        private Label lblOtherInfo1;
+        private TextBox txbParentName;
+        private Label lblOtherInfo4;
+        private TextBox txbParentPhoneNumber;
         private Label label17;
         private Label label18;
-        private Button button4;
+        private Button btnChangePassword;
         private Button button1;
-        private Button button2;
+        private Button btnUpdate;
         private Label labelMTK;
         private GroupBox groupBox4;
+        private CheckBox cbxShowHide;
+        private Panel pnlStudentParent;
     }
 }
