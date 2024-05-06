@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LAB03_Nhom.DAO
+namespace QuanLiHocSinh.DAO
 {
     internal class DataProvider
     {
@@ -20,7 +20,7 @@ namespace LAB03_Nhom.DAO
 
         private DataProvider() { }
 
-        private string connectionSTR = @"Data Source=LPN-DESKTOP\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+        private string connectionSTR = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
 
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {

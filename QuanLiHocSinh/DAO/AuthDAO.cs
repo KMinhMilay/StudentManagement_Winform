@@ -1,4 +1,4 @@
-﻿using LAB03_Nhom.DAO;
+﻿using QuanLiHocSinh.DAO;
 using QuanLiHocSinh.DTO;
 using System;
 using System.Collections.Generic;

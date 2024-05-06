@@ -1,4 +1,4 @@
-﻿using LAB03_Nhom.DAO;
+﻿using QuanLiHocSinh.DAO;
 using QuanLiHocSinh.DTO;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System;
 using DTO;
 //using System.Data;
 
-namespace DAO
+namespace QuanLiHocSinh.DAO
 {
     public class DiemDAO
     {

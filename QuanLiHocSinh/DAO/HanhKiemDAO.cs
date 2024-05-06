@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using QuanLiHocSinh.DAO;
 
 namespace DAO
 {
@@ -26,7 +27,7 @@ namespace DAO
 
         public void CapNhatHanhKiem(DataTable dataTable)
         {
-            DataProvider.Instance.UpdateTable(dataTable, "HANHKIEM");
+            //DataProvider.Instance.UpdateTable(dataTable, "HANHKIEM");
         }
     }
 }
