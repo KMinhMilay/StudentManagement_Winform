@@ -1,6 +1,4 @@
-﻿using QuanLiHocSinh.DTO;
-
-namespace QuanLiHocSinh
+﻿namespace QuanLiHocSinh
 {
     internal static class Program
     {
@@ -14,7 +12,8 @@ namespace QuanLiHocSinh
             // see https://aka.ms/applicationconfiguration.
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmDangNhap());
+            //Application.Run(new frmQLHocSinh("3", "admin"));
+            Application.Run(new frmDiem());
         }
     }
 }
