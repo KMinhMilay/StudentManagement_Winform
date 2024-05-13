@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            label19 = new Label();
             listViewHocSinh = new ListView();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
@@ -101,6 +102,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(label19);
             groupBox1.Controls.Add(listViewHocSinh);
             groupBox1.Location = new Point(9, 96);
             groupBox1.Margin = new Padding(3, 4, 3, 4);
@@ -110,6 +112,16 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Danh sách";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 40F);
+            label19.Location = new Point(135, 208);
+            label19.Name = "label19";
+            label19.Size = new Size(486, 89);
+            label19.TabIndex = 1;
+            label19.Text = "Thêm Học Sinh";
             // 
             // listViewHocSinh
             // 
@@ -361,6 +373,7 @@
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(137, 27);
             textBox8.TabIndex = 47;
+            textBox8.TextChanged += textBox8_TextChanged;
             // 
             // label3
             // 
@@ -378,6 +391,7 @@
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(137, 27);
             textBox9.TabIndex = 46;
+            textBox9.TextChanged += textBox9_TextChanged;
             // 
             // label4
             // 
@@ -428,7 +442,7 @@
             // 
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "An Giang", "Bà Rịa - Vũng tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu", "Bắc Ninh ", "Bến tre", "Bình Định", "Bình Dương", "Bình Phước ", "Bình Thuận", "Cà Mau", "Cần Thơ", "Cao Bằng", "Đà Lạt", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hạ Long", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hải Dương", "Hải Phòng", "Hậu Giang", "Hòa Bình", "Huế", "Hưng Yên", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "TP.HCM", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái", "NULL" });
+            comboBox2.Items.AddRange(new object[] { "An Giang", "Bà Rịa - Vũng tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu", "Bắc Ninh ", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước ", "Bình Thuận", "Cà Mau", "Cần Thơ", "Cao Bằng", "Đà Lạt", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hạ Long", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hải Dương", "Hải Phòng", "Hậu Giang", "Hòa Bình", "Huế", "Hưng Yên", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "TP.HCM", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái", "NULL" });
             comboBox2.Location = new Point(127, 260);
             comboBox2.Margin = new Padding(3, 4, 3, 4);
             comboBox2.Name = "comboBox2";
@@ -451,6 +465,7 @@
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(146, 27);
             textBox5.TabIndex = 42;
+            textBox5.TextChanged += textBox5_TextChanged;
             // 
             // label8
             // 
@@ -513,6 +528,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(146, 27);
             textBox1.TabIndex = 36;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // dateTimePicker1
             // 
@@ -697,6 +713,7 @@
             Name = "frmQLHocSinh";
             Text = "frmQLHocSinh";
             groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
@@ -772,5 +789,6 @@
         private ColumnHeader columnHeader15;
         private ColumnHeader columnHeader16;
         private ColumnHeader columnHeader17;
+        private Label label19;
     }
 }

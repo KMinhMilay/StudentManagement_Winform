@@ -70,6 +70,12 @@ namespace QuanLiHocSinh.DAO
             int rowsAffected = DataProvider.Instance.ExecuteNonQuery(query, new object[] { IDHS, Ho, Ten, NamSinh, GioiTinh, QueQuan, DiaChi, Email, SDT, IDCV, IDTRANGTHAI, SDTPH, TENPH });
             return rowsAffected >= 0;
         }
+        public bool UpdateClassStudentByID(string IDHS, string Ho, string Ten, DateTime NamSinh, string GioiTinh, string QueQuan, string DiaChi, string Email, string SDT,string IDLop, string IDCV, string IDGV, string SDTPH, string TENPH)
+        {
+            string query = "SP_DoiLopHocSinh @IDHS , @HO , @TEN , @NAMSINH , @GIOITINH , @QUEQUAN , @DIACHI , @EMAIL , @SDT , @IDLop , @IDCV , @IDGV , @SDTPH , @TENPH";
+            int rowsAffected = DataProvider.Instance.ExecuteNonQuery(query, new object[] { IDHS, Ho, Ten, NamSinh, GioiTinh, QueQuan, DiaChi, Email, SDT, IDLop, IDCV, IDGV, SDTPH, TENPH });
+            return rowsAffected >= 0;
+        }
 
     }
 }
