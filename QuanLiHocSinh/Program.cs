@@ -14,7 +14,7 @@ namespace QuanLiHocSinh
             // see https://aka.ms/applicationconfiguration.
 
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmQLHocSinh("2", "tendn1"));
+            Application.Run(new frmQLHocSinh("3", "admin"));
         }
     }
 }
