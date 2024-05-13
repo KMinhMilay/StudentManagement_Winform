@@ -1,5 +1,7 @@
 -- NGUYEN HOANG TRUNG
 -- Login
+use QLHS
+go
 create proc SP_Login
 @username varchar(32), @password varchar(max), @role varchar(1)
 as
@@ -59,7 +61,7 @@ end
 go
 
 -- Thong tin ca nhan hoc sinh
-alter proc SP_GetStudentPersonalInfo
+create proc SP_GetStudentPersonalInfo
 @id varchar(64)
 as
 begin
@@ -124,7 +126,7 @@ end
 go
 
 --Thay doi thong tin hoc sinh
-alter proc SP_UpdateStudentPersonalInfo
+create proc SP_UpdateStudentPersonalInfo
 @IDHS varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -310,8 +312,8 @@ BEGIN
 END
 go
 
-EXEC SP_GET_DANHSACHHOCSINH '2', 'tendn1'
-go
+--EXEC SP_GET_DANHSACHHOCSINH '2', 'tendn1'
+--go
 
 create PROCEDURE SearchStudents
     @StudentID varchar(32) = NULL,
@@ -360,8 +362,8 @@ BEGIN
 
 END
 go
-Exec SearchStudents 'hs1','A','10'
-go
+--Exec SearchStudents 'hs1','A','10'
+--go
 create PROCEDURE SP_INS_HOCSINH_AUTO
     @HO nvarchar(64),
     @TEN nvarchar(32),
@@ -402,8 +404,8 @@ BEGIN
     EXEC SP_INS_HOCSINH @IDHS, @HO, @TEN, @NAMSINH, @GIOITINH, @QUEQUAN, @DIACHI, @EMAIL, @SDT, @IDLOP, @IDCV, @IDGV, @IDTRANGTHAI, @SDTPH, @TENPH, @TENDN, @MATKHAU;
 END
 go
-EXEC SP_INS_HOCSINH_AUTO N'Lê Phú', N'Nhân', '2003-01-24', N'Nam', N'Bến Tre', N'27 Ngô Quyền', 'lpn@email.com', '0123456789', '12C3', 'LP', 'GV003', 'DH', '0987654321', N'Kim Uyên'
-
+--EXEC SP_INS_HOCSINH_AUTO N'Lê Phú', N'Nhân', '2003-01-24', N'Nam', N'Bến Tre', N'27 Ngô Quyền', 'lpn@email.com', '0123456789', '12C3', 'LP', 'GV003', 'DH', '0987654321', N'Kim Uyên'
+--go
 
 create TRIGGER trg_InsertDiem
 ON HOCSINH
@@ -486,8 +488,8 @@ BEGIN
         HS.IDLOP = @IDLop
 END
 go
-SP_GET_GIAOVIEN_BY_LOP '10A2'
-
+--SP_GET_GIAOVIEN_BY_LOP '10A2'
+--go
 CREATE PROCEDURE FindTeacherIDByFullName
     @HoTen NVARCHAR(100)
 AS
@@ -513,8 +515,8 @@ BEGIN
 END;
 go
 
-EXEC FindTeacherIDByFullName N'Nguyễn Văn G';
-
+--EXEC FindTeacherIDByFullName N'Nguyễn Văn G';
+--go
 CREATE PROCEDURE DisableStudentByID
     @IDHS VARCHAR(10)
 AS
@@ -525,7 +527,7 @@ BEGIN
 END
 go
 
-CREATE PROCEDURE UpdateStudentInfo
+create PROCEDURE UpdateStudentInfo
     @IDHS NVARCHAR(64),
     @Ho NVARCHAR(50),
     @Ten NVARCHAR(50),
@@ -560,7 +562,7 @@ BEGIN
 END
 go
 
-alter PROCEDURE SP_DoiLopHocSinh
+create PROCEDURE SP_DoiLopHocSinh
     @IDHS NVARCHAR(64),
     @Ho NVARCHAR(50),
     @Ten NVARCHAR(50),
@@ -571,6 +573,7 @@ alter PROCEDURE SP_DoiLopHocSinh
     @Email NVARCHAR(50),
     @SDT NVARCHAR(20),
     @IDLop NVARCHAR(64),
+    @IDCV NVARCHAR(32),
     @IDGV NVARCHAR(64),
     @SDTPH NVARCHAR(20),
     @TenPH NVARCHAR(50)
@@ -578,23 +581,44 @@ AS
 BEGIN
     IF @IDHS IS NULL
         RETURN; -- Thoát stored procedure nếu @IDHS là NULL
-		DECLARE @IDHSnew NVARCHAR(64);
-    SET @IDHSnew = LEFT(@IDHS, CHARINDEX('-', @IDHS) - 1) + '-' + @IDLop; -- Nối IDHS với IDLop để tạo IDHS mới
-	DECLARE @IDHSNumber NVARCHAR(64);
+    
+    -- Kiểm tra xem có sẵn IDHSnew trong DIEM hoặc XEPLOAI hay không
+    IF EXISTS (
+        SELECT 1 
+        FROM DIEM 
+        WHERE LEFT(IDHS, 4) = LEFT(@IDHS, 4) 
+            AND IDHK = (SELECT MAX(IDHK) FROM HOCKY)
+    ) OR EXISTS (
+        SELECT 1 
+        FROM XEPLOAI 
+        WHERE LEFT(IDHS, 4) = LEFT(@IDHS, 4) 
+            AND IDHK = (SELECT MAX(IDHK) FROM HOCKY)
+    )
+    BEGIN
+        -- Nếu có, không thực hiện thêm mới
+        PRINT N'Đang là học kỳ mới nhất, không thể đổi lớp học sinh.'
+    END
+    ELSE
+    BEGIN
+        DECLARE @IDHSnew NVARCHAR(64);
+        SET @IDHSnew = LEFT(@IDHS, CHARINDEX('-', @IDHS) - 1) + '-' + @IDLop; -- Nối IDHS với IDLop để tạo IDHS mới
+        
+        DECLARE @IDHSNumber NVARCHAR(64);
+        -- Tìm vị trí của ký tự '-' trong chuỗi
+        DECLARE @Index INT = CHARINDEX('-', @IDHS);
+        -- Lấy phần số từ chuỗi bắt đầu từ vị trí đầu tiên đến vị trí trước ký tự '-'
+        SET @IDHSNumber = SUBSTRING(@IDHS, 3, @Index - 3);
 
-	-- Tìm vị trí của ký tự '-' trong chuỗi
-	DECLARE @Index INT = CHARINDEX('-', @IDHS);
+        -- Tạo TENDN tự động
+        DECLARE @TENDN varchar(32);
+        DECLARE @MATKHAU varchar(32);
+        SET @TENDN = 'hocsinh' + CAST(@IDHSNumber AS varchar(10));
 
-	-- Lấy phần số từ chuỗi bắt đầu từ vị trí đầu tiên đến vị trí trước ký tự '-'
-	Set @IDHSNumber = SUBSTRING(@IDHS, 3, @Index - 3);
-	-- Tạo TENDN tự động
-	DECLARE @TENDN varchar(32);
-    DECLARE @MATKHAU varchar(32);
-    SET @TENDN = 'hocsinh' + CAST(@IDHSNumber AS varchar(10));
-
-    -- Tạo mật khẩu tự động
-    SET @MATKHAU = 'matkhau' + CAST(@IDHSNumber AS varchar(10));
-    -- Gọi stored procedure SP_INS_HOCSINH để chèn dữ liệu mới
-    EXEC SP_INS_HOCSINH @IDHSnew, @Ho, @Ten, @NamSinh, @GioiTinh, @QueQuan, @DiaChi, @Email, @SDT, @IDLop, 'X', @IDGV, 'DH', @SDTPH, @TenPH, @TENDN, @MATKHAU;
+        -- Tạo mật khẩu tự động
+        SET @MATKHAU = 'matkhau' + CAST(@IDHSNumber AS varchar(10));
+        
+        -- Gọi stored procedure SP_INS_HOCSINH để chèn dữ liệu mới
+        EXEC SP_INS_HOCSINH @IDHSnew, @Ho, @Ten, @NamSinh, @GioiTinh, @QueQuan, @DiaChi, @Email, @SDT, @IDLop, @IDCV, @IDGV, 'DH', @SDTPH, @TenPH, @TENDN, @MATKHAU;
+    END
 END
 go
