@@ -28,7 +28,7 @@ begin
 		begin
 			select IDGV as 'ID', TENDN, IDLOPCN as 'LOP', 'giaovien' as 'LOAITAIKHOAN', 'admin' as 'CHUCVU'
 			from GIAOVIEN
-			where VAITRO = 0 and TENDN = @username and MATKHAU = @hashedPassword and isEnable = 'Yes'
+			where VAITRO = 3 and TENDN = @username and MATKHAU = @hashedPassword and isEnable = 'Yes'
 		end
 end
 go
@@ -59,7 +59,7 @@ end
 go
 
 -- Thong tin ca nhan hoc sinh
-alter proc SP_GetStudentPersonalInfo
+create proc SP_GetStudentPersonalInfo
 @id varchar(64)
 as
 begin
@@ -124,7 +124,7 @@ end
 go
 
 --Thay doi thong tin hoc sinh
-alter proc SP_UpdateStudentPersonalInfo
+create proc SP_UpdateStudentPersonalInfo
 @IDHS varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -165,6 +165,7 @@ go
 
 
 -- LE PHU NHAN
+-- exec SP_GET_DANHSACHHOCSINH '1', 'tendn1'
 create PROCEDURE SP_GET_DANHSACHHOCSINH
     @UserRole NVARCHAR(64),
     @UserName NVARCHAR(64)
@@ -310,8 +311,8 @@ BEGIN
 END
 go
 
-EXEC SP_GET_DANHSACHHOCSINH '2', 'tendn1'
-go
+--EXEC SP_GET_DANHSACHHOCSINH '2', 'tendn1'
+--go
 
 create PROCEDURE SearchStudents
     @StudentID varchar(32) = NULL,
@@ -360,8 +361,9 @@ BEGIN
 
 END
 go
-Exec SearchStudents 'hs1','A','10'
-go
+
+--Exec SearchStudents 'hs1','A','10'
+--go
 create PROCEDURE SP_INS_HOCSINH_AUTO
     @HO nvarchar(64),
     @TEN nvarchar(32),
@@ -402,7 +404,7 @@ BEGIN
     EXEC SP_INS_HOCSINH @IDHS, @HO, @TEN, @NAMSINH, @GIOITINH, @QUEQUAN, @DIACHI, @EMAIL, @SDT, @IDLOP, @IDCV, @IDGV, @IDTRANGTHAI, @SDTPH, @TENPH, @TENDN, @MATKHAU;
 END
 go
-EXEC SP_INS_HOCSINH_AUTO N'Lê Phú', N'Nhân', '2003-01-24', N'Nam', N'Bến Tre', N'27 Ngô Quyền', 'lpn@email.com', '0123456789', '12C3', 'LP', 'GV003', 'DH', '0987654321', N'Kim Uyên'
+--EXEC SP_INS_HOCSINH_AUTO N'Lê Phú', N'Nhân', '2003-01-24', N'Nam', N'Bến Tre', N'27 Ngô Quyền', 'lpn@email.com', '0123456789', '12C3', 'LP', 'GV003', 'DH', '0987654321', N'Kim Uyên'
 
 
 create TRIGGER trg_InsertDiem
@@ -486,7 +488,7 @@ BEGIN
         HS.IDLOP = @IDLop
 END
 go
-SP_GET_GIAOVIEN_BY_LOP '10A2'
+--SP_GET_GIAOVIEN_BY_LOP '10A2'
 
 CREATE PROCEDURE FindTeacherIDByFullName
     @HoTen NVARCHAR(100)
@@ -513,7 +515,7 @@ BEGIN
 END;
 go
 
-EXEC FindTeacherIDByFullName N'Nguyễn Văn G';
+--EXEC FindTeacherIDByFullName N'Nguyễn Văn G';
 
 CREATE PROCEDURE DisableStudentByID
     @IDHS VARCHAR(10)
@@ -560,7 +562,7 @@ BEGIN
 END
 go
 
-alter PROCEDURE SP_DoiLopHocSinh
+create PROCEDURE SP_DoiLopHocSinh
     @IDHS NVARCHAR(64),
     @Ho NVARCHAR(50),
     @Ten NVARCHAR(50),
