@@ -66,9 +66,25 @@ namespace QuanLiHocSinh
 
         private void btnDSHS_Click(object sender, EventArgs e)
         {
-            if (account.role != "0")
+            if (account.role != "hocsinh")
             {
-                OpenChildForm(new frmQLHocSinh("3", "admin"));
+                MessageBox.Show(account.role.ToString());
+                string roleInt = "0"; // Initialize with a default value
+
+                if (account.role == "loptruong")
+                {
+                    roleInt = "1";
+                }
+                else if (account.role == "giaovienthuong" && account.username != "admin")
+                {
+                    roleInt = "2";
+                }
+                else if (account.role == "giaovienthuong" && account.username == "admin")
+                {
+                    roleInt = "3";
+                }
+
+                OpenChildForm(new frmQLHocSinh(roleInt, account.username));
                 label1.Text = btnDSHS.Text;
             }
             else
@@ -76,8 +92,8 @@ namespace QuanLiHocSinh
                 MessageBox.Show("Bạn không có quyền truy cập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
         }
+
 
         private void btnDSGV_Click(object sender, EventArgs e)
         {
