@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -138,7 +139,7 @@ namespace QuanLiHocSinh
         private void loadTeacherList()
         {
             teacherList = TeacherDAO.Instance.GetTeacherList();
-            
+
             foreach (var teacher in teacherList)
             {
                 ListViewItem item = new ListViewItem(teacher.id);
@@ -160,30 +161,52 @@ namespace QuanLiHocSinh
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
+            //ValidateInput();
             if (currentAction == "ADD")
             {
                 if (MessageBox.Show("Thêm thông tin giáo viên này?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    if (TeacherDAO.Instance.AddTeacherSuccess(txbId.Text, txbLastname.Text, txbFirstname.Text, birthdatePicker.Value, cmbGender.SelectedItem.ToString(), cmbHometown.SelectedItem.ToString(), txbAddress.Text, txbEmail.Text, txbPhoneNumber.Text, cmbHomeroomClass.Text, Int32.Parse(txbSalary.Text), cmbSubject.Text))
+                    try
                     {
-                        MessageBox.Show("Thêm thông tin giáo viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        hideFrmAddGV();
-                        listViewGiaoVien.Visible = true;
-                        refreshForm();
+                        if (TeacherDAO.Instance.AddTeacherSuccess(txbId.Text, txbLastname.Text, txbFirstname.Text, birthdatePicker.Value, cmbGender.SelectedItem.ToString(), cmbHometown.SelectedItem.ToString(), txbAddress.Text, txbEmail.Text, txbPhoneNumber.Text, cmbHomeroomClass.Text, Int32.Parse(txbSalary.Text), cmbSubject.Text))
+                        {
+                            MessageBox.Show("Thêm thông tin giáo viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            hideFrmAddGV();
+                            listViewGiaoVien.Visible = true;
+                            refreshForm();
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Đã có lỗi xảy ra khi thực hiện thêm giáo viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             if (currentAction == "UPDATE")
             {
-                if (MessageBox.Show("Cập nhật thông tin giáo viên này?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                try
                 {
-                    if (TeacherDAO.Instance.UpdateTeacherSuccess(txbId.Text,txbLastname.Text,txbFirstname.Text,birthdatePicker.Value,cmbGender.SelectedItem.ToString(),cmbHometown.SelectedItem.ToString(),txbAddress.Text,txbEmail.Text,txbPhoneNumber.Text,cmbHomeroomClass.Text,Int32.Parse(txbSalary.Text),cmbSubject.Text))
+                    if (MessageBox.Show("Cập nhật thông tin giáo viên này?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     {
-                        MessageBox.Show("Cập nhật thông tin giáo viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        refreshForm();
+                        if (TeacherDAO.Instance.UpdateTeacherSuccess(txbId.Text, txbLastname.Text, txbFirstname.Text, birthdatePicker.Value, cmbGender.SelectedItem.ToString(), cmbHometown.SelectedItem.ToString(), txbAddress.Text, txbEmail.Text, txbPhoneNumber.Text, cmbHomeroomClass.Text, Int32.Parse(txbSalary.Text), cmbSubject.Text))
+                        {
+                            MessageBox.Show("Cập nhật thông tin giáo viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            refreshForm();
+                        }
                     }
                 }
+                catch
+                {
+                    MessageBox.Show("Đã có lỗi xảy ra khi thực hiện cập nhật thông tin giáo viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
+        }
+
+        private void ValidateInput()
+        {
+            Regex regex = new Regex("^[0-9]+$");
+
         }
 
         private void listViewGiaoVien_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,12 +234,12 @@ namespace QuanLiHocSinh
             {
                 btnUpdate.Enabled = false;
                 btnDelete.Enabled = false;
-                btnAdd .Enabled = true;
+                btnAdd.Enabled = true;
                 if (!FocusOnForm)
                 {
                     ClearForm();
                 }
-                
+
             }
         }
         private void ClearForm()
@@ -228,6 +251,22 @@ namespace QuanLiHocSinh
             foreach (ComboBox cmb in grpBoxForm.Controls.OfType<ComboBox>())
             {
                 cmb.SelectedItem = null;
+            }
+        }
+
+        private void txbPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txbSalary_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }

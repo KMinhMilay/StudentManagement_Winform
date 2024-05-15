@@ -44,6 +44,7 @@
             btnUpdate = new Button();
             btnDelete = new Button();
             grpBoxForm = new GroupBox();
+            txbId = new TextBox();
             btnBack = new Button();
             btnAccept = new Button();
             txbSalary = new TextBox();
@@ -84,7 +85,6 @@
             columnHeader10 = new ColumnHeader();
             columnHeader11 = new ColumnHeader();
             columnHeader12 = new ColumnHeader();
-            txbId = new TextBox();
             groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
             grpBoxForm.SuspendLayout();
@@ -274,6 +274,13 @@
             grpBoxForm.TabStop = false;
             grpBoxForm.Text = "Thông tin";
             // 
+            // txbId
+            // 
+            txbId.Location = new Point(111, 39);
+            txbId.Name = "txbId";
+            txbId.Size = new Size(128, 23);
+            txbId.TabIndex = 37;
+            // 
             // btnBack
             // 
             btnBack.Location = new Point(234, 333);
@@ -300,6 +307,7 @@
             txbSalary.Name = "txbSalary";
             txbSalary.Size = new Size(112, 23);
             txbSalary.TabIndex = 56;
+            txbSalary.KeyPress += txbSalary_KeyPress;
             // 
             // label16
             // 
@@ -416,6 +424,7 @@
             txbPhoneNumber.Name = "txbPhoneNumber";
             txbPhoneNumber.Size = new Size(128, 23);
             txbPhoneNumber.TabIndex = 42;
+            txbPhoneNumber.KeyPress += txbPhoneNumber_KeyPress;
             // 
             // label8
             // 
@@ -571,13 +580,6 @@
             // columnHeader12
             // 
             columnHeader12.Text = "Lương";
-            // 
-            // txbId
-            // 
-            txbId.Location = new Point(111, 39);
-            txbId.Name = "txbId";
-            txbId.Size = new Size(128, 23);
-            txbId.TabIndex = 37;
             // 
             // frmQLGiaoVien
             // 
