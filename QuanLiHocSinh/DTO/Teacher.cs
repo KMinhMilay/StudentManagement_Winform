@@ -8,9 +8,9 @@ namespace QuanLiHocSinh.DTO
 {
     internal class Teacher
     {
-        private string _id;
-        private string _username;
-        private string _position;
-        private string _role;
+        public string id { get; set; }
+        public string lastname { get; set; }
+        public string firstname { get; set; }
+
     }
 }
