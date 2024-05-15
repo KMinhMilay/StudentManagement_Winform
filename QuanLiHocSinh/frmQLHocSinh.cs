@@ -22,6 +22,8 @@ namespace QuanLiHocSinh
     {
         private string role;
         private string userName;
+        private string userId;
+        private bool isMessageShown = false;
         public enum ActionType
         {
             None,
@@ -31,11 +33,11 @@ namespace QuanLiHocSinh
         }
         private ActionType currentAction = ActionType.None;
 
-        public frmQLHocSinh(string role, string userName)
+        public frmQLHocSinh(string role, string userName, string userId)
         {
             this.role = role;
             this.userName = userName;
-
+            this.userId = userId;
             InitializeComponent();
             hideFrmAddHS();
             loadData();
@@ -309,7 +311,7 @@ namespace QuanLiHocSinh
                             }
                             if (comboBox3.Text == selectedItem.SubItems[10].Text)
                             {
-                                if (StudentDAO.Instance.UpdateStudentByID(IDHS, ho, ten, namSinh, gioiTinh, queQuan, diaChi, email, sdt, maChucVu, maTrangThai, sdtPhuHuynh, tenPhuHuynh))
+                                if (StudentDAO.Instance.UpdateStudentByID(IDHS, ho, ten, namSinh, gioiTinh, queQuan, diaChi, email, sdt, maChucVu, maTrangThai, sdtPhuHuynh, tenPhuHuynh, maGiaoVien))
                                 {
                                     MessageBox.Show("Sửa học sinh thành công!");
                                     loadData();
@@ -355,8 +357,8 @@ namespace QuanLiHocSinh
                         if (listViewHocSinh.SelectedItems.Count == 1)
                         {
                             string IDHS = labelMTK.Text;
-
-                            if (StudentDAO.Instance.DeleteStudentByID(IDHS))
+                            string IDGV = userId;
+                            if (StudentDAO.Instance.DeleteStudentByID(IDHS, IDGV))
                             {
                                 MessageBox.Show("Xóa học sinh thành công!");
                                 loadData();
@@ -685,14 +687,19 @@ namespace QuanLiHocSinh
                 {
                     string hoTen = row["HoTen"].ToString();
                     textBox6.Text = hoTen;
-
                 }
-                if (textBox6.Text == null || textBox6.Text == "")
+
+                if (textBox6.Text == "" && !isMessageShown)
                 {
                     MessageBox.Show("Lớp này hiện chưa có giáo viên chủ nhiệm");
+                    isMessageShown = true; // Set the flag to true after showing the message
                 }
             }
-
+            else
+            {
+                // Reset the flag when the class selection changes
+                isMessageShown = false;
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)

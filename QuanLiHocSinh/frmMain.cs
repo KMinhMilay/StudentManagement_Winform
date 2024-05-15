@@ -68,8 +68,7 @@ namespace QuanLiHocSinh
         {
             if (account.role != "hocsinh")
             {
-                MessageBox.Show(account.role.ToString());
-                string roleInt = "0"; // Initialize with a default value
+                string roleInt = "0";
 
                 if (account.role == "loptruong")
                 {
@@ -79,12 +78,13 @@ namespace QuanLiHocSinh
                 {
                     roleInt = "2";
                 }
+                //chỉnh ở đây nè Trung
                 else if (account.role == "giaovienthuong" && account.username == "admin")
                 {
                     roleInt = "3";
                 }
 
-                OpenChildForm(new frmQLHocSinh(roleInt, account.username));
+                OpenChildForm(new frmQLHocSinh(roleInt, account.username, account.id));
                 label1.Text = btnDSHS.Text;
             }
             else

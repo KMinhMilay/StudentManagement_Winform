@@ -402,7 +402,11 @@ BEGIN
 
     -- Thêm học sinh vào bảng bằng cách gọi stored procedure SP_INS_HOCSINH
     EXEC SP_INS_HOCSINH @IDHS, @HO, @TEN, @NAMSINH, @GIOITINH, @QUEQUAN, @DIACHI, @EMAIL, @SDT, @IDLOP, @IDCV, @IDGV, @IDTRANGTHAI, @SDTPH, @TENPH, @TENDN, @MATKHAU;
-END
+	INSERT INTO TransactionHistory (transactionText)
+    VALUES (
+        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Giáo viên có mã ' + @IDGV + 
+        N' đã thêm học sinh có mã là ' + @IDHS + N' có lớp là ' +@IDLOP
+    );END
 go
 --EXEC SP_INS_HOCSINH_AUTO N'Lê Phú', N'Nhân', '2003-01-24', N'Nam', N'Bến Tre', N'27 Ngô Quyền', 'lpn@email.com', '0123456789', '12C3', 'LP', 'GV003', 'DH', '0987654321', N'Kim Uyên'
 --go
@@ -517,14 +521,19 @@ go
 
 --EXEC FindTeacherIDByFullName N'Nguyễn Văn G';
 --go
-CREATE PROCEDURE DisableStudentByID
-    @IDHS VARCHAR(10)
+create PROCEDURE DisableStudentByID
+    @IDHS VARCHAR(10),
+	@IDGV VARCHAR(20)
 AS
 BEGIN
     UPDATE HOCSINH
     SET isEnable = 'No'
     WHERE IDHS = @IDHS;
-END
+	INSERT INTO TransactionHistory (transactionText)
+    VALUES (
+        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Giáo viên có mã ' + @IDGV +
+        N' đã xóa học sinh có mã ' + @IDHS
+    );END
 go
 
 create PROCEDURE UpdateStudentInfo
@@ -540,9 +549,15 @@ create PROCEDURE UpdateStudentInfo
     @IDCV NVARCHAR(10),
     @IDTRANGTHAI NVARCHAR(10),
     @SDTPH NVARCHAR(20),
-    @TENPH NVARCHAR(50)
+    @TENPH NVARCHAR(50),
+	@IDGV NVARCHAR(20)
 AS
 BEGIN
+	INSERT INTO TransactionHistory (transactionText)
+    VALUES (
+        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Học sinh có mã ' + @IDHS + 
+        N' được thay đổi thông tin bởi giáo viên có mã ' + @IDGV
+    );
     UPDATE HOCSINH
     SET 
         HO = @Ho,
@@ -619,6 +634,11 @@ BEGIN
         
         -- Gọi stored procedure SP_INS_HOCSINH để chèn dữ liệu mới
         EXEC SP_INS_HOCSINH @IDHSnew, @Ho, @Ten, @NamSinh, @GioiTinh, @QueQuan, @DiaChi, @Email, @SDT, @IDLop, @IDCV, @IDGV, 'DH', @SDTPH, @TenPH, @TENDN, @MATKHAU;
+		INSERT INTO TransactionHistory (transactionText)
+		VALUES (
+			N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Học sinh có mã ' + @IDHS + 
+			N' được cập nhật mã học sinh mới là '+ @IDHSnew+ N' và lớp mới là' + @IDLOP + N' bởi giáo viên có mã ' + @IDGV
+		);
     END
 END
 go

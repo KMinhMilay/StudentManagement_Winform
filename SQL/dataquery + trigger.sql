@@ -217,7 +217,7 @@ go
 --insert into NAMHOC values (20232024,'2023','2024')
 insert into HOCKY values (20201,20202021, 1), (20202, 20202021, 2 ), (20211, 20212022, 1 ), (20212, 20212022, 2 ), (20221, 20222023, 1 ), (20222, 20222023, 2 )
 go
---insert into HOCKY values (20231,20232024, 1)
+--insert into HOCKY values (20231,20232024, 1),(20232,20232024, 2)
 insert into MONHOC values ('TOAN',N'Toán',60),
 ('VAN',N'Văn',60),('NN',N'Ngoại Ngữ',60),
 ('SINH',N'Sinh học',45),('LY',N'Vật lý',45),
