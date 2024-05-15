@@ -80,7 +80,7 @@ namespace QuanLiHocSinh
                 this.txbPhoneNumber.Text = this.studentInfo.phoneNumber;
                 this.txbParentPhoneNumber.Text = this.studentInfo.parentPhoneNumber;
                 this.txbParentName.Text = this.studentInfo.parentName;
-                lblOtherInfo1.Text = "Học tại lớp: " + this.account.idClass;
+                lblOtherInfo1.Text = "Học tại lớp: " + this.studentInfo.idClass;
                 lblOtherInfo2.Text = "Giáo viên chủ nhiệm: " + this.studentInfo.teacherName;
                 lblOtherInfo3.Text = "Chức vụ: " + this.studentInfo.role;
                 lblOtherInfo4.Text = "Trạng thái: " + this.studentInfo.status;
@@ -97,7 +97,7 @@ namespace QuanLiHocSinh
                 this.txbAddress.Text = this.teacherInfo.address;
                 this.txbPhoneNumber.Text = this.teacherInfo.phoneNumber;
                 lblOtherInfo1.Text = "Lớp chủ nhiệm: ";
-                lblOtherInfo1.Text += this.account.idClass == "NO" ? "Chưa có lớp chủ nhiệm" : this.account.idClass;
+                lblOtherInfo1.Text += this.teacherInfo.idHomeroomClass == "NO" ? "Chưa có lớp chủ nhiệm" : this.teacherInfo.idHomeroomClass;
                 lblOtherInfo2.Text = "Phụ trách môn: " + this.teacherInfo.subjectName;
                 lblOtherInfo3.Text = "Lương: " + this.teacherInfo.salary;
             }

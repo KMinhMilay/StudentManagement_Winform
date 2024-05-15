@@ -38,12 +38,12 @@
             label13 = new Label();
             label12 = new Label();
             groupBox3 = new GroupBox();
-            button4 = new Button();
-            button3 = new Button();
-            button5 = new Button();
-            button2 = new Button();
-            button1 = new Button();
-            groupBox2 = new GroupBox();
+            btnRefresh = new Button();
+            btnAdd = new Button();
+            btnStatisticize = new Button();
+            btnUpdate = new Button();
+            btnDelete = new Button();
+            grpBoxForm = new GroupBox();
             btnBack = new Button();
             btnAccept = new Button();
             textBox6 = new TextBox();
@@ -87,7 +87,7 @@
             columnHeader12 = new ColumnHeader();
             groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
-            groupBox2.SuspendLayout();
+            grpBoxForm.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -177,11 +177,11 @@
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(button4);
-            groupBox3.Controls.Add(button3);
-            groupBox3.Controls.Add(button5);
-            groupBox3.Controls.Add(button2);
-            groupBox3.Controls.Add(button1);
+            groupBox3.Controls.Add(btnRefresh);
+            groupBox3.Controls.Add(btnAdd);
+            groupBox3.Controls.Add(btnStatisticize);
+            groupBox3.Controls.Add(btnUpdate);
+            groupBox3.Controls.Add(btnDelete);
             groupBox3.Location = new Point(10, 454);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(1080, 67);
@@ -189,86 +189,90 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Khác";
             // 
-            // button4
+            // btnRefresh
             // 
-            button4.Location = new Point(651, 20);
-            button4.Name = "button4";
-            button4.Size = new Size(88, 39);
-            button4.TabIndex = 5;
-            button4.Text = "TẢI LẠI";
-            button4.UseVisualStyleBackColor = true;
+            btnRefresh.Location = new Point(651, 20);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(88, 39);
+            btnRefresh.TabIndex = 5;
+            btnRefresh.Text = "TẢI LẠI";
+            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Click += btnRefresh_Click;
             // 
-            // button3
+            // btnAdd
             // 
-            button3.Location = new Point(369, 20);
-            button3.Name = "button3";
-            button3.Size = new Size(88, 39);
-            button3.TabIndex = 2;
-            button3.Text = "THÊM";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
+            btnAdd.Location = new Point(369, 20);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(88, 39);
+            btnAdd.TabIndex = 2;
+            btnAdd.Text = "THÊM";
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += button3_Click;
             // 
-            // button5
+            // btnStatisticize
             // 
-            button5.Location = new Point(745, 20);
-            button5.Name = "button5";
-            button5.Size = new Size(88, 39);
-            button5.TabIndex = 4;
-            button5.Text = "THỐNG KÊ";
-            button5.UseVisualStyleBackColor = true;
+            btnStatisticize.Location = new Point(745, 20);
+            btnStatisticize.Name = "btnStatisticize";
+            btnStatisticize.Size = new Size(88, 39);
+            btnStatisticize.TabIndex = 4;
+            btnStatisticize.Text = "THỐNG KÊ";
+            btnStatisticize.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnUpdate
             // 
-            button2.Location = new Point(463, 20);
-            button2.Name = "button2";
-            button2.Size = new Size(88, 39);
-            button2.TabIndex = 1;
-            button2.Text = "CẬP NHẬT";
-            button2.UseVisualStyleBackColor = true;
+            btnUpdate.Location = new Point(463, 20);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(88, 39);
+            btnUpdate.TabIndex = 1;
+            btnUpdate.Text = "CẬP NHẬT";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
-            // button1
+            // btnDelete
             // 
-            button1.Location = new Point(557, 20);
-            button1.Name = "button1";
-            button1.Size = new Size(88, 39);
-            button1.TabIndex = 0;
-            button1.Text = "XÓA";
-            button1.UseVisualStyleBackColor = true;
+            btnDelete.Enabled = false;
+            btnDelete.Location = new Point(557, 20);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(88, 39);
+            btnDelete.TabIndex = 0;
+            btnDelete.Text = "XÓA";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
-            // groupBox2
+            // grpBoxForm
             // 
-            groupBox2.Controls.Add(btnBack);
-            groupBox2.Controls.Add(btnAccept);
-            groupBox2.Controls.Add(textBox6);
-            groupBox2.Controls.Add(label16);
-            groupBox2.Controls.Add(comboBox5);
-            groupBox2.Controls.Add(label11);
-            groupBox2.Controls.Add(comboBox3);
-            groupBox2.Controls.Add(label1);
-            groupBox2.Controls.Add(labelMTK);
-            groupBox2.Controls.Add(label2);
-            groupBox2.Controls.Add(label3);
-            groupBox2.Controls.Add(label4);
-            groupBox2.Controls.Add(label5);
-            groupBox2.Controls.Add(label6);
-            groupBox2.Controls.Add(comboBox2);
-            groupBox2.Controls.Add(label7);
-            groupBox2.Controls.Add(textBox5);
-            groupBox2.Controls.Add(label8);
-            groupBox2.Controls.Add(textBox4);
-            groupBox2.Controls.Add(label9);
-            groupBox2.Controls.Add(textBox3);
-            groupBox2.Controls.Add(label10);
-            groupBox2.Controls.Add(comboBox1);
-            groupBox2.Controls.Add(textBox1);
-            groupBox2.Controls.Add(dateTimePicker1);
-            groupBox2.Controls.Add(textBox2);
-            groupBox2.Location = new Point(679, 73);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(411, 375);
-            groupBox2.TabIndex = 5;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Thông tin";
+            grpBoxForm.Controls.Add(btnBack);
+            grpBoxForm.Controls.Add(btnAccept);
+            grpBoxForm.Controls.Add(textBox6);
+            grpBoxForm.Controls.Add(label16);
+            grpBoxForm.Controls.Add(comboBox5);
+            grpBoxForm.Controls.Add(label11);
+            grpBoxForm.Controls.Add(comboBox3);
+            grpBoxForm.Controls.Add(label1);
+            grpBoxForm.Controls.Add(labelMTK);
+            grpBoxForm.Controls.Add(label2);
+            grpBoxForm.Controls.Add(label3);
+            grpBoxForm.Controls.Add(label4);
+            grpBoxForm.Controls.Add(label5);
+            grpBoxForm.Controls.Add(label6);
+            grpBoxForm.Controls.Add(comboBox2);
+            grpBoxForm.Controls.Add(label7);
+            grpBoxForm.Controls.Add(textBox5);
+            grpBoxForm.Controls.Add(label8);
+            grpBoxForm.Controls.Add(textBox4);
+            grpBoxForm.Controls.Add(label9);
+            grpBoxForm.Controls.Add(textBox3);
+            grpBoxForm.Controls.Add(label10);
+            grpBoxForm.Controls.Add(comboBox1);
+            grpBoxForm.Controls.Add(textBox1);
+            grpBoxForm.Controls.Add(dateTimePicker1);
+            grpBoxForm.Controls.Add(textBox2);
+            grpBoxForm.Location = new Point(679, 73);
+            grpBoxForm.Name = "grpBoxForm";
+            grpBoxForm.Size = new Size(411, 375);
+            grpBoxForm.TabIndex = 5;
+            grpBoxForm.TabStop = false;
+            grpBoxForm.Text = "Thông tin";
             // 
             // btnBack
             // 
@@ -288,6 +292,7 @@
             btnAccept.TabIndex = 56;
             btnAccept.Text = "Xác nhận";
             btnAccept.UseVisualStyleBackColor = true;
+            btnAccept.Click += btnAccept_Click;
             // 
             // textBox6
             // 
@@ -520,12 +525,15 @@
             // listViewGiaoVien
             // 
             listViewGiaoVien.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8, columnHeader9, columnHeader10, columnHeader11, columnHeader12 });
+            listViewGiaoVien.FullRowSelect = true;
             listViewGiaoVien.Location = new Point(12, 26);
+            listViewGiaoVien.MultiSelect = false;
             listViewGiaoVien.Name = "listViewGiaoVien";
             listViewGiaoVien.Size = new Size(633, 332);
             listViewGiaoVien.TabIndex = 0;
             listViewGiaoVien.UseCompatibleStateImageBehavior = false;
             listViewGiaoVien.View = View.Details;
+            listViewGiaoVien.SelectedIndexChanged += listViewGiaoVien_SelectedIndexChanged;
             // 
             // columnHeader1
             // 
@@ -582,15 +590,16 @@
             ClientSize = new Size(1100, 524);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
-            Controls.Add(groupBox2);
+            Controls.Add(grpBoxForm);
             Controls.Add(groupBox1);
             Name = "frmQLGiaoVien";
             Text = "frmQLGiaoVien";
+            Load += frmQLGiaoVien_Load;
             groupBox4.ResumeLayout(false);
             groupBox4.PerformLayout();
             groupBox3.ResumeLayout(false);
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
+            grpBoxForm.ResumeLayout(false);
+            grpBoxForm.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
@@ -606,12 +615,12 @@
         private Label label14;
         private Label label12;
         private GroupBox groupBox3;
-        private Button button4;
-        private Button button3;
-        private Button button5;
-        private Button button2;
-        private Button button1;
-        private GroupBox groupBox2;
+        private Button btnRefresh;
+        private Button btnAdd;
+        private Button btnStatisticize;
+        private Button btnUpdate;
+        private Button btnDelete;
+        private GroupBox grpBoxForm;
         private ComboBox comboBox3;
         private Label label1;
         private Label labelMTK;

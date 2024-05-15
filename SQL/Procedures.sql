@@ -1,6 +1,13 @@
 -- NGUYEN HOANG TRUNG
 -- Login
-create proc SP_Login
+--
+--select * from GIAOVIEN
+--select * from HOCSINH where TENDN = 'hocsinh9'
+--update HOCSINH set MATKHAU = 0x024B01916E3EAEC66A2C4B6FC587B1705F1A6FC8 where IDHS = 'HS9-11A3'
+--exec SP_Login 'hocsinh9', 'password9', '0'
+--go
+---------------
+alter proc SP_Login
 @username varchar(32), @password varchar(max), @role varchar(1)
 as
 begin
@@ -8,33 +15,37 @@ begin
     SET @hashedPassword =	CONVERT(VARBINARY(MAX), HASHBYTES('SHA1', @password), 1);
 	if @role = '0'
 		begin
-			select IDHS as 'ID', TENDN, IDLOP as 'LOP', 'hocsinh' as 'LOAITAIKHOAN', 'hocsinhthuong' as 'CHUCVU'
+			select top 1 IDHS as 'ID', TENDN, IDLOP as 'LOP', 'hocsinh' as 'LOAITAIKHOAN', 'hocsinhthuong' as 'CHUCVU'
 			from HOCSINH
 			where TENDN = @username and MATKHAU = @hashedPassword and (IDTRANGTHAI = 'BL' or IDTRANGTHAI = 'DH') and isEnable = 'Yes'
+			order by IDLOP desc
 		end
 	if @role = '1'
 		begin
-			select IDHS as 'ID', TENDN, IDLOP as 'LOP', 'hocsinh' as 'LOAITAIKHOAN', 'loptruong' as 'CHUCVU'
+			select top 1 IDHS as 'ID', TENDN, IDLOP as 'LOP', 'hocsinh' as 'LOAITAIKHOAN', 'loptruong' as 'CHUCVU'
 			from HOCSINH
 			where IDCV = 'LT' and TENDN = @username and MATKHAU = @hashedPassword and (IDTRANGTHAI = 'BL' or IDTRANGTHAI = 'DH') and isEnable = 'Yes'
+			order by IDLOP desc
 		end
 	if @role = '2'
 		begin
-			select IDGV as 'ID', TENDN, IDLOPCN as 'LOP', 'giaovien' as 'LOAITAIKHOAN', 'giaovienthuong' as 'CHUCVU'
+			select top 1 IDGV as 'ID', TENDN, IDLOPCN as 'LOP', 'giaovien' as 'LOAITAIKHOAN', 'giaovienthuong' as 'CHUCVU'
 			from GIAOVIEN
-			where TENDN = @username and MATKHAU = @hashedPassword and isEnable = 'Yes' 
+			where TENDN = @username and MATKHAU = @hashedPassword and isEnable = 'Yes'
+			order by IDLOPCN desc
 		end
 	if @role = '3'
 		begin
-			select IDGV as 'ID', TENDN, IDLOPCN as 'LOP', 'giaovien' as 'LOAITAIKHOAN', 'admin' as 'CHUCVU'
+			select top 1 IDGV as 'ID', TENDN, IDLOPCN as 'LOP', 'giaovien' as 'LOAITAIKHOAN', 'admin' as 'CHUCVU'
 			from GIAOVIEN
 			where VAITRO = 3 and TENDN = @username and MATKHAU = @hashedPassword and isEnable = 'Yes'
+			order by IDLOPCN desc
 		end
 end
 go
 
 -- Thong tin ca nhan giao vien
-create proc SP_GetTeacherPersonalInfo
+alter proc SP_GetTeacherPersonalInfo
 @id varchar(64)
 as
 begin
@@ -51,24 +62,26 @@ begin
 	set @decryptedSalary = CONVERT(int,@tmp,1)
 
 
-	select IDGV, HO, TEN, NAMSINH, GIOITINH, QUEQUAN, DIACHI, EMAIL, SDT, @decryptedSalary as 'LUONG', TENMH
+	select top 1 IDGV, HO, TEN, NAMSINH, GIOITINH, QUEQUAN, DIACHI, EMAIL, SDT, IDLOPCN, @decryptedSalary as 'LUONG', TENMH
 	from GIAOVIEN
 		inner join MONHOC on GIAOVIEN.IDMH = MONHOC.IDMH
 	where IDGV = @id
+	order by IDLOPCN
 end
 go
 
 -- Thong tin ca nhan hoc sinh
-create proc SP_GetStudentPersonalInfo
+alter proc SP_GetStudentPersonalInfo
 @id varchar(64)
 as
 begin
-	select IDHS, hs.HO, hs.TEN, hs.NAMSINH, hs.GIOITINH, hs.QUEQUAN, hs.DIACHI, hs.EMAIL, hs.SDT, SDTPH, TENPH, gv.HO + ' ' + gv.TEN as 'TENGV', TENCV, TENTRANGTHAI as 'TRANGTHAI'
+	select top 1 IDHS, hs.HO, hs.TEN, hs.NAMSINH, hs.GIOITINH, hs.QUEQUAN, hs.DIACHI, hs.EMAIL, hs.SDT, IDLOP, SDTPH, TENPH, gv.HO + ' ' + gv.TEN as 'TENGV', TENCV, TENTRANGTHAI as 'TRANGTHAI'
 	from HOCSINH hs
 		inner join GIAOVIEN gv on hs.IDGV = gv.IDGV
 		inner join CHUCVU cv on hs.IDCV = cv.IDCV
 		inner join TRANGTHAI tt on hs.IDTRANGTHAI = tt.IDTRANGTHAI
 	where IDHS = @id
+	order by IDLOP
 end
 go
 
@@ -160,6 +173,46 @@ begin
 	update GIAOVIEN
 	set HO = @HO, TEN = @TEN, NAMSINH = @NAMSINH, GIOITINH = @GIOITINH, QUEQUAN = @QUEQUAN, DIACHI = @DIACHI, EMAIL = @EMAIL, SDT = @SDT
 	where IDGV = @IDGV
+end
+go
+
+create function DecryptSalary (@id varchar(64))
+returns int
+as
+begin
+	declare @encryptedSalary varbinary(max)
+	declare @decryptedSalary int
+	declare @pwd NVARCHAR(max)
+
+	select @encryptedSalary = LUONG, @pwd = convert(nvarchar(max), MATKHAU,1)
+	from GIAOVIEN
+	where IDGV = @id
+
+	declare @tmp varchar(max)
+	set @tmp = CONVERT(varchar(max), DECRYPTBYASYMKEY(ASYMKEY_ID(@id), @encryptedSalary, @pwd))
+	set @decryptedSalary = CONVERT(int,@tmp,1)
+	return @decryptedSalary
+end
+go
+
+create function EncryptSalary (@id varchar(64), @luong int)
+returns varbinary(max)
+as
+begin
+	declare @Salary varchar(100);
+	SET @Salary = CONVERT(varchar(100), @luong, 1);
+	DECLARE @encryptedLUONG VARBINARY(MAX);
+	SET @encryptedLUONG = CONVERT(VARBINARY(MAX),ENCRYPTBYASYMKEY(ASYMKEY_ID(@id),@Salary),1);
+	return @encryptedLUONG
+end
+go
+
+--select * from GIAOVIEN
+create proc SP_GetTeacherList
+as
+begin
+	select IDGV, HO, TEN, NAMSINH, GIOITINH, QUEQUAN, DIACHI, EMAIL, SDT, IDLOPCN, dbo.DecryptSalary(IDGV) as 'LUONG', TENMH
+	from GIAOVIEN inner join MONHOC on GIAOVIEN.IDMH = MONHOC.IDMH
 end
 go
 

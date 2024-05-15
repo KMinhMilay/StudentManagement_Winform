@@ -81,7 +81,8 @@ namespace QuanLiHocSinh
 
         private void btnDSGV_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new frmQLGiaoVien());
+
+            OpenChildForm(new frmQLGiaoVien(this.account));
             label1.Text = btnDSGV.Text;
 
         }
