@@ -25,6 +25,7 @@ namespace QuanLiHocSinh.DTO
             this.teacherName = "";
             this.status = "";
             this.role = "";
+            this.idClass = "";
         }
         public StudentPersonalInformation(DataRow data)
         {
@@ -42,6 +43,7 @@ namespace QuanLiHocSinh.DTO
             this.teacherName = data["TENGV"].ToString();
             this.status = data["TRANGTHAI"].ToString();
             this.role = data["TENCV"].ToString();
+            this.idClass = data["IDLOP"].ToString();
         }
         public string id { get; set; }
         public string lastname { get; set; }
@@ -57,5 +59,6 @@ namespace QuanLiHocSinh.DTO
         public string teacherName { get; set; }
         public string status { get; set; }
         public string role { get; set; }
+        public string idClass { get; set; }
     }
 }
