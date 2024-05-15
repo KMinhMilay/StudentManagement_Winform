@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             groupBox4 = new GroupBox();
-            textBox10 = new TextBox();
-            textBox7 = new TextBox();
-            comboBox4 = new ComboBox();
-            button6 = new Button();
+            txbIdSearch = new TextBox();
+            txbNameSearch = new TextBox();
+            cmbClassSearch = new ComboBox();
+            btnSearch = new Button();
             label15 = new Label();
             label14 = new Label();
             label13 = new Label();
@@ -46,30 +46,29 @@
             grpBoxForm = new GroupBox();
             btnBack = new Button();
             btnAccept = new Button();
-            textBox6 = new TextBox();
+            txbSalary = new TextBox();
             label16 = new Label();
-            comboBox5 = new ComboBox();
+            cmbSubject = new ComboBox();
             label11 = new Label();
-            comboBox3 = new ComboBox();
+            cmbHomeroomClass = new ComboBox();
             label1 = new Label();
-            labelMTK = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
-            comboBox2 = new ComboBox();
+            cmbHometown = new ComboBox();
             label7 = new Label();
-            textBox5 = new TextBox();
+            txbPhoneNumber = new TextBox();
             label8 = new Label();
-            textBox4 = new TextBox();
+            txbEmail = new TextBox();
             label9 = new Label();
-            textBox3 = new TextBox();
+            txbAddress = new TextBox();
             label10 = new Label();
-            comboBox1 = new ComboBox();
-            textBox1 = new TextBox();
-            dateTimePicker1 = new DateTimePicker();
-            textBox2 = new TextBox();
+            cmbGender = new ComboBox();
+            txbLastname = new TextBox();
+            birthdatePicker = new DateTimePicker();
+            txbFirstname = new TextBox();
             groupBox1 = new GroupBox();
             labelAddGV = new Label();
             listViewGiaoVien = new ListView();
@@ -85,6 +84,7 @@
             columnHeader10 = new ColumnHeader();
             columnHeader11 = new ColumnHeader();
             columnHeader12 = new ColumnHeader();
+            txbId = new TextBox();
             groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
             grpBoxForm.SuspendLayout();
@@ -93,10 +93,10 @@
             // 
             // groupBox4
             // 
-            groupBox4.Controls.Add(textBox10);
-            groupBox4.Controls.Add(textBox7);
-            groupBox4.Controls.Add(comboBox4);
-            groupBox4.Controls.Add(button6);
+            groupBox4.Controls.Add(txbIdSearch);
+            groupBox4.Controls.Add(txbNameSearch);
+            groupBox4.Controls.Add(cmbClassSearch);
+            groupBox4.Controls.Add(btnSearch);
             groupBox4.Controls.Add(label15);
             groupBox4.Controls.Add(label14);
             groupBox4.Controls.Add(label13);
@@ -108,37 +108,37 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Tìm kiếm";
             // 
-            // textBox10
+            // txbIdSearch
             // 
-            textBox10.Location = new Point(191, 24);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(197, 23);
-            textBox10.TabIndex = 9;
+            txbIdSearch.Location = new Point(191, 24);
+            txbIdSearch.Name = "txbIdSearch";
+            txbIdSearch.Size = new Size(197, 23);
+            txbIdSearch.TabIndex = 9;
             // 
-            // textBox7
+            // txbNameSearch
             // 
-            textBox7.Location = new Point(502, 23);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(197, 23);
-            textBox7.TabIndex = 8;
+            txbNameSearch.Location = new Point(502, 23);
+            txbNameSearch.Name = "txbNameSearch";
+            txbNameSearch.Size = new Size(197, 23);
+            txbNameSearch.TabIndex = 8;
             // 
-            // comboBox4
+            // cmbClassSearch
             // 
-            comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(797, 23);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(123, 23);
-            comboBox4.TabIndex = 7;
+            cmbClassSearch.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbClassSearch.FormattingEnabled = true;
+            cmbClassSearch.Location = new Point(797, 23);
+            cmbClassSearch.Name = "cmbClassSearch";
+            cmbClassSearch.Size = new Size(123, 23);
+            cmbClassSearch.TabIndex = 7;
             // 
-            // button6
+            // btnSearch
             // 
-            button6.Location = new Point(927, 21);
-            button6.Name = "button6";
-            button6.Size = new Size(88, 27);
-            button6.TabIndex = 6;
-            button6.Text = "TÌM KIẾM";
-            button6.UseVisualStyleBackColor = true;
+            btnSearch.Location = new Point(927, 21);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(88, 27);
+            btnSearch.TabIndex = 6;
+            btnSearch.Text = "TÌM KIẾM";
+            btnSearch.UseVisualStyleBackColor = true;
             // 
             // label15
             // 
@@ -241,32 +241,32 @@
             // 
             // grpBoxForm
             // 
+            grpBoxForm.Controls.Add(txbId);
             grpBoxForm.Controls.Add(btnBack);
             grpBoxForm.Controls.Add(btnAccept);
-            grpBoxForm.Controls.Add(textBox6);
+            grpBoxForm.Controls.Add(txbSalary);
             grpBoxForm.Controls.Add(label16);
-            grpBoxForm.Controls.Add(comboBox5);
+            grpBoxForm.Controls.Add(cmbSubject);
             grpBoxForm.Controls.Add(label11);
-            grpBoxForm.Controls.Add(comboBox3);
+            grpBoxForm.Controls.Add(cmbHomeroomClass);
             grpBoxForm.Controls.Add(label1);
-            grpBoxForm.Controls.Add(labelMTK);
             grpBoxForm.Controls.Add(label2);
             grpBoxForm.Controls.Add(label3);
             grpBoxForm.Controls.Add(label4);
             grpBoxForm.Controls.Add(label5);
             grpBoxForm.Controls.Add(label6);
-            grpBoxForm.Controls.Add(comboBox2);
+            grpBoxForm.Controls.Add(cmbHometown);
             grpBoxForm.Controls.Add(label7);
-            grpBoxForm.Controls.Add(textBox5);
+            grpBoxForm.Controls.Add(txbPhoneNumber);
             grpBoxForm.Controls.Add(label8);
-            grpBoxForm.Controls.Add(textBox4);
+            grpBoxForm.Controls.Add(txbEmail);
             grpBoxForm.Controls.Add(label9);
-            grpBoxForm.Controls.Add(textBox3);
+            grpBoxForm.Controls.Add(txbAddress);
             grpBoxForm.Controls.Add(label10);
-            grpBoxForm.Controls.Add(comboBox1);
-            grpBoxForm.Controls.Add(textBox1);
-            grpBoxForm.Controls.Add(dateTimePicker1);
-            grpBoxForm.Controls.Add(textBox2);
+            grpBoxForm.Controls.Add(cmbGender);
+            grpBoxForm.Controls.Add(txbLastname);
+            grpBoxForm.Controls.Add(birthdatePicker);
+            grpBoxForm.Controls.Add(txbFirstname);
             grpBoxForm.Location = new Point(679, 73);
             grpBoxForm.Name = "grpBoxForm";
             grpBoxForm.Size = new Size(411, 375);
@@ -294,12 +294,12 @@
             btnAccept.UseVisualStyleBackColor = true;
             btnAccept.Click += btnAccept_Click;
             // 
-            // textBox6
+            // txbSalary
             // 
-            textBox6.Location = new Point(279, 245);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(112, 23);
-            textBox6.TabIndex = 56;
+            txbSalary.Location = new Point(279, 245);
+            txbSalary.Name = "txbSalary";
+            txbSalary.Size = new Size(112, 23);
+            txbSalary.TabIndex = 56;
             // 
             // label16
             // 
@@ -310,15 +310,14 @@
             label16.TabIndex = 55;
             label16.Text = "Lương:";
             // 
-            // comboBox5
+            // cmbSubject
             // 
-            comboBox5.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox5.FormattingEnabled = true;
-            comboBox5.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox5.Location = new Point(279, 179);
-            comboBox5.Name = "comboBox5";
-            comboBox5.Size = new Size(112, 23);
-            comboBox5.TabIndex = 54;
+            cmbSubject.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSubject.FormattingEnabled = true;
+            cmbSubject.Location = new Point(279, 179);
+            cmbSubject.Name = "cmbSubject";
+            cmbSubject.Size = new Size(112, 23);
+            cmbSubject.TabIndex = 54;
             // 
             // label11
             // 
@@ -329,15 +328,14 @@
             label11.TabIndex = 53;
             label11.Text = "Môn học phụ trách:";
             // 
-            // comboBox3
+            // cmbHomeroomClass
             // 
-            comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox3.Location = new Point(279, 115);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(112, 23);
-            comboBox3.TabIndex = 52;
+            cmbHomeroomClass.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbHomeroomClass.FormattingEnabled = true;
+            cmbHomeroomClass.Location = new Point(279, 115);
+            cmbHomeroomClass.Name = "cmbHomeroomClass";
+            cmbHomeroomClass.Size = new Size(112, 23);
+            cmbHomeroomClass.TabIndex = 52;
             // 
             // label1
             // 
@@ -347,15 +345,6 @@
             label1.Size = new Size(90, 15);
             label1.TabIndex = 49;
             label1.Text = "Lớp chủ nhiệm:";
-            // 
-            // labelMTK
-            // 
-            labelMTK.AutoSize = true;
-            labelMTK.Location = new Point(128, 42);
-            labelMTK.Name = "labelMTK";
-            labelMTK.Size = new Size(86, 15);
-            labelMTK.TabIndex = 48;
-            labelMTK.Text = "\"Mã tài khoản\"";
             // 
             // label2
             // 
@@ -402,15 +391,15 @@
             label6.TabIndex = 31;
             label6.Text = "Giới tính: ";
             // 
-            // comboBox2
+            // cmbHometown
             // 
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox2.Location = new Point(111, 197);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(128, 23);
-            comboBox2.TabIndex = 43;
+            cmbHometown.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbHometown.FormattingEnabled = true;
+            cmbHometown.Items.AddRange(new object[] { "An Giang", "Bà Rịa-Vũng Tàu", "Bạc Liêu", "Bắc Kạn", "Bắc Giang", "Bắc Ninh", "Bến Tre", "Bình Dương", "Bình Định", "Bình Phước", "Bình Thuận", "Cà Mau", "Cao Bằng", "Cần Thơ", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tây", "Hà Tĩnh", "Hải Dương", "Hải Phòng", "Hòa Bình", "TP. Hồ Chí Minh", "Hậu Giang", "Hưng Yên", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lào Cai", "Lạng Sơn", "Lâm Đồng", "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên – Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái" });
+            cmbHometown.Location = new Point(111, 197);
+            cmbHometown.Name = "cmbHometown";
+            cmbHometown.Size = new Size(128, 23);
+            cmbHometown.TabIndex = 43;
             // 
             // label7
             // 
@@ -421,12 +410,12 @@
             label7.TabIndex = 32;
             label7.Text = "Quê quán:";
             // 
-            // textBox5
+            // txbPhoneNumber
             // 
-            textBox5.Location = new Point(111, 297);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(128, 23);
-            textBox5.TabIndex = 42;
+            txbPhoneNumber.Location = new Point(111, 297);
+            txbPhoneNumber.Name = "txbPhoneNumber";
+            txbPhoneNumber.Size = new Size(128, 23);
+            txbPhoneNumber.TabIndex = 42;
             // 
             // label8
             // 
@@ -437,12 +426,12 @@
             label8.TabIndex = 33;
             label8.Text = "Địa chỉ:";
             // 
-            // textBox4
+            // txbEmail
             // 
-            textBox4.Location = new Point(111, 264);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(128, 23);
-            textBox4.TabIndex = 41;
+            txbEmail.Location = new Point(111, 264);
+            txbEmail.Name = "txbEmail";
+            txbEmail.Size = new Size(128, 23);
+            txbEmail.TabIndex = 41;
             // 
             // label9
             // 
@@ -453,12 +442,12 @@
             label9.TabIndex = 34;
             label9.Text = "Email: ";
             // 
-            // textBox3
+            // txbAddress
             // 
-            textBox3.Location = new Point(111, 232);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(128, 23);
-            textBox3.TabIndex = 40;
+            txbAddress.Location = new Point(111, 232);
+            txbAddress.Name = "txbAddress";
+            txbAddress.Size = new Size(128, 23);
+            txbAddress.TabIndex = 40;
             // 
             // label10
             // 
@@ -469,37 +458,37 @@
             label10.TabIndex = 35;
             label10.Text = "SDT:";
             // 
-            // comboBox1
+            // cmbGender
             // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Nam", "Nữ", "Khác" });
-            comboBox1.Location = new Point(111, 163);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(128, 23);
-            comboBox1.TabIndex = 39;
+            cmbGender.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbGender.FormattingEnabled = true;
+            cmbGender.Items.AddRange(new object[] { "Nam", "Nữ" });
+            cmbGender.Location = new Point(111, 163);
+            cmbGender.Name = "cmbGender";
+            cmbGender.Size = new Size(128, 23);
+            cmbGender.TabIndex = 39;
             // 
-            // textBox1
+            // txbLastname
             // 
-            textBox1.Location = new Point(111, 69);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(128, 23);
-            textBox1.TabIndex = 36;
+            txbLastname.Location = new Point(111, 69);
+            txbLastname.Name = "txbLastname";
+            txbLastname.Size = new Size(128, 23);
+            txbLastname.TabIndex = 36;
             // 
-            // dateTimePicker1
+            // birthdatePicker
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(111, 131);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(128, 23);
-            dateTimePicker1.TabIndex = 38;
+            birthdatePicker.Format = DateTimePickerFormat.Short;
+            birthdatePicker.Location = new Point(111, 131);
+            birthdatePicker.Name = "birthdatePicker";
+            birthdatePicker.Size = new Size(128, 23);
+            birthdatePicker.TabIndex = 38;
             // 
-            // textBox2
+            // txbFirstname
             // 
-            textBox2.Location = new Point(111, 99);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(128, 23);
-            textBox2.TabIndex = 37;
+            txbFirstname.Location = new Point(111, 99);
+            txbFirstname.Name = "txbFirstname";
+            txbFirstname.Size = new Size(128, 23);
+            txbFirstname.TabIndex = 37;
             // 
             // groupBox1
             // 
@@ -583,6 +572,13 @@
             // 
             columnHeader12.Text = "Lương";
             // 
+            // txbId
+            // 
+            txbId.Location = new Point(111, 39);
+            txbId.Name = "txbId";
+            txbId.Size = new Size(128, 23);
+            txbId.TabIndex = 37;
+            // 
             // frmQLGiaoVien
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -608,9 +604,9 @@
         #endregion
 
         private GroupBox groupBox4;
-        private TextBox textBox10;
-        private ComboBox comboBox4;
-        private Button button6;
+        private TextBox txbIdSearch;
+        private ComboBox cmbClassSearch;
+        private Button btnSearch;
         private Label label15;
         private Label label14;
         private Label label12;
@@ -621,33 +617,32 @@
         private Button btnUpdate;
         private Button btnDelete;
         private GroupBox grpBoxForm;
-        private ComboBox comboBox3;
+        private ComboBox cmbHomeroomClass;
         private Label label1;
-        private Label labelMTK;
         private Label label2;
         private Label label3;
         private Label label4;
         private Label label5;
         private Label label6;
-        private ComboBox comboBox2;
+        private ComboBox cmbHometown;
         private Label label7;
-        private TextBox textBox5;
+        private TextBox txbPhoneNumber;
         private Label label8;
-        private TextBox textBox4;
+        private TextBox txbEmail;
         private Label label9;
-        private TextBox textBox3;
+        private TextBox txbAddress;
         private Label label10;
-        private ComboBox comboBox1;
-        private TextBox textBox1;
-        private DateTimePicker dateTimePicker1;
-        private TextBox textBox2;
+        private ComboBox cmbGender;
+        private TextBox txbLastname;
+        private DateTimePicker birthdatePicker;
+        private TextBox txbFirstname;
         private GroupBox groupBox1;
         private ListView listViewGiaoVien;
-        private TextBox textBox7;
+        private TextBox txbNameSearch;
         private Label label13;
-        private TextBox textBox6;
+        private TextBox txbSalary;
         private Label label16;
-        private ComboBox comboBox5;
+        private ComboBox cmbSubject;
         private Label label11;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
@@ -664,5 +659,6 @@
         private Label labelAddGV;
         private Button btnBack;
         private Button btnAccept;
+        private TextBox txbId;
     }
 }

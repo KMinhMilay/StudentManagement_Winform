@@ -1,12 +1,7 @@
 -- NGUYEN HOANG TRUNG
--- Login
---
---select * from GIAOVIEN
---select * from HOCSINH where TENDN = 'hocsinh9'
---update HOCSINH set MATKHAU = 0x024B01916E3EAEC66A2C4B6FC587B1705F1A6FC8 where IDHS = 'HS9-11A3'
---exec SP_Login 'hocsinh9', 'password9', '0'
---go
----------------
+
+
+--Login
 alter proc SP_Login
 @username varchar(32), @password varchar(max), @role varchar(1)
 as
@@ -44,7 +39,7 @@ begin
 end
 go
 
--- Thong tin ca nhan giao vien
+--Lấy thông tin cá nhân giáo viên
 alter proc SP_GetTeacherPersonalInfo
 @id varchar(64)
 as
@@ -70,7 +65,7 @@ begin
 end
 go
 
--- Thong tin ca nhan hoc sinh
+--Lấy thông tin cá nhân học sinh
 alter proc SP_GetStudentPersonalInfo
 @id varchar(64)
 as
@@ -85,7 +80,7 @@ begin
 end
 go
 
--- Thay doi mat khau
+-- Đổi mật khẩu
 create proc SP_ChangePassword
 @id varchar(64), @password varchar(max), @accountType varchar(20)
 as
@@ -136,7 +131,7 @@ begin
 end
 go
 
---Thay doi thong tin hoc sinh
+--Thay đổi thông tin học sinh
 create proc SP_UpdateStudentPersonalInfo
 @IDHS varchar(64),
 @HO nvarchar(64),
@@ -157,7 +152,7 @@ begin
 end
 go
 
---Thay doi thong tin giao vien
+--Thay đổi thông tin giáo viên
 create proc SP_UpdateTeacherPersonalInfo
 @IDGV varchar(64),
 @HO nvarchar(64),
@@ -176,6 +171,7 @@ begin
 end
 go
 
+--function giải mã lương
 create function DecryptSalary (@id varchar(64))
 returns int
 as
@@ -195,6 +191,7 @@ begin
 end
 go
 
+--Function mã hóa lương
 create function EncryptSalary (@id varchar(64), @luong int)
 returns varbinary(max)
 as
@@ -207,16 +204,119 @@ begin
 end
 go
 
---select * from GIAOVIEN
-create proc SP_GetTeacherList
+--Lấy danh sách giáo viên
+alter proc SP_GetTeacherList
 as
 begin
 	select IDGV, HO, TEN, NAMSINH, GIOITINH, QUEQUAN, DIACHI, EMAIL, SDT, IDLOPCN, dbo.DecryptSalary(IDGV) as 'LUONG', TENMH
 	from GIAOVIEN inner join MONHOC on GIAOVIEN.IDMH = MONHOC.IDMH
+	where isEnable = 'Yes'
+end
+go
+
+--Lấy danh sách lớp
+create proc SP_GetClassList
+as
+begin
+	select IDLOP
+	from LOP
+end
+go
+
+--Lấy danh sách môn học
+alter proc SP_GetSubjectList
+as
+begin
+	select TENMH
+	from MONHOC
+end
+go
+
+--Xóa thông tin giáo viên
+--exec SP_DeleteTeacher 'GV001'
+create proc SP_DeleteTeacher
+@id varchar(64)
+as
+begin
+	update GIAOVIEN
+	set isEnable = 'No'
+	where IDGV = @id
+end
+go
+
+--Thay đổi thông tin giáo viên bởi admin
+create proc SP_UpdateTeacherInfo_ByAdmin
+@IDGV varchar(64),
+@HO nvarchar(64),
+@TEN nvarchar(32),
+@NAMSINH datetime,
+@GIOITINH nvarchar(10),
+@QUEQUAN nvarchar(64),
+@DIACHI nvarchar(64),
+@EMAIL nvarchar(64),
+@SDT varchar(12),
+@IDLOPCN varchar(32),
+@LUONG int,
+@TENMH nvarchar(64)
+as
+begin
+	declare @encryptedSalary varbinary(max)
+	set @encryptedSalary = dbo.EncryptSalary(@IDGV, @LUONG)
+
+	declare @idmh varchar(32)
+	select @idmh = IDMH from MONHOC where TENMH = @TENMH
+	
+	update GIAOVIEN
+	set	HO = @HO, TEN = @TEN, NAMSINH = @NAMSINH, GIOITINH = @GIOITINH, QUEQUAN = @QUEQUAN, DIACHI = @DIACHI, EMAIL = @EMAIL, SDT = @SDT, IDLOPCN = @IDLOPCN, LUONG = @encryptedSalary, IDMH = @idmh
+	where IDGV = @IDGV
+end
+go
+
+--Thêm thông tin giáo viên bởi admin
+alter proc SP_AddTeacherInfo_ByAdmin
+@IDGV varchar(64),
+@HO nvarchar(64),
+@TEN nvarchar(32),
+@NAMSINH datetime,
+@GIOITINH nvarchar(10),
+@QUEQUAN nvarchar(64),
+@DIACHI nvarchar(64),
+@EMAIL nvarchar(64),
+@SDT varchar(12),
+@IDLOPCN varchar(32),
+@LUONG int,
+@TENMH nvarchar(64)
+as
+begin
+	--hash password
+	declare @hashedPW varbinary(max);
+    SET @hashedPW = CONVERT(VARBINARY(MAX), HASHBYTES('SHA1', @IDGV), 1);
+
+	--create asymmetric key
+	DECLARE @Sql NVARCHAR(MAX)
+	DECLARE @pwd NVARCHAR(max)
+	SET @pwd = CONVERT(nvarchar(max),@hashedPW,1)
+
+	SET @Sql = N'CREATE ASYMMETRIC KEY ' + QUOTENAME(@IDGV) + 
+			   N' WITH ALGORITHM = RSA_2048
+               ENCRYPTION BY PASSWORD = ''' + @pwd + ''';';
+	EXEC sp_executesql @Sql;
+
+	--encrypt salary
+	declare @encryptedSalary varbinary(max)
+	set @encryptedSalary = dbo.EncryptSalary(@IDGV, @LUONG)
+
+	--find subject id
+	declare @idmh varchar(32)
+	select @idmh = IDMH from MONHOC where TENMH = @TENMH
+	insert into GIAOVIEN(IDGV,HO,TEN,NAMSINH,GIOITINH,QUEQUAN,DIACHI,EMAIL,SDT,IDLOPCN,LUONG,IDMH,TENDN,MATKHAU,VAITRO,isEnable)
+	values(@IDGV,@HO,@TEN,@NAMSINH,@GIOITINH,@QUEQUAN,@DIACHI,@EMAIL,@SDT,@IDLOPCN,@encryptedSalary,@idmh,@IDGV,@hashedPW,2,'Yes')
 end
 go
 
 
+
+---------------------------------------------------------------------------------
 -- LE PHU NHAN
 -- exec SP_GET_DANHSACHHOCSINH '1', 'tendn1'
 create PROCEDURE SP_GET_DANHSACHHOCSINH
