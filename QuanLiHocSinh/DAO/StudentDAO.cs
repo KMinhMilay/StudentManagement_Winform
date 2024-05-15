@@ -58,16 +58,22 @@ namespace QuanLiHocSinh.DAO
             DataTable result = DataProvider.Instance.ExecuteQuery(query, new object[] { HoTen });
             return result;
         }
-        public bool DeleteStudentByID(string IDHS)
+        public bool DeleteStudentByID(string IDHS, string IDGV)
         {
-            string query = "DisableStudentByID @IDHS";
-            int rowsAffected = DataProvider.Instance.ExecuteNonQuery(query, new object[] { IDHS });
+            string query = "DisableStudentByID @IDHS , @IDGV";
+            int rowsAffected = DataProvider.Instance.ExecuteNonQuery(query, new object[] { IDHS, IDGV});
             return rowsAffected >= 0;
         }
-        public bool UpdateStudentByID(string IDHS, string Ho, string Ten, DateTime NamSinh, string GioiTinh, string QueQuan, string DiaChi, string Email, string SDT, string IDCV, string IDTRANGTHAI, string SDTPH, string TENPH)
+        public bool UpdateStudentByID(string IDHS, string Ho, string Ten, DateTime NamSinh, string GioiTinh, string QueQuan, string DiaChi, string Email, string SDT, string IDCV, string IDTRANGTHAI, string SDTPH, string TENPH, string IDGV)
         {
-            string query = "UpdateStudentInfo @IDHS , @HO , @TEN , @NAMSINH , @GIOITINH , @QUEQUAN , @DIACHI , @EMAIL , @SDT , @IDCV , @IDTRANGTHAI , @SDTPH , @TENPH";
-            int rowsAffected = DataProvider.Instance.ExecuteNonQuery(query, new object[] { IDHS, Ho, Ten, NamSinh, GioiTinh, QueQuan, DiaChi, Email, SDT, IDCV, IDTRANGTHAI, SDTPH, TENPH });
+            string query = "UpdateStudentInfo @IDHS , @HO , @TEN , @NAMSINH , @GIOITINH , @QUEQUAN , @DIACHI , @EMAIL , @SDT , @IDCV , @IDTRANGTHAI , @SDTPH , @TENPH , @IDGV";
+            int rowsAffected = DataProvider.Instance.ExecuteNonQuery(query, new object[] { IDHS, Ho, Ten, NamSinh, GioiTinh, QueQuan, DiaChi, Email, SDT, IDCV, IDTRANGTHAI, SDTPH, TENPH, IDGV });
+            return rowsAffected >= 0;
+        }
+        public bool UpdateClassStudentByID(string IDHS, string Ho, string Ten, DateTime NamSinh, string GioiTinh, string QueQuan, string DiaChi, string Email, string SDT,string IDLop, string IDCV, string IDGV, string SDTPH, string TENPH)
+        {
+            string query = "SP_DoiLopHocSinh @IDHS , @HO , @TEN , @NAMSINH , @GIOITINH , @QUEQUAN , @DIACHI , @EMAIL , @SDT , @IDLop , @IDCV , @IDGV , @SDTPH , @TENPH";
+            int rowsAffected = DataProvider.Instance.ExecuteNonQuery(query, new object[] { IDHS, Ho, Ten, NamSinh, GioiTinh, QueQuan, DiaChi, Email, SDT, IDLop, IDCV, IDGV, SDTPH, TENPH });
             return rowsAffected >= 0;
         }
 

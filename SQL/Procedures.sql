@@ -1,6 +1,8 @@
+use QLHS
+go
 -- NGUYEN HOANG TRUNG
+-- Login
 
---Login
 alter proc SP_Login
 @username varchar(32), @password varchar(max), @role varchar(1)
 as
@@ -63,6 +65,7 @@ begin
 	order by IDLOPCN
 end
 go
+
 
 --Lấy thông tin cá nhân học sinh
 alter proc SP_GetStudentPersonalInfo
@@ -147,8 +150,10 @@ begin
 end
 go
 
+
 --Thay đổi thông tin học sinh
 alter proc SP_UpdateStudentPersonalInfo
+
 @IDHS varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -197,7 +202,7 @@ begin
 end
 go
 
---function giải mã lương
+--Function giải mã lương
 create function DecryptSalary (@id varchar(64))
 returns int
 as
@@ -231,7 +236,7 @@ end
 go
 
 --Lấy danh sách giáo viên
-alter proc SP_GetTeacherList
+create proc SP_GetTeacherList
 as
 begin
 	select IDGV, HO, TEN, NAMSINH, GIOITINH, QUEQUAN, DIACHI, EMAIL, SDT, IDLOPCN, dbo.DecryptSalary(IDGV) as 'LUONG', TENMH
@@ -250,7 +255,7 @@ end
 go
 
 --Lấy danh sách môn học
-alter proc SP_GetSubjectList
+create proc SP_GetSubjectList
 as
 begin
 	select TENMH
@@ -259,7 +264,7 @@ end
 go
 
 --Xóa thông tin giáo viên
-alter proc SP_DeleteTeacher
+create proc SP_DeleteTeacher
 @id varchar(64)
 as
 begin
@@ -275,7 +280,7 @@ end
 go
 
 --Thay đổi thông tin giáo viên bởi admin
-alter proc SP_UpdateTeacherInfo_ByAdmin
+create proc SP_UpdateTeacherInfo_ByAdmin
 @IDGV varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -308,7 +313,7 @@ end
 go
 
 --Thêm thông tin giáo viên bởi admin
-alter proc SP_AddTeacherInfo_ByAdmin
+create proc SP_AddTeacherInfo_ByAdmin
 @IDGV varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -368,8 +373,8 @@ as
 	end CATCH
 go
 
---
-alter proc SP_RecordTransaction
+--Lưu Transaction
+create proc SP_RecordTransaction
 @transaction_detail nvarchar(max)
 as
 begin
@@ -580,6 +585,7 @@ BEGIN
 END
 go
 
+
 --Exec SearchStudents 'hs1','A','10'
 --go
 create PROCEDURE SP_INS_HOCSINH_AUTO
@@ -620,9 +626,14 @@ BEGIN
 
     -- Thêm học sinh vào bảng bằng cách gọi stored procedure SP_INS_HOCSINH
     EXEC SP_INS_HOCSINH @IDHS, @HO, @TEN, @NAMSINH, @GIOITINH, @QUEQUAN, @DIACHI, @EMAIL, @SDT, @IDLOP, @IDCV, @IDGV, @IDTRANGTHAI, @SDTPH, @TENPH, @TENDN, @MATKHAU;
-END
+	INSERT INTO TransactionHistory (transactionText)
+    VALUES (
+        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Giáo viên có mã ' + @IDGV + 
+        N' đã thêm học sinh có mã là ' + @IDHS + N' có lớp là ' +@IDLOP
+    );END
 go
 --EXEC SP_INS_HOCSINH_AUTO N'Lê Phú', N'Nhân', '2003-01-24', N'Nam', N'Bến Tre', N'27 Ngô Quyền', 'lpn@email.com', '0123456789', '12C3', 'LP', 'GV003', 'DH', '0987654321', N'Kim Uyên'
+
 
 
 CREATE PROCEDURE SP_GET_GIAOVIEN_BY_LOP
@@ -640,6 +651,7 @@ BEGIN
 END
 go
 --SP_GET_GIAOVIEN_BY_LOP '10A2'
+
 
 CREATE PROCEDURE FindTeacherIDByFullName
     @HoTen NVARCHAR(100)
@@ -666,19 +678,25 @@ BEGIN
 END;
 go
 
---EXEC FindTeacherIDByFullName N'Nguyễn Văn G';
 
-CREATE PROCEDURE DisableStudentByID
-    @IDHS VARCHAR(10)
+
+
+create PROCEDURE DisableStudentByID
+@IDHS VARCHAR(10),
+@IDGV VARCHAR(20)
 AS
 BEGIN
     UPDATE HOCSINH
     SET isEnable = 'No'
     WHERE IDHS = @IDHS;
-END
+	INSERT INTO TransactionHistory (transactionText)
+    VALUES (
+        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Giáo viên có mã ' + @IDGV +
+        N' đã xóa học sinh có mã ' + @IDHS
+    );END
 go
 
-CREATE PROCEDURE UpdateStudentInfo
+create PROCEDURE UpdateStudentInfo
     @IDHS NVARCHAR(64),
     @Ho NVARCHAR(50),
     @Ten NVARCHAR(50),
@@ -691,9 +709,15 @@ CREATE PROCEDURE UpdateStudentInfo
     @IDCV NVARCHAR(10),
     @IDTRANGTHAI NVARCHAR(10),
     @SDTPH NVARCHAR(20),
-    @TENPH NVARCHAR(50)
+    @TENPH NVARCHAR(50),
+	@IDGV NVARCHAR(20)
 AS
 BEGIN
+	INSERT INTO TransactionHistory (transactionText)
+    VALUES (
+        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Học sinh có mã ' + @IDHS + 
+        N' được thay đổi thông tin bởi giáo viên có mã ' + @IDGV
+    );
     UPDATE HOCSINH
     SET 
         HO = @Ho,
@@ -724,6 +748,7 @@ create PROCEDURE SP_DoiLopHocSinh
     @Email NVARCHAR(50),
     @SDT NVARCHAR(20),
     @IDLop NVARCHAR(64),
+    @IDCV NVARCHAR(32),
     @IDGV NVARCHAR(64),
     @SDTPH NVARCHAR(20),
     @TenPH NVARCHAR(50)
@@ -731,23 +756,49 @@ AS
 BEGIN
     IF @IDHS IS NULL
         RETURN; -- Thoát stored procedure nếu @IDHS là NULL
-		DECLARE @IDHSnew NVARCHAR(64);
-    SET @IDHSnew = LEFT(@IDHS, CHARINDEX('-', @IDHS) - 1) + '-' + @IDLop; -- Nối IDHS với IDLop để tạo IDHS mới
-	DECLARE @IDHSNumber NVARCHAR(64);
+    
+    -- Kiểm tra xem có sẵn IDHSnew trong DIEM hoặc XEPLOAI hay không
+    IF EXISTS (
+        SELECT 1 
+        FROM DIEM 
+        WHERE LEFT(IDHS, 4) = LEFT(@IDHS, 4) 
+            AND IDHK = (SELECT MAX(IDHK) FROM HOCKY)
+    ) OR EXISTS (
+        SELECT 1 
+        FROM XEPLOAI 
+        WHERE LEFT(IDHS, 4) = LEFT(@IDHS, 4) 
+            AND IDHK = (SELECT MAX(IDHK) FROM HOCKY)
+    )
+    BEGIN
+        -- Nếu có, không thực hiện thêm mới
+        PRINT N'Đang là học kỳ mới nhất, không thể đổi lớp học sinh.'
+    END
+    ELSE
+    BEGIN
+        DECLARE @IDHSnew NVARCHAR(64);
+        SET @IDHSnew = LEFT(@IDHS, CHARINDEX('-', @IDHS) - 1) + '-' + @IDLop; -- Nối IDHS với IDLop để tạo IDHS mới
+        
+        DECLARE @IDHSNumber NVARCHAR(64);
+        -- Tìm vị trí của ký tự '-' trong chuỗi
+        DECLARE @Index INT = CHARINDEX('-', @IDHS);
+        -- Lấy phần số từ chuỗi bắt đầu từ vị trí đầu tiên đến vị trí trước ký tự '-'
+        SET @IDHSNumber = SUBSTRING(@IDHS, 3, @Index - 3);
 
-	-- Tìm vị trí của ký tự '-' trong chuỗi
-	DECLARE @Index INT = CHARINDEX('-', @IDHS);
+        -- Tạo TENDN tự động
+        DECLARE @TENDN varchar(32);
+        DECLARE @MATKHAU varchar(32);
+        SET @TENDN = 'hocsinh' + CAST(@IDHSNumber AS varchar(10));
 
-	-- Lấy phần số từ chuỗi bắt đầu từ vị trí đầu tiên đến vị trí trước ký tự '-'
-	Set @IDHSNumber = SUBSTRING(@IDHS, 3, @Index - 3);
-	-- Tạo TENDN tự động
-	DECLARE @TENDN varchar(32);
-    DECLARE @MATKHAU varchar(32);
-    SET @TENDN = 'hocsinh' + CAST(@IDHSNumber AS varchar(10));
-
-    -- Tạo mật khẩu tự động
-    SET @MATKHAU = 'matkhau' + CAST(@IDHSNumber AS varchar(10));
-    -- Gọi stored procedure SP_INS_HOCSINH để chèn dữ liệu mới
-    EXEC SP_INS_HOCSINH @IDHSnew, @Ho, @Ten, @NamSinh, @GioiTinh, @QueQuan, @DiaChi, @Email, @SDT, @IDLop, 'X', @IDGV, 'DH', @SDTPH, @TenPH, @TENDN, @MATKHAU;
+        -- Tạo mật khẩu tự động
+        SET @MATKHAU = 'matkhau' + CAST(@IDHSNumber AS varchar(10));
+        
+        -- Gọi stored procedure SP_INS_HOCSINH để chèn dữ liệu mới
+        EXEC SP_INS_HOCSINH @IDHSnew, @Ho, @Ten, @NamSinh, @GioiTinh, @QueQuan, @DiaChi, @Email, @SDT, @IDLop, @IDCV, @IDGV, 'DH', @SDTPH, @TenPH, @TENDN, @MATKHAU;
+		INSERT INTO TransactionHistory (transactionText)
+		VALUES (
+			N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Học sinh có mã ' + @IDHS + 
+			N' được cập nhật mã học sinh mới là '+ @IDHSnew+ N' và lớp mới là' + @IDLOP + N' bởi giáo viên có mã ' + @IDGV
+		);
+    END
 END
 go
