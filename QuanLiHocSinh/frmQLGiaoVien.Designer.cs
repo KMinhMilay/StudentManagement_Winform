@@ -139,6 +139,7 @@
             btnSearch.TabIndex = 6;
             btnSearch.Text = "TÌM KIẾM";
             btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // label15
             // 
@@ -153,18 +154,18 @@
             label14.AutoSize = true;
             label14.Location = new Point(705, 26);
             label14.Name = "label14";
-            label14.Size = new Size(86, 15);
+            label14.Size = new Size(83, 15);
             label14.TabIndex = 2;
-            label14.Text = "hoặc theo Lớp ";
+            label14.Text = "hoặc theo lớp ";
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(394, 27);
+            label13.Location = new Point(413, 27);
             label13.Name = "label13";
-            label13.Size = new Size(102, 15);
+            label13.Size = new Size(83, 15);
             label13.TabIndex = 1;
-            label13.Text = "hoặc theo Họ tên:";
+            label13.Text = "hoặc theo tên:";
             // 
             // label12
             // 
@@ -220,6 +221,7 @@
             // 
             // btnUpdate
             // 
+            btnUpdate.Enabled = false;
             btnUpdate.Location = new Point(463, 20);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(88, 39);

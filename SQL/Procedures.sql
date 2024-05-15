@@ -1,6 +1,5 @@
 -- NGUYEN HOANG TRUNG
 
-
 --Login
 alter proc SP_Login
 @username varchar(32), @password varchar(max), @role varchar(1)
@@ -81,10 +80,12 @@ end
 go
 
 -- Đổi mật khẩu
-create proc SP_ChangePassword
+alter proc SP_ChangePassword
 @id varchar(64), @password varchar(max), @accountType varchar(20)
 as
 begin
+	declare @transaction_detail nvarchar(max)
+
 	declare @hashedPassword varbinary(max);
     SET @hashedPassword =	CONVERT(VARBINARY(MAX), HASHBYTES('SHA1', @password), 1);
 
@@ -92,6 +93,10 @@ begin
 		begin
 			update HOCSINH set MATKHAU = @hashedPassword
 			where IDHS = @id
+
+			--record
+			set @transaction_detail =  N'Học sinh có mã ' + @id + N' đã thay đổi mật khẩu mới'
+			exec SP_RecordTransaction @transaction_detail
 		end
 	if @accountType = 'giaovien'
 		begin
@@ -126,13 +131,24 @@ begin
 			set @tmpSalary = CONVERT(varchar(100), @decryptedSalary, 1);
 			set @encryptedSalary = CONVERT(VARBINARY(MAX),ENCRYPTBYASYMKEY(ASYMKEY_ID(@id),@tmpSalary),1);
 			update GIAOVIEN set MATKHAU = @hashedPassword, LUONG = @encryptedSalary
-			where IDGV = @id 
+			where IDGV = @id
+
+			--record
+			if exists (select IDGV from GIAOVIEN where IDGV = @id and VAITRO = 3)
+				begin
+					set @transaction_detail =  N'Đã thay đổi mật khẩu mới'
+				end
+			else
+				begin
+					set @transaction_detail =  N'Giáo viên có mã ' + @id + N' đã thay đổi mật khẩu mới'
+				end
+			exec SP_RecordTransaction @transaction_detail
 		end
 end
 go
 
 --Thay đổi thông tin học sinh
-create proc SP_UpdateStudentPersonalInfo
+alter proc SP_UpdateStudentPersonalInfo
 @IDHS varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -146,14 +162,19 @@ create proc SP_UpdateStudentPersonalInfo
 @SDTPH varchar(12)
 as
 begin
+	declare @transaction_detail nvarchar(max)
+
 	update HOCSINH
 	set HO = @HO, TEN = @TEN, NAMSINH = @NAMSINH, GIOITINH = @GIOITINH, QUEQUAN = @QUEQUAN, DIACHI = @DIACHI, EMAIL = @EMAIL, SDT = @SDT, TENPH = @TENPH, SDTPH = @SDTPH
 	where IDHS = @IDHS
+
+	set @transaction_detail =  N'Học sinh có mã ' + @IDHS + N' đã thay đổi thông tin cá nhân'
+	exec SP_RecordTransaction @transaction_detail
 end
 go
 
 --Thay đổi thông tin giáo viên
-create proc SP_UpdateTeacherPersonalInfo
+alter proc SP_UpdateTeacherPersonalInfo
 @IDGV varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -165,9 +186,14 @@ create proc SP_UpdateTeacherPersonalInfo
 @SDT varchar(12)
 as
 begin
+	declare @transaction_detail nvarchar(max)
+
 	update GIAOVIEN
 	set HO = @HO, TEN = @TEN, NAMSINH = @NAMSINH, GIOITINH = @GIOITINH, QUEQUAN = @QUEQUAN, DIACHI = @DIACHI, EMAIL = @EMAIL, SDT = @SDT
 	where IDGV = @IDGV
+
+	set @transaction_detail =  N'Giáo viên có mã ' + @IDGV + N' đã thay đổi thông tin cá nhân'
+	exec SP_RecordTransaction @transaction_detail
 end
 go
 
@@ -233,19 +259,23 @@ end
 go
 
 --Xóa thông tin giáo viên
---exec SP_DeleteTeacher 'GV001'
-create proc SP_DeleteTeacher
+alter proc SP_DeleteTeacher
 @id varchar(64)
 as
 begin
+	declare @transaction_detail nvarchar(max)
+
 	update GIAOVIEN
 	set isEnable = 'No'
 	where IDGV = @id
+
+	set @transaction_detail =  N'Đã xóa giáo viên có mã ' + @id
+	exec SP_RecordTransaction @transaction_detail
 end
 go
 
 --Thay đổi thông tin giáo viên bởi admin
-create proc SP_UpdateTeacherInfo_ByAdmin
+alter proc SP_UpdateTeacherInfo_ByAdmin
 @IDGV varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -260,6 +290,8 @@ create proc SP_UpdateTeacherInfo_ByAdmin
 @TENMH nvarchar(64)
 as
 begin
+	declare @transaction_detail nvarchar(max)
+
 	declare @encryptedSalary varbinary(max)
 	set @encryptedSalary = dbo.EncryptSalary(@IDGV, @LUONG)
 
@@ -269,6 +301,9 @@ begin
 	update GIAOVIEN
 	set	HO = @HO, TEN = @TEN, NAMSINH = @NAMSINH, GIOITINH = @GIOITINH, QUEQUAN = @QUEQUAN, DIACHI = @DIACHI, EMAIL = @EMAIL, SDT = @SDT, IDLOPCN = @IDLOPCN, LUONG = @encryptedSalary, IDMH = @idmh
 	where IDGV = @IDGV
+
+	set @transaction_detail =  N'Giáo viên có mã ' + @IDGV + N' đã được thay đổi thông tin'
+	exec SP_RecordTransaction @transaction_detail
 end
 go
 
@@ -287,33 +322,63 @@ alter proc SP_AddTeacherInfo_ByAdmin
 @LUONG int,
 @TENMH nvarchar(64)
 as
-begin
-	--hash password
-	declare @hashedPW varbinary(max);
-    SET @hashedPW = CONVERT(VARBINARY(MAX), HASHBYTES('SHA1', @IDGV), 1);
+	declare @transaction_detail nvarchar(max)
 
-	--create asymmetric key
-	DECLARE @Sql NVARCHAR(MAX)
-	DECLARE @pwd NVARCHAR(max)
-	SET @pwd = CONVERT(nvarchar(max),@hashedPW,1)
+	begin TRY
+		--hash password
+		declare @hashedPW varbinary(max);
+		SET @hashedPW = CONVERT(VARBINARY(MAX), HASHBYTES('SHA1', @IDGV), 1);
 
-	SET @Sql = N'CREATE ASYMMETRIC KEY ' + QUOTENAME(@IDGV) + 
-			   N' WITH ALGORITHM = RSA_2048
-               ENCRYPTION BY PASSWORD = ''' + @pwd + ''';';
-	EXEC sp_executesql @Sql;
+		--create asymmetric key
+		DECLARE @Sql NVARCHAR(MAX)
+		DECLARE @pwd NVARCHAR(max)
+		SET @pwd = CONVERT(nvarchar(max),@hashedPW,1)
 
-	--encrypt salary
-	declare @encryptedSalary varbinary(max)
-	set @encryptedSalary = dbo.EncryptSalary(@IDGV, @LUONG)
+		SET @Sql = N'CREATE ASYMMETRIC KEY ' + QUOTENAME(@IDGV) + 
+				   N' WITH ALGORITHM = RSA_2048
+				   ENCRYPTION BY PASSWORD = ''' + @pwd + ''';';
+		EXEC sp_executesql @Sql;
 
-	--find subject id
-	declare @idmh varchar(32)
-	select @idmh = IDMH from MONHOC where TENMH = @TENMH
-	insert into GIAOVIEN(IDGV,HO,TEN,NAMSINH,GIOITINH,QUEQUAN,DIACHI,EMAIL,SDT,IDLOPCN,LUONG,IDMH,TENDN,MATKHAU,VAITRO,isEnable)
-	values(@IDGV,@HO,@TEN,@NAMSINH,@GIOITINH,@QUEQUAN,@DIACHI,@EMAIL,@SDT,@IDLOPCN,@encryptedSalary,@idmh,@IDGV,@hashedPW,2,'Yes')
-end
+		--encrypt salary
+		declare @encryptedSalary varbinary(max)
+		set @encryptedSalary = dbo.EncryptSalary(@IDGV, @LUONG)
+
+		--find subject id
+		declare @idmh varchar(32)
+		select @idmh = IDMH from MONHOC where TENMH = @TENMH
+		insert into GIAOVIEN(IDGV,HO,TEN,NAMSINH,GIOITINH,QUEQUAN,DIACHI,EMAIL,SDT,IDLOPCN,LUONG,IDMH,TENDN,MATKHAU,VAITRO,isEnable)
+		values(@IDGV,@HO,@TEN,@NAMSINH,@GIOITINH,@QUEQUAN,@DIACHI,@EMAIL,@SDT,@IDLOPCN,@encryptedSalary,@idmh,@IDGV,@hashedPW,2,'Yes')
+
+		set @transaction_detail =  N'Đã thêm giáo viên với mã ' + @IDGV
+		exec SP_RecordTransaction @transaction_detail
+	end TRY
+
+	begin CATCH
+		DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT 
+            @ErrorMessage = N'Đã có giáo viên với ID này',
+            @ErrorSeverity = ERROR_SEVERITY(),
+            @ErrorState = ERROR_STATE();
+
+        -- Gửi thông báo lỗi tùy chỉnh
+        RAISERROR ('Lỗi khi thêm giáo viên: %s', @ErrorSeverity, @ErrorState, @ErrorMessage);
+	end CATCH
 go
 
+--
+alter proc SP_RecordTransaction
+@transaction_detail nvarchar(max)
+as
+begin
+	declare @record nvarchar(max)
+	set @record = '[' + Cast(GETDATE() as nvarchar(max)) + ']: ' + @transaction_detail
+	insert into TransactionHistory(transactionText)
+	values (@record)
+end
+go
 
 
 ---------------------------------------------------------------------------------
@@ -559,73 +624,6 @@ END
 go
 --EXEC SP_INS_HOCSINH_AUTO N'Lê Phú', N'Nhân', '2003-01-24', N'Nam', N'Bến Tre', N'27 Ngô Quyền', 'lpn@email.com', '0123456789', '12C3', 'LP', 'GV003', 'DH', '0987654321', N'Kim Uyên'
 
-
-create TRIGGER trg_InsertDiem
-ON HOCSINH
-AFTER INSERT
-AS
-BEGIN
-    DECLARE @IDDIEM VARCHAR(100);
-    DECLARE @IDHK INT;
-    DECLARE @IDHS VARCHAR(64);
-    DECLARE @MONHOC NVARCHAR(50);
-    DECLARE @Sql NVARCHAR(MAX);
-
-    -- Lấy IDHK cao nhất từ bảng HOCKY
-    SELECT @IDHK = MAX(IDHK) FROM HOCKY;
-
-    -- Lấy IDHS từ dữ liệu mới được thêm vào
-    SELECT @IDHS = IDHS FROM inserted;
-
-    -- Duyệt qua danh sách môn học và thêm dữ liệu vào bảng DIEM
-    DECLARE @i INT = 1;
-    DECLARE @TotalMonHoc INT = (SELECT COUNT(*) FROM MONHOC);
-    DECLARE @OriginalIDHS VARCHAR(100) = @IDHS;
-
-    WHILE @i <= @TotalMonHoc
-    BEGIN
-        SELECT @MONHOC = IDMH FROM (SELECT ROW_NUMBER() OVER (ORDER BY IDMH) AS RowNum, * FROM MONHOC) AS MonHocRow WHERE RowNum = @i;
-
-        -- Kiểm tra xem IDDIEM đã tồn tại chưa, nếu tồn tại thì tăng số thứ tự cho IDDIEM
-        DECLARE @Count INT = (SELECT COUNT(*) FROM DIEM WHERE IDDIEM LIKE CONCAT(@IDDIEM, '%')) + 1;
-		SET @IDDIEM = CONCAT(LOWER(LEFT(@IDHS, CHARINDEX('-', @IDHS) - 1)), LOWER(@MONHOC), @IDHK);
-        WHILE EXISTS (SELECT 1 FROM DIEM WHERE IDDIEM = @IDDIEM)
-        BEGIN
-            SET @IDDIEM = CONCAT(LOWER(LEFT(@IDHS, CHARINDEX('-', @IDHS) - 1)), LOWER(@MONHOC), @IDHK);
-            SET @Count = @Count + 1;
-        END;
-
-        -- Lấy giá trị gốc của @IDHS và @MONHOC
-        DECLARE @OriginalMONHOC NVARCHAR(100) = @MONHOC;
-
-        -- Tạo câu lệnh SQL để thêm dữ liệu vào bảng DIEM với giá trị gốc của @IDHS và @MONHOC
-        SET @Sql = 'INSERT INTO DIEM (IDDIEM, IDHK, IDMH, IDHS) VALUES (''' + @IDDIEM + ''', ' + CAST(@IDHK AS VARCHAR) + ', ''' + @OriginalMONHOC + ''', ''' + @OriginalIDHS + ''')';
-
-        -- Thực thi câu lệnh SQL
-        EXEC sp_executesql @Sql;
-        SET @i = @i + 1;
-    END;
-END;
-go
-
-CREATE TRIGGER trg_InsertXepLoai
-ON HOCSINH
-AFTER INSERT
-AS
-BEGIN
-    DECLARE @IDHK INT;
-    DECLARE @IDHS varchar(64);
-
-    -- Lấy IDHK cao nhất từ bảng HOCKY
-    SELECT @IDHK = MAX(IDHK) FROM HOCKY;
-
-    -- Lấy IDHS từ dữ liệu mới được thêm vào
-    SELECT @IDHS = IDHS FROM inserted;
-
-    -- Thêm dữ liệu vào bảng XEPLOAI
-    INSERT INTO XEPLOAI (IDHK, IDHS, DIEMTONGKET) VALUES (@IDHK, @IDHS, NULL);
-END;
-go
 
 CREATE PROCEDURE SP_GET_GIAOVIEN_BY_LOP
     @IDLop NVARCHAR(64)

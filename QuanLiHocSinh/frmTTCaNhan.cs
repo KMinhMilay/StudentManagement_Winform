@@ -184,7 +184,15 @@ namespace QuanLiHocSinh
         }
         private bool AllFieldsAreFilled()
         {
-            return grpbxPersonalInfo.Controls.OfType<TextBox>().All(tb => !string.IsNullOrEmpty(tb.Text)) && pnlStudentParent.Controls.OfType<TextBox>().All(tb => !string.IsNullOrEmpty(tb.Text));
+            if (IsStudent())
+            {
+                return grpbxPersonalInfo.Controls.OfType<TextBox>().All(tb => !string.IsNullOrEmpty(tb.Text)) && pnlStudentParent.Controls.OfType<TextBox>().All(tb => !string.IsNullOrEmpty(tb.Text));
+
+            }
+            else
+            {
+                return grpbxPersonalInfo.Controls.OfType<TextBox>().All(tb => !string.IsNullOrEmpty(tb.Text));
+            }
         }
     }
 }
