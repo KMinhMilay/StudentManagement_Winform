@@ -814,7 +814,8 @@ go
 Create procedure SP_GetTranListByText
 @textValue nvarchar(max)
 as
-	
 begin 
-	select transactionText from TransactionHistory where transactionText LIKE N'%' +  +  N'%'
+	select transactionText from TransactionHistory where transactionText LIKE N'%' + @textValue +  N'%'
 end
+go
+exec SP_GetTranListByText 'o'
