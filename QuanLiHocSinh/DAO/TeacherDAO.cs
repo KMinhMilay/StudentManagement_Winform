@@ -36,7 +36,7 @@ namespace QuanLiHocSinh.DAO
         public List<string> GetClassIdList()
         {
             List<string> list = new List<string>();
-            DataTable dt = DataProvider.Instance.ExecuteQuery("SP_GetClassId");
+            DataTable dt = DataProvider.Instance.ExecuteQuery("SP_GetClassList");
             foreach (DataRow data in dt.Rows)
             {
                 list.Add(data[0].ToString());

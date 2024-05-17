@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            button2 = new Button();
+            button3 = new Button();
+            textBox1 = new TextBox();
             button1 = new Button();
             listBox1 = new ListBox();
             groupBox1.SuspendLayout();
@@ -37,7 +38,8 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(button2);
+            groupBox1.Controls.Add(button3);
+            groupBox1.Controls.Add(textBox1);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(listBox1);
             groupBox1.Location = new Point(12, 12);
@@ -47,20 +49,31 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Lịch sử hệ thống";
             // 
-            // button2
+            // button3
             // 
-            button2.Location = new Point(963, 28);
-            button2.Name = "button2";
-            button2.Size = new Size(107, 37);
-            button2.TabIndex = 2;
-            button2.Text = "TRỞ VỀ";
-            button2.UseVisualStyleBackColor = true;
+            button3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            button3.Location = new Point(860, 26);
+            button3.Name = "button3";
+            button3.Size = new Size(96, 37);
+            button3.TabIndex = 7;
+            button3.Text = "TÌM KIẾM";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // textBox1
+            // 
+            textBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            textBox1.Location = new Point(24, 26);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(830, 33);
+            textBox1.TabIndex = 4;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // button1
             // 
-            button1.Location = new Point(962, 71);
+            button1.Location = new Point(968, 26);
             button1.Name = "button1";
-            button1.Size = new Size(108, 37);
+            button1.Size = new Size(81, 37);
             button1.TabIndex = 1;
             button1.Text = "TẢI LẠI";
             button1.UseVisualStyleBackColor = true;
@@ -70,9 +83,9 @@
             // 
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(24, 28);
+            listBox1.Location = new Point(24, 73);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(932, 454);
+            listBox1.Size = new Size(1025, 409);
             listBox1.TabIndex = 0;
             // 
             // frmTransHistory
@@ -83,7 +96,9 @@
             Controls.Add(groupBox1);
             Name = "frmTransHistory";
             Text = "Hệ Thống";
+            Load += frmTransHistory_Load;
             groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -91,6 +106,7 @@
         private GroupBox groupBox1;
         private Button button1;
         private ListBox listBox1;
-        private Button button2;
+        private TextBox textBox1;
+        private Button button3;
     }
 }
