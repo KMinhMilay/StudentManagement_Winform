@@ -69,7 +69,6 @@ namespace QuanLiHocSinh
             if (account.role != "hocsinh")
             {
                 string roleInt = "0";
-
                 if (account.role == "loptruong")
                 {
                     roleInt = "1";
@@ -79,7 +78,7 @@ namespace QuanLiHocSinh
                     roleInt = "2";
                 }
                 //chỉnh ở đây nè Trung
-                else if (account.role == "giaovienthuong" && account.username == "admin")
+                else if (account.role == "admin" && account.username == "admin")
                 {
                     roleInt = "3";
                 }

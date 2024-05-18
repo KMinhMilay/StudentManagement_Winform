@@ -1,4 +1,5 @@
-﻿
+﻿use QLHS 
+go
 
 --LE PHU NHAN
 CREATE TRIGGER trg_InsertXepLoai
