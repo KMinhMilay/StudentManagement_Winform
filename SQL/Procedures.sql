@@ -853,13 +853,25 @@ go
 --exec Proc_GetDiem_Filter @tenhs = '', @mamon = 'HOA', @malop = '10A1'
 
 create proc Proc_Diem_Update
-@iddiem varchar(64), @diemqt float, @diemgk float, @diemck float
+@iddiem varchar(64), @diemqt float, @diemgk float, @diemck float, @idgv varchar(32)
 as
+begin
 update DIEM
 SET DIEMQT = @diemqt,
 DIEMGK = @diemgk,
 DIEMCK = @diemck
 WHERE IDDIEM = @iddiem
+ -- Ghi lại giao dịch
+    declare @transaction_detail nvarchar(max)
+    set @transaction_detail = N'[ ' + CONVERT(nvarchar, GETDATE(), 120) + ']: Giáo viên có mã ' + @idgv + N' đã cập nhật điểm môn ' + @iddiem + N' - cột điểm ' + CASE 
+        WHEN @diemqt IS NOT NULL THEN N'điểm QT'
+        WHEN @diemgk IS NOT NULL THEN N'điểm GK'
+        WHEN @diemck IS NOT NULL THEN N'điểm CK'
+        ELSE N''
+        END
+
+    exec SP_RecordTransaction @transaction_detail
+end
 go
 
 
@@ -892,10 +904,14 @@ go
 
 
 create proc Proc_XepLoai_Update
-@idxeploai int, @hanhkiem nvarchar(20), @hocluc nvarchar(20)
+@idxeploai int, @hanhkiem nvarchar(20), @hocluc nvarchar(20), @idgv nvarchar(20)
 as
 update XEPLOAI
 set HANHKIEM = @hanhkiem,
 HOCLUC = @hocluc
 where IDXEPLOAI = @idxeploai
+ -- Ghi lại
+    declare @transaction_detail nvarchar(max)
+    set @transaction_detail = N'[ ' + CONVERT(nvarchar, GETDATE(), 120) + ']: Giáo viên có mã ' + @idgv + N' đã cập nhật hạnh kiểm cho học sinh là ' + @hanhkiem
+    exec SP_RecordTransaction @transaction_detail
 go
