@@ -86,7 +86,39 @@ begin
     end
 end
 go
-
+--KHANHMINH
+create trigger TRG_TINHDIEMTK ON DIEM 
+AFTER UPDATE 
+AS 
+BEGIN
+	declare @idhk varchar(64);
+	declare @idhs varchar(64);
+	declare @dtb float;
+	declare @DTK float;
+	set @idhk = (select i.IDHK from inserted i);
+	set @idhs = (select i.IDHS from inserted i);
+	DECLARE c_MH CURSOR FOR
+	SELECT IDMH FROM MONHOC
+	Declare @idmh varchar(32)
+	OPEN c_MH
+	FETCH NEXT FROM c_MH INTO @idmh;
+	WHILE @@FETCH_STATUS = 0          
+	BEGIN                          
+		PRINT 'ID:' + @idmh;
+		Set @dtb = (select DTB from DIEM where IDMH = @idmh)
+		IF(@dtb IS NULL) 
+			BEGIN
+				SET @DTK = NULL; BREAK;
+			END
+		ELSE 
+			SET @DTK =	(select AVG(DTB) from DIEM where IDHK = @idhk AND IDHS=@idhs)
+		FETCH NEXT FROM c_MH INTO @idmh
+	END	
+	UPDATE XEPLOAI SET DIEMTONGKET = @DTK WHERE IDHS = @idhs AND IDHK = @idhk
+	CLOSE c_MH;
+	DEALLOCATE c_MH;
+END
+go
 create trigger TRIGGER_XepLoai_UpdateDiemTBTongKet
 on DIEM
 after INSERT, Update
@@ -140,38 +172,5 @@ begin
     end
 end
 go
-create trigger TRG_TINHDIEMTK ON DIEM 
-AFTER UPDATE 
-AS 
-BEGIN
-	declare @idhk varchar(64);
-	declare @idhs varchar(64);
-	declare @dtb float;
-	declare @DTK float;
-	set @idhk = (select i.IDHK from inserted i);
-	set @idhs = (select i.IDHS from inserted i);
-	DECLARE c_MH CURSOR FOR
-	SELECT IDMH FROM MONHOC
-	Declare @idmh varchar(32)
-	OPEN c_MH
-	FETCH NEXT FROM c_MH INTO @idmh;
-	WHILE @@FETCH_STATUS = 0          
-	BEGIN                          
-		PRINT 'ID:' + @idmh;
-		Set @dtb = (select DTB from DIEM where IDMH = @idmh)
-		IF(@dtb IS NULL) 
-			BEGIN
-				SET @DTK = NULL; BREAK;
-			END
-		ELSE 
-			SET @DTK =	(select AVG(DTB) from DIEM where IDHK = @idhk AND IDHS=@idhs)
-		FETCH NEXT FROM c_MH INTO @idmh
-	END	
-	UPDATE XEPLOAI SET DIEMTONGKET = @DTK WHERE IDHS = @idhs AND IDHK = @idhk
-	CLOSE c_MH;
-	DEALLOCATE c_MH;
-END
-go
-
 
 
