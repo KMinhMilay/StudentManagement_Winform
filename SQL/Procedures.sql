@@ -2,7 +2,7 @@ use QLHS
 go
 -- NGUYEN HOANG TRUNG
 -- Login
-alter proc SP_RecordTransaction 
+create proc SP_RecordTransaction 
 @transaction_detail nvarchar(max)
 WITH ENCRYPTION
 as
@@ -13,7 +13,7 @@ begin
 	values (@record)
 end
 go
-alter  proc SP_Login 
+create  proc SP_Login 
 @username varchar(32), @password varchar(max), @role varchar(1)
 WITH ENCRYPTION
 as
@@ -51,7 +51,7 @@ begin
 end
 go
 --Lấy thông tin cá nhân giáo viên
-alter  proc SP_GetTeacherPersonalInfo 
+create  proc SP_GetTeacherPersonalInfo 
 @id varchar(64)
 WITH ENCRYPTION
 as
@@ -77,7 +77,7 @@ begin
 end
 go
 --Lấy thông tin cá nhân học sinh
-alter  proc SP_GetStudentPersonalInfo
+create  proc SP_GetStudentPersonalInfo
 @id varchar(64)
  WITH ENCRYPTION
 as
@@ -92,7 +92,7 @@ begin
 end
 go
 -- Đổi mật khẩu
-alter  proc SP_ChangePassword 
+create  proc SP_ChangePassword 
 @id varchar(64), @password varchar(max), @accountType varchar(20)
 WITH ENCRYPTION
 as
@@ -134,7 +134,7 @@ begin
 			--generate new asymmetric key--
 			declare @newpass nvarchar(max)
 			set @newpass = CONVERT(nvarchar(max),@hashedPassword,1)
-			set @Sql = N'alter ASYMMETRIC KEY ' + QUOTENAME(@id) + 
+			set @Sql = N'create ASYMMETRIC KEY ' + QUOTENAME(@id) + 
 			   N' WITH ALGORITHM = RSA_2048
                ENCRYPTION BY PASSWORD = ''' + @newpass + ''';';
 			exec sp_executesql @Sql;
@@ -160,7 +160,7 @@ begin
 end
 go
 --Thay đổi thông tin học sinh
-alter  proc SP_UpdateStudentPersonalInfo 
+create  proc SP_UpdateStudentPersonalInfo 
 
 @IDHS varchar(64),
 @HO nvarchar(64),
@@ -187,7 +187,7 @@ begin
 end
 go
 --Thay đổi thông tin giáo viên
-alter proc SP_UpdateTeacherPersonalInfo 
+create proc SP_UpdateTeacherPersonalInfo 
 @IDGV varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -211,7 +211,7 @@ begin
 end
 go
 --Function giải mã lương
-alter function DecryptSalary (@id varchar(64))
+create function DecryptSalary (@id varchar(64))
 returns int
 as
 begin
@@ -230,7 +230,7 @@ begin
 end
 go
 --Function mã hóa lương
-alter function EncryptSalary (@id varchar(64), @luong int)
+create function EncryptSalary (@id varchar(64), @luong int)
 returns varbinary(max)
 as
 begin
@@ -242,7 +242,7 @@ begin
 end
 go
 --Lấy danh sách giáo viên
-alter proc SP_GetTeacherList WITH ENCRYPTION
+create proc SP_GetTeacherList WITH ENCRYPTION
 as
 begin
 	select IDGV, HO, TEN, NAMSINH, GIOITINH, QUEQUAN, DIACHI, EMAIL, SDT, IDLOPCN, dbo.DecryptSalary(IDGV) as 'LUONG', TENMH
@@ -251,7 +251,7 @@ begin
 end
 go
 --Lấy danh sách lớp
-alter proc SP_GetClassList WITH ENCRYPTION
+create proc SP_GetClassList WITH ENCRYPTION
 as
 begin
 	select IDLOP
@@ -259,7 +259,7 @@ begin
 end
 go
 --Lấy danh sách môn học
-alter proc SP_GetSubjectList WITH ENCRYPTION
+create proc SP_GetSubjectList WITH ENCRYPTION
 as
 begin
 	select TENMH
@@ -268,7 +268,7 @@ end
 go
 
 --Xóa thông tin giáo viên
-alter proc SP_DeleteTeacher
+create proc SP_DeleteTeacher
 @id varchar(64)
 WITH ENCRYPTION
 as
@@ -285,7 +285,7 @@ end
 go
 
 --Thay đổi thông tin giáo viên bởi admin
-alter proc SP_UpdateTeacherInfo_ByAdmin
+create proc SP_UpdateTeacherInfo_ByAdmin
 @IDGV varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -319,7 +319,7 @@ end
 go
 
 --Thêm thông tin giáo viên bởi admin
-alter proc SP_AddTeacherInfo_ByAdmin
+create proc SP_AddTeacherInfo_ByAdmin
 @IDGV varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -341,12 +341,12 @@ as
 		declare @hashedPW varbinary(max);
 		SET @hashedPW = CONVERT(VARBINARY(MAX), HASHBYTES('SHA1', @IDGV), 1);
 
-		--alter asymmetric key
+		--create asymmetric key
 		DECLARE @Sql NVARCHAR(MAX)
 		DECLARE @pwd NVARCHAR(max)
 		SET @pwd = CONVERT(nvarchar(max),@hashedPW,1)
 
-		SET @Sql = N'alter ASYMMETRIC KEY ' + QUOTENAME(@IDGV) + 
+		SET @Sql = N'create ASYMMETRIC KEY ' + QUOTENAME(@IDGV) + 
 				   N' WITH ALGORITHM = RSA_2048
 				   ENCRYPTION BY PASSWORD = ''' + @pwd + ''';';
 		EXEC sp_executesql @Sql;
@@ -386,7 +386,7 @@ go
 ---------------------------------------------------------------------------------
 -- LE PHU NHAN
 -- exec SP_GET_DANHSACHHOCSINH '1', 'tendn1'
-alter PROCEDURE SP_GET_DANHSACHHOCSINH
+create PROCEDURE SP_GET_DANHSACHHOCSINH
     @UserRole NVARCHAR(64),
     @UserName NVARCHAR(64)
 	WITH ENCRYPTION
@@ -535,7 +535,7 @@ go
 --EXEC SP_GET_DANHSACHHOCSINH '2', 'tendn1'
 --go
 
-alter PROCEDURE SearchStudents
+create PROCEDURE SearchStudents
     @StudentID varchar(32) = NULL,
     @FullName nvarchar(100) = NULL,
     @ClassName nvarchar(100) = NULL
@@ -587,7 +587,7 @@ go
 
 --Exec SearchStudents 'hs1','A','10'
 --go
-alter  PROCEDURE SP_INS_HOCSINH_AUTO
+create  PROCEDURE SP_INS_HOCSINH_AUTO
     @HO nvarchar(64),
     @TEN nvarchar(32),
     @NAMSINH datetime,
@@ -636,7 +636,7 @@ go
 
 
 
-alter PROCEDURE SP_GET_GIAOVIEN_BY_LOP
+create PROCEDURE SP_GET_GIAOVIEN_BY_LOP
     @IDLop NVARCHAR(64)
 	WITH ENCRYPTION
 AS
@@ -654,7 +654,7 @@ go
 --SP_GET_GIAOVIEN_BY_LOP '10A2'
 
 
-alter PROCEDURE FindTeacherIDByFullName
+create PROCEDURE FindTeacherIDByFullName
     @HoTen NVARCHAR(100)
 	WITH ENCRYPTION
 AS
@@ -683,7 +683,7 @@ go
 
 
 
-alter  PROCEDURE DisableStudentByID
+create  PROCEDURE DisableStudentByID
 @IDHS VARCHAR(10),
 @IDGV VARCHAR(20)
 WITH ENCRYPTION
@@ -699,7 +699,7 @@ BEGIN
     );END
 go
 
-alter  PROCEDURE UpdateStudentInfo
+create  PROCEDURE UpdateStudentInfo
     @IDHS NVARCHAR(64),
     @Ho NVARCHAR(50),
     @Ten NVARCHAR(50),
@@ -741,7 +741,7 @@ BEGIN
 END
 go
 
-alter  PROCEDURE SP_DoiLopHocSinh
+create  PROCEDURE SP_DoiLopHocSinh
     @IDHS NVARCHAR(64),
     @Ho NVARCHAR(50),
     @Ten NVARCHAR(50),
@@ -809,7 +809,7 @@ END
 go
 
 --KHÁNH MINH
-alter procedure SP_GetTranList 
+create procedure SP_GetTranList 
 WITH ENCRYPTION
 as
 begin
@@ -817,7 +817,7 @@ begin
 end
 go
 
-alter procedure SP_GetTranListByText
+create procedure SP_GetTranListByText
 @textValue nvarchar(max)
 WITH ENCRYPTION
 as
@@ -828,7 +828,7 @@ go
 
 
 -- NGUYEN HOANG THUONG
-alter proc Proc_GetDiem
+create proc Proc_GetDiem
 WITH ENCRYPTION
 as
 select d.IDDIEM, d.IDHK, hk.HOCKY, hk.IDNAM, CONCAT(n.NAMBATDAU, ' - ', N.NAMKETTHUC) as NAM,
@@ -842,7 +842,7 @@ go
 
 --exec Proc_GetDiem
 
-alter proc Proc_GetDiem_Filter
+create proc Proc_GetDiem_Filter
 @tenhs nvarchar(255), @malop varchar(32), @mamon varchar(32)
 WITH ENCRYPTION
 as
@@ -860,7 +860,7 @@ go
 
 --exec Proc_GetDiem_Filter @tenhs = '', @mamon = 'HOA', @malop = '10A1'
 
-alter proc Proc_Diem_Update
+create proc Proc_Diem_Update
 @iddiem varchar(64), @diemqt float, @diemgk float, @diemck float, @idgv varchar(32)
 WITH ENCRYPTION
 as
@@ -884,7 +884,7 @@ end
 go
 
 
-alter proc Proc_GetXepLoai
+create proc Proc_GetXepLoai
 WITH ENCRYPTION
 as
 select x.IDXEPLOAI, CONCAT(n.NAMBATDAU, ' - ', N.NAMKETTHUC) as NAM, x.IDHS,
@@ -897,7 +897,7 @@ inner join HOCSINH hs on x.IDHS = hs.IDHS
 inner join LOP l on hs.IDLOP = l.IDLOP
 go
 
-alter proc Proc_FilterXepLoai
+create proc Proc_FilterXepLoai
 @tenhs nvarchar(64), @malop varchar(32), @hocluc nvarchar(16), @hanhkiem nvarchar(16)
 WITH ENCRYPTION
 as
@@ -913,7 +913,7 @@ AND x.HANHKIEM like '%' + @hanhkiem + '%'
 AND l.IDLOP = @malop
 go
 
-alter proc Proc_XepLoai_Update
+create proc Proc_XepLoai_Update
 @idxeploai int, @hanhkiem nvarchar(20), @hocluc nvarchar(20), @idgv nvarchar(20)
 WITH ENCRYPTION
 as
@@ -926,7 +926,7 @@ where IDXEPLOAI = @idxeploai
     set @transaction_detail = N'[ ' + CONVERT(nvarchar, GETDATE(), 120) + ']: Giáo viên có mã ' + @idgv + N' đã cập nhật hạnh kiểm cho học sinh là ' + @hanhkiem
     exec SP_RecordTransaction @transaction_detail
 go
-alter trigger TRIGGER_Diem_UpdateDiemTB
+create trigger TRIGGER_Diem_UpdateDiemTB
 on DIEM
 after INSERT, UPDATE
 as
