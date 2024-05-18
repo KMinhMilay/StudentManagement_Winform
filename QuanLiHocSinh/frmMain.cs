@@ -69,7 +69,6 @@ namespace QuanLiHocSinh
             if (account.role != "hocsinh")
             {
                 string roleInt = "0";
-                MessageBox.Show(account.role.ToString());
                 if (account.role == "loptruong")
                 {
                     roleInt = "1";
