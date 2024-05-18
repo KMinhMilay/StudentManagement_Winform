@@ -378,7 +378,7 @@ namespace QuanLiHocSinh
                     }
                     catch
                     {
-                        MessageBox.Show("Vui lòng điền đủ thông tin");
+                        MessageBox.Show("Vui lòng điền đủ thông tin, chọn đúng dữ liệu");
                     }
                     break;
                 default:

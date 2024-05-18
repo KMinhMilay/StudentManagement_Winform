@@ -258,6 +258,7 @@ EXEC SP_INS_GIAOVIEN 'GV005', N'Hoàng Văn ', N'E', '1999-05-30', N'Nam', N'Vũ
 EXEC SP_INS_GIAOVIEN 'GV006', N'Nguyễn Văn ', N'F', '1999-06-30', N'Nam', N'Bến Tre', N'223 Đường F, Quận 9', 'nguyenvanf@email.com', '0123456789', '10A2', 'NN', 8000000, 'tendn6', '19990630',2
 EXEC SP_INS_GIAOVIEN 'GV007', N'Nguyễn Văn ', N'H', '1999-07-30', N'Nam', N'Bến Tre', N'253 Đường F, Quận 9', 'nguyenvanh@email.com', '0123456789', '10A3', 'LY', 8000000, 'tendn7', '19990730',2
 EXEC SP_INS_GIAOVIEN 'GV008', N'Nguyễn Văn ', N'G', '1999-08-30', N'Nam', N'Bến Tre', N'23 Đường G, Quận 9', 'nguyenvang@email.com', '0123456789', '12C3', 'TOAN', 8000000, 'tendn8', '19990830',2
+EXEC SP_INS_GIAOVIEN 'GV009', N'Lê Văn ', N'K', '1997-10-20', N'Nam', N'Hà Nội', N'68 Đường K, Quận 3', 'levank@email.com', '0123456789', '11B1', 'HOA', 8000000, 'tendn9', '19971020',2
 
 
 EXEC SP_INS_HOCSINH 'HS1-10A1', N'Vũ Thị', N'A', '2010-06-10', N'Nữ', N'Hải Phòng', N'113 Đường F, Quận 6', 'vuthia@email.com', '0123456789', '10A1', 'X', 'GV001', 'DH', '0987654321', N'Phụ huynh A', 'hocsinh1', 'password1'
