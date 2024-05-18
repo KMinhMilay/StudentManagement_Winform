@@ -588,7 +588,7 @@ go
 
 --Exec SearchStudents 'hs1','A','10'
 --go
-create PROCEDURE SP_INS_HOCSINH_AUTO
+create  PROCEDURE SP_INS_HOCSINH_AUTO
     @HO nvarchar(64),
     @TEN nvarchar(32),
     @NAMSINH datetime,
@@ -628,7 +628,7 @@ BEGIN
     EXEC SP_INS_HOCSINH @IDHS, @HO, @TEN, @NAMSINH, @GIOITINH, @QUEQUAN, @DIACHI, @EMAIL, @SDT, @IDLOP, @IDCV, @IDGV, @IDTRANGTHAI, @SDTPH, @TENPH, @TENDN, @MATKHAU;
 	INSERT INTO TransactionHistory (transactionText)
     VALUES (
-        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Giáo viên có mã ' + @IDGV + 
+        N'[' + Cast(GETDATE() as nvarchar(max)) + N']: Giáo viên có mã ' + @IDGV + 
         N' đã thêm học sinh có mã là ' + @IDHS + N' có lớp là ' +@IDLOP
     );END
 go
@@ -681,7 +681,7 @@ go
 
 
 
-create PROCEDURE DisableStudentByID
+create  PROCEDURE DisableStudentByID
 @IDHS VARCHAR(10),
 @IDGV VARCHAR(20)
 AS
@@ -691,12 +691,12 @@ BEGIN
     WHERE IDHS = @IDHS;
 	INSERT INTO TransactionHistory (transactionText)
     VALUES (
-        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Giáo viên có mã ' + @IDGV +
+        N'[' + Cast(GETDATE() as nvarchar(max)) + N']: Giáo viên có mã ' + @IDGV +
         N' đã xóa học sinh có mã ' + @IDHS
     );END
 go
 
-create PROCEDURE UpdateStudentInfo
+create  PROCEDURE UpdateStudentInfo
     @IDHS NVARCHAR(64),
     @Ho NVARCHAR(50),
     @Ten NVARCHAR(50),
@@ -715,7 +715,7 @@ AS
 BEGIN
 	INSERT INTO TransactionHistory (transactionText)
     VALUES (
-        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Học sinh có mã ' + @IDHS + 
+        N'[' + Cast(GETDATE() as nvarchar(max)) + N']: Học sinh có mã ' + @IDHS + 
         N' được thay đổi thông tin bởi giáo viên có mã ' + @IDGV
     );
     UPDATE HOCSINH
@@ -737,7 +737,7 @@ BEGIN
 END
 go
 
-create PROCEDURE SP_DoiLopHocSinh
+create  PROCEDURE SP_DoiLopHocSinh
     @IDHS NVARCHAR(64),
     @Ho NVARCHAR(50),
     @Ten NVARCHAR(50),
@@ -796,7 +796,7 @@ BEGIN
         EXEC SP_INS_HOCSINH @IDHSnew, @Ho, @Ten, @NamSinh, @GioiTinh, @QueQuan, @DiaChi, @Email, @SDT, @IDLop, @IDCV, @IDGV, 'DH', @SDTPH, @TenPH, @TENDN, @MATKHAU;
 		INSERT INTO TransactionHistory (transactionText)
 		VALUES (
-			N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Học sinh có mã ' + @IDHS + 
+			N'[' + Cast(GETDATE() as nvarchar(max)) + N']: Học sinh có mã ' + @IDHS + 
 			N' được cập nhật mã học sinh mới là '+ @IDHSnew+ N' và lớp mới là' + @IDLOP + N' bởi giáo viên có mã ' + @IDGV
 		);
     END
