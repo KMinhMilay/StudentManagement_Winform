@@ -2,8 +2,18 @@ use QLHS
 go
 -- NGUYEN HOANG TRUNG
 -- Login
+create proc SP_RecordTransaction
+@transaction_detail nvarchar(max)
+as
+begin
+	declare @record nvarchar(max)
+	set @record = '[' + Cast(GETDATE() as nvarchar(max)) + ']: ' + @transaction_detail
+	insert into TransactionHistory(transactionText)
+	values (@record)
+end
+go
 
-alter proc SP_Login
+create  proc SP_Login
 @username varchar(32), @password varchar(max), @role varchar(1)
 as
 begin
@@ -41,7 +51,7 @@ end
 go
 
 --Lấy thông tin cá nhân giáo viên
-alter proc SP_GetTeacherPersonalInfo
+create  proc SP_GetTeacherPersonalInfo
 @id varchar(64)
 as
 begin
@@ -68,7 +78,7 @@ go
 
 
 --Lấy thông tin cá nhân học sinh
-alter proc SP_GetStudentPersonalInfo
+create  proc SP_GetStudentPersonalInfo
 @id varchar(64)
 as
 begin
@@ -83,7 +93,7 @@ end
 go
 
 -- Đổi mật khẩu
-alter proc SP_ChangePassword
+create  proc SP_ChangePassword
 @id varchar(64), @password varchar(max), @accountType varchar(20)
 as
 begin
@@ -152,7 +162,7 @@ go
 
 
 --Thay đổi thông tin học sinh
-alter proc SP_UpdateStudentPersonalInfo
+create  proc SP_UpdateStudentPersonalInfo
 
 @IDHS varchar(64),
 @HO nvarchar(64),
@@ -179,7 +189,7 @@ end
 go
 
 --Thay đổi thông tin giáo viên
-alter proc SP_UpdateTeacherPersonalInfo
+create  proc SP_UpdateTeacherPersonalInfo
 @IDGV varchar(64),
 @HO nvarchar(64),
 @TEN nvarchar(32),
@@ -374,16 +384,6 @@ as
 go
 
 --Lưu Transaction
-create proc SP_RecordTransaction
-@transaction_detail nvarchar(max)
-as
-begin
-	declare @record nvarchar(max)
-	set @record = '[' + Cast(GETDATE() as nvarchar(max)) + ']: ' + @transaction_detail
-	insert into TransactionHistory(transactionText)
-	values (@record)
-end
-go
 
 
 ---------------------------------------------------------------------------------
@@ -802,3 +802,20 @@ BEGIN
     END
 END
 go
+
+--KHÁNH MINH
+create procedure SP_GetTranList 
+as
+begin
+	select transactionText from TransactionHistory;
+end
+go
+
+Create procedure SP_GetTranListByText
+@textValue nvarchar(max)
+as
+begin 
+	select transactionText from TransactionHistory where transactionText LIKE N'%' + @textValue +  N'%'
+end
+go
+exec SP_GetTranListByText 'o'

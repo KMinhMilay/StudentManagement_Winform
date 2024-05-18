@@ -123,6 +123,7 @@ create table XEPLOAI (
 )
 go
 create table TransactionHistory(
+	id int identity(1,1) primary key,
 	transactionText nvarchar(max)
 )
 go
