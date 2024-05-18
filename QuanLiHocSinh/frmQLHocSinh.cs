@@ -606,7 +606,7 @@ namespace QuanLiHocSinh
                 listViewHocSinh.Items.Clear();
 
                 foreach (DataRow row in searchResult.Rows)
-                {
+                { 
                     ListViewItem item = new ListViewItem(row["IDHS"].ToString());
                     item.SubItems.Add(row["HO"].ToString());
                     item.SubItems.Add(row["TEN"].ToString());
