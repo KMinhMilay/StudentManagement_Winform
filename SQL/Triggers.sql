@@ -70,8 +70,7 @@ END;
 go
 
 -- NGUYEN HOANG THUONG
-drop trigger TRIGGER_Diem_UpdateDiemTB
-go
+
 create trigger TRIGGER_Diem_UpdateDiemTB
 on DIEM
 after INSERT, UPDATE
@@ -90,8 +89,7 @@ begin
 end
 go
 --KHANHMINH
-drop trigger TRG_TINHDIEMTK
---create trigger TRG_TINHDIEMTK ON DIEM 
+create trigger TRG_TINHDIEMTK ON DIEM 
 AFTER UPDATE 
 AS 
 BEGIN
@@ -122,7 +120,10 @@ BEGIN
 	CLOSE c_MH;
 	DEALLOCATE c_MH;
 END
---go
+go
+drop trigger TRG_TINHDIEMTK
+go
+
 create trigger TRIGGER_XepLoai_UpdateDiemTBTongKet
 on DIEM
 after INSERT, Update
