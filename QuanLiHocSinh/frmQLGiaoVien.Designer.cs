@@ -218,6 +218,7 @@
             btnStatisticize.TabIndex = 4;
             btnStatisticize.Text = "THỐNG KÊ";
             btnStatisticize.UseVisualStyleBackColor = true;
+            btnStatisticize.Click += btnStatisticize_Click;
             // 
             // btnUpdate
             // 

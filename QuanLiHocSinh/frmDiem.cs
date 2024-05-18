@@ -136,6 +136,7 @@ namespace QuanLiHocSinh
             if (DiemDAO.Instance.UpdateDiem(idDiem, diemQT, diemGK, diemCK))
             {
                 MessageBox.Show("Cập nhật điểm thành công");
+                LoadForm();
             }
             else
             {

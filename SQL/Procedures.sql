@@ -588,7 +588,7 @@ go
 
 --Exec SearchStudents 'hs1','A','10'
 --go
-create PROCEDURE SP_INS_HOCSINH_AUTO
+create  PROCEDURE SP_INS_HOCSINH_AUTO
     @HO nvarchar(64),
     @TEN nvarchar(32),
     @NAMSINH datetime,
@@ -628,7 +628,7 @@ BEGIN
     EXEC SP_INS_HOCSINH @IDHS, @HO, @TEN, @NAMSINH, @GIOITINH, @QUEQUAN, @DIACHI, @EMAIL, @SDT, @IDLOP, @IDCV, @IDGV, @IDTRANGTHAI, @SDTPH, @TENPH, @TENDN, @MATKHAU;
 	INSERT INTO TransactionHistory (transactionText)
     VALUES (
-        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Giáo viên có mã ' + @IDGV + 
+        N'[' + Cast(GETDATE() as nvarchar(max)) + N']: Giáo viên có mã ' + @IDGV + 
         N' đã thêm học sinh có mã là ' + @IDHS + N' có lớp là ' +@IDLOP
     );END
 go
@@ -681,7 +681,7 @@ go
 
 
 
-create PROCEDURE DisableStudentByID
+create  PROCEDURE DisableStudentByID
 @IDHS VARCHAR(10),
 @IDGV VARCHAR(20)
 AS
@@ -691,12 +691,12 @@ BEGIN
     WHERE IDHS = @IDHS;
 	INSERT INTO TransactionHistory (transactionText)
     VALUES (
-        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Giáo viên có mã ' + @IDGV +
+        N'[' + Cast(GETDATE() as nvarchar(max)) + N']: Giáo viên có mã ' + @IDGV +
         N' đã xóa học sinh có mã ' + @IDHS
     );END
 go
 
-create PROCEDURE UpdateStudentInfo
+create  PROCEDURE UpdateStudentInfo
     @IDHS NVARCHAR(64),
     @Ho NVARCHAR(50),
     @Ten NVARCHAR(50),
@@ -715,7 +715,7 @@ AS
 BEGIN
 	INSERT INTO TransactionHistory (transactionText)
     VALUES (
-        N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Học sinh có mã ' + @IDHS + 
+        N'[' + Cast(GETDATE() as nvarchar(max)) + N']: Học sinh có mã ' + @IDHS + 
         N' được thay đổi thông tin bởi giáo viên có mã ' + @IDGV
     );
     UPDATE HOCSINH
@@ -737,7 +737,7 @@ BEGIN
 END
 go
 
-create PROCEDURE SP_DoiLopHocSinh
+create  PROCEDURE SP_DoiLopHocSinh
     @IDHS NVARCHAR(64),
     @Ho NVARCHAR(50),
     @Ten NVARCHAR(50),
@@ -796,7 +796,7 @@ BEGIN
         EXEC SP_INS_HOCSINH @IDHSnew, @Ho, @Ten, @NamSinh, @GioiTinh, @QueQuan, @DiaChi, @Email, @SDT, @IDLop, @IDCV, @IDGV, 'DH', @SDTPH, @TenPH, @TENDN, @MATKHAU;
 		INSERT INTO TransactionHistory (transactionText)
 		VALUES (
-			N'[' + CONVERT(NVARCHAR, GETDATE(), 120) + N']: Học sinh có mã ' + @IDHS + 
+			N'[' + Cast(GETDATE() as nvarchar(max)) + N']: Học sinh có mã ' + @IDHS + 
 			N' được cập nhật mã học sinh mới là '+ @IDHSnew+ N' và lớp mới là' + @IDLOP + N' bởi giáo viên có mã ' + @IDGV
 		);
     END
@@ -819,6 +819,7 @@ begin
 end
 go
 exec SP_GetTranListByText 'o'
+go
 
 -- NGUYEN HOANG THUONG
 create proc Proc_GetDiem
@@ -918,7 +919,7 @@ begin
         declare @hanhkiem nvarchar(32), @hocluc nvarchar(32)
         select @hanhkiem = HANHKIEM from XEPLOAI WHERE IDHS = @idhs and IDHK = @idhk
 
-        IF @hanhkiem IS NULL OR @hanhkiem = 'Chua dánh giá'
+        IF @hanhkiem IS NULL OR @hanhkiem = N'Chưa dánh giá'
         BEGIN
             UPDATE XEPLOAI SET DIEMTONGKET = @diemtongket WHERE IDHS = @idhs and IDHK = @idhk
         END
@@ -927,7 +928,7 @@ begin
             if(@diemtongket < 3.5)
                 set @hocluc = N'Kém'
             else if(@diemtongket < 5)
-                set @hocluc = N'Y?u'
+                set @hocluc = N'Yếu'
             else if(@diemtongket < 6.5)
                 set @hocluc = N'Trung b?nh'
             else if(@diemtongket < 8)
@@ -939,8 +940,8 @@ begin
             end
             else
             begin
-                if(@hanhkiem = N'Gi?i')
-                    set @hocluc = N'Gi?i'
+                if(@hanhkiem = N'Giỏi')
+                    set @hocluc = N'Giỏi'
                 else
                     set @hocluc = N'Khá'
             end
@@ -966,4 +967,20 @@ where IDXEPLOAI = @idxeploai
     declare @transaction_detail nvarchar(max)
     set @transaction_detail = N'[ ' + CONVERT(nvarchar, GETDATE(), 120) + ']: Giáo viên có mã ' + @idgv + N' đã cập nhật hạnh kiểm cho học sinh là ' + @hanhkiem
     exec SP_RecordTransaction @transaction_detail
+go
+create trigger TRIGGER_Diem_UpdateDiemTB
+on DIEM
+after INSERT, UPDATE
+as
+begin
+    declare @iddiem varchar(64), @diemqt float, @diemgk float, @diemck float
+    select @iddiem = IDDIEM, @diemqt = DIEMQT, @diemgk = DIEMGK, @diemck = DIEMCK from inserted
+
+    if(@diemqt IS NOT NULL AND @diemgk IS NOT NULL AND @diemck IS NOT NULL)
+    begin
+        UPDATE DIEM
+        SET DTB = ROUND((@diemqt + @diemgk * 2 + @diemck * 3) / 6, 2)
+        WHERE IDDIEM = @iddiem
+    end
+end
 go
