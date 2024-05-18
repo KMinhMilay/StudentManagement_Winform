@@ -104,7 +104,7 @@ begin
         declare @hanhkiem nvarchar(32), @hocluc nvarchar(32)
         select @hanhkiem = HANHKIEM from XEPLOAI WHERE IDHS = @idhs and IDHK = @idhk
 
-        IF @hanhkiem IS NULL OR @hanhkiem = 'Chua dánh giá'
+        IF @hanhkiem IS NULL OR @hanhkiem = N'Chưa đánh giá'
         BEGIN
             UPDATE XEPLOAI SET DIEMTONGKET = @diemtongket WHERE IDHS = @idhs and IDHK = @idhk
         END
@@ -113,20 +113,20 @@ begin
             if(@diemtongket < 3.5)
                 set @hocluc = N'Kém'
             else if(@diemtongket < 5)
-                set @hocluc = N'Y?u'
+                set @hocluc = N'Yếu'
             else if(@diemtongket < 6.5)
-                set @hocluc = N'Trung b?nh'
+                set @hocluc = N'Trung bình'
             else if(@diemtongket < 8)
             begin
-                if(@hanhkiem = N'Khá' OR @hanhkiem = N'Gi?i')
+                if(@hanhkiem = N'Khá' OR @hanhkiem = N'Giỏi')
                     set @hocluc = N'Khá'
                 else
-                    set @hocluc = N'Trung b?nh'
+                    set @hocluc = N'Trung bình'
             end
             else
             begin
-                if(@hanhkiem = N'Gi?i')
-                    set @hocluc = N'Gi?i'
+                if(@hanhkiem = N'Giỏi')
+                    set @hocluc = N'Giỏi'
                 else
                     set @hocluc = N'Khá'
             end
@@ -140,3 +140,38 @@ begin
     end
 end
 go
+create trigger TRG_TINHDIEMTK ON DIEM 
+AFTER UPDATE 
+AS 
+BEGIN
+	declare @idhk varchar(64);
+	declare @idhs varchar(64);
+	declare @dtb float;
+	declare @DTK float;
+	set @idhk = (select i.IDHK from inserted i);
+	set @idhs = (select i.IDHS from inserted i);
+	DECLARE c_MH CURSOR FOR
+	SELECT IDMH FROM MONHOC
+	Declare @idmh varchar(32)
+	OPEN c_MH
+	FETCH NEXT FROM c_MH INTO @idmh;
+	WHILE @@FETCH_STATUS = 0          
+	BEGIN                          
+		PRINT 'ID:' + @idmh;
+		Set @dtb = (select DTB from DIEM where IDMH = @idmh)
+		IF(@dtb IS NULL) 
+			BEGIN
+				SET @DTK = NULL; BREAK;
+			END
+		ELSE 
+			SET @DTK =	(select AVG(DTB) from DIEM where IDHK = @idhk AND IDHS=@idhs)
+		FETCH NEXT FROM c_MH INTO @idmh
+	END	
+	UPDATE XEPLOAI SET DIEMTONGKET = @DTK WHERE IDHS = @idhs AND IDHK = @idhk
+	CLOSE c_MH;
+	DEALLOCATE c_MH;
+END
+go
+
+
+
