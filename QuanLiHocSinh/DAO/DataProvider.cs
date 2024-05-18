@@ -20,7 +20,7 @@ namespace QuanLiHocSinh.DAO
 
         private DataProvider() { }
 
-        private string connectionSTR = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLHS;Integrated Security=True";
+        private string connectionSTR = @"Data Source=.;Initial Catalog=QLHS;Integrated Security=True";
 
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {

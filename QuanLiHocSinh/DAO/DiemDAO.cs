@@ -1,14 +1,6 @@
-﻿using QuanLiHocSinh.DAO;
-using QuanLiHocSinh.DTO;
-using System;
-using System.Collections.Generic;
+﻿using DTO;
+using QuanLiHocSinh.DTO.ModelView;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System;
-using DTO;
 //using System.Data;
 
 namespace QuanLiHocSinh.DAO
@@ -46,8 +38,8 @@ namespace QuanLiHocSinh.DAO
         public void ThemDiem(DiemDTO diem)
         {
             string query = "EXEC ThemDiem @maHocSinh , @maMonHoc , @maHocKy , @maNamHoc , @maLop , @maLoaiDiem , @diemSo";
-            object[] parameters = new object[] { 
-                diem.MaHocSinh, diem.MaMonHoc, diem.MaHocKy, diem.MaNamHoc, diem.MaLop, diem.MaLoaiDiem, diem.DiemSo 
+            object[] parameters = new object[] {
+                diem.MaHocSinh, diem.MaMonHoc, diem.MaHocKy, diem.MaNamHoc, diem.MaLop, diem.MaLoaiDiem, diem.DiemSo
             };
             DataProvider.Instance.ExecuteNonQuery(query, parameters);
         }
@@ -57,6 +49,44 @@ namespace QuanLiHocSinh.DAO
             string query = "EXEC XoaDiem @STT";
             object[] parameters = new object[] { stt };
             DataProvider.Instance.ExecuteNonQuery(query, parameters);
+        }
+
+        public List<DiemModelView> GetAll()
+        {
+            string query = "exec Proc_GetDiem";
+            List<DiemModelView> list = new List<DiemModelView>();
+            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query);
+            if (dataTable.Rows.Count > 0)
+            {
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    DiemModelView diem = new DiemModelView(row);
+                    list.Add(diem);
+                }
+            }
+            return list;
+        }
+        public List<DiemModelView> FilterData(string tenHs, string maLop, string maMon)
+        {
+            string query = "exec Proc_GetDiem_Filter @tenhs , @malop , @mamon";
+            List<DiemModelView> list = new List<DiemModelView>();
+            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { tenHs, maLop, maMon });
+            if (dataTable.Rows.Count > 0)
+            {
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    DiemModelView diem = new DiemModelView(row);
+                    list.Add(diem);
+                }
+            }
+
+            return list;
+        }
+
+        public bool UpdateDiem(string idDiem, float diemQT, float diemGK, float diemCK)
+        {
+            string query = "exec Proc_Diem_Update @iddiem , @diemqt , @diemgk , @diemck";
+            return DataProvider.Instance.ExecuteNonQuery(query, new object[] { idDiem, diemQT, diemGK, diemCK }) > 0;
         }
     }
 }

@@ -29,36 +29,31 @@
         private void InitializeComponent()
         {
             groupBox4 = new GroupBox();
-            button4 = new Button();
+            btnTaiLai = new Button();
             button3 = new Button();
             groupBox3 = new GroupBox();
-            comboBox4 = new ComboBox();
+            lbHocKy = new Label();
+            label21 = new Label();
+            lbNam = new Label();
+            label19 = new Label();
+            cbbHK = new ComboBox();
             label18 = new Label();
-            label12 = new Label();
+            lbHocLuc = new Label();
             label16 = new Label();
-            label4 = new Label();
+            lbMaHS = new Label();
             label5 = new Label();
-            label2 = new Label();
+            lbLop = new Label();
             label3 = new Label();
-            label13 = new Label();
-            button2 = new Button();
-            label11 = new Label();
-            label10 = new Label();
+            lbDTB = new Label();
+            btnCapNhat = new Button();
+            lbTen = new Label();
+            lbHoVaTen = new Label();
             label9 = new Label();
             label8 = new Label();
             label6 = new Label();
             groupBox1 = new GroupBox();
-            listView1 = new ListView();
-            label1 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
-            label7 = new Label();
-            comboBox1 = new ComboBox();
-            groupBox2 = new GroupBox();
-            comboBox3 = new ComboBox();
-            label15 = new Label();
-            comboBox2 = new ComboBox();
-            label14 = new Label();
+            lvHocSinh = new ListView();
+            columnHeader10 = new ColumnHeader();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
@@ -67,11 +62,16 @@
             columnHeader6 = new ColumnHeader();
             columnHeader7 = new ColumnHeader();
             columnHeader8 = new ColumnHeader();
-            columnHeader10 = new ColumnHeader();
-            label17 = new Label();
-            label19 = new Label();
-            label20 = new Label();
-            label21 = new Label();
+            label1 = new Label();
+            txbSearch = new TextBox();
+            btnTimKiem = new Button();
+            label7 = new Label();
+            cbbLop = new ComboBox();
+            groupBox2 = new GroupBox();
+            cbbHanhKiem = new ComboBox();
+            label15 = new Label();
+            cbbHocLuc = new ComboBox();
+            label14 = new Label();
             groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -80,7 +80,7 @@
             // 
             // groupBox4
             // 
-            groupBox4.Controls.Add(button4);
+            groupBox4.Controls.Add(btnTaiLai);
             groupBox4.Controls.Add(button3);
             groupBox4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox4.Location = new Point(833, 312);
@@ -90,15 +90,16 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Khác";
             // 
-            // button4
+            // btnTaiLai
             // 
-            button4.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            button4.Location = new Point(135, 35);
-            button4.Name = "button4";
-            button4.Size = new Size(86, 25);
-            button4.TabIndex = 8;
-            button4.Text = "TẢI LẠI";
-            button4.UseVisualStyleBackColor = true;
+            btnTaiLai.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            btnTaiLai.Location = new Point(135, 35);
+            btnTaiLai.Name = "btnTaiLai";
+            btnTaiLai.Size = new Size(86, 25);
+            btnTaiLai.TabIndex = 8;
+            btnTaiLai.Text = "TẢI LẠI";
+            btnTaiLai.UseVisualStyleBackColor = true;
+            btnTaiLai.Click += btnTaiLai_Click;
             // 
             // button3
             // 
@@ -112,22 +113,22 @@
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(label20);
+            groupBox3.Controls.Add(lbHocKy);
             groupBox3.Controls.Add(label21);
-            groupBox3.Controls.Add(label17);
+            groupBox3.Controls.Add(lbNam);
             groupBox3.Controls.Add(label19);
-            groupBox3.Controls.Add(comboBox4);
+            groupBox3.Controls.Add(cbbHK);
             groupBox3.Controls.Add(label18);
-            groupBox3.Controls.Add(label12);
+            groupBox3.Controls.Add(lbHocLuc);
             groupBox3.Controls.Add(label16);
-            groupBox3.Controls.Add(label4);
+            groupBox3.Controls.Add(lbMaHS);
             groupBox3.Controls.Add(label5);
-            groupBox3.Controls.Add(label2);
+            groupBox3.Controls.Add(lbLop);
             groupBox3.Controls.Add(label3);
-            groupBox3.Controls.Add(label13);
-            groupBox3.Controls.Add(button2);
-            groupBox3.Controls.Add(label11);
-            groupBox3.Controls.Add(label10);
+            groupBox3.Controls.Add(lbDTB);
+            groupBox3.Controls.Add(btnCapNhat);
+            groupBox3.Controls.Add(lbTen);
+            groupBox3.Controls.Add(lbHoVaTen);
             groupBox3.Controls.Add(label9);
             groupBox3.Controls.Add(label8);
             groupBox3.Controls.Add(label6);
@@ -139,15 +140,51 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Thông tin chi tiết";
             // 
-            // comboBox4
+            // lbHocKy
             // 
-            comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Items.AddRange(new object[] { "Tốt", "Khá", "Trung Bình", "Yếu", "Kém", "Chưa đánh giá" });
-            comboBox4.Location = new Point(664, 69);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(103, 23);
-            comboBox4.TabIndex = 21;
+            lbHocKy.AutoSize = true;
+            lbHocKy.Location = new Point(887, 71);
+            lbHocKy.Name = "lbHocKy";
+            lbHocKy.Size = new Size(14, 15);
+            lbHocKy.TabIndex = 25;
+            lbHocKy.Text = "1";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(874, 38);
+            label21.Name = "label21";
+            label21.Size = new Size(42, 15);
+            label21.TabIndex = 24;
+            label21.Text = "Học kì";
+            // 
+            // lbNam
+            // 
+            lbNam.AutoSize = true;
+            lbNam.Location = new Point(788, 72);
+            lbNam.Name = "lbNam";
+            lbNam.Size = new Size(68, 15);
+            lbNam.TabIndex = 23;
+            lbNam.Text = "2021-2022";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(800, 38);
+            label19.Name = "label19";
+            label19.Size = new Size(33, 15);
+            label19.TabIndex = 22;
+            label19.Text = "Năm";
+            // 
+            // cbbHK
+            // 
+            cbbHK.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbbHK.FormattingEnabled = true;
+            cbbHK.Items.AddRange(new object[] { "Tốt", "Khá", "Trung Bình", "Yếu", "Kém", "Chưa đánh giá" });
+            cbbHK.Location = new Point(664, 69);
+            cbbHK.Name = "cbbHK";
+            cbbHK.Size = new Size(103, 23);
+            cbbHK.TabIndex = 21;
             // 
             // label18
             // 
@@ -158,14 +195,14 @@
             label18.TabIndex = 20;
             label18.Text = "Hạnh kiểm";
             // 
-            // label12
+            // lbHocLuc
             // 
-            label12.AutoSize = true;
-            label12.Location = new Point(603, 72);
-            label12.Name = "label12";
-            label12.Size = new Size(29, 15);
-            label12.TabIndex = 19;
-            label12.Text = "Giỏi";
+            lbHocLuc.AutoSize = true;
+            lbHocLuc.Location = new Point(603, 72);
+            lbHocLuc.Name = "lbHocLuc";
+            lbHocLuc.Size = new Size(29, 15);
+            lbHocLuc.TabIndex = 19;
+            lbHocLuc.Text = "Giỏi";
             // 
             // label16
             // 
@@ -176,14 +213,14 @@
             label16.TabIndex = 18;
             label16.Text = "Học lực";
             // 
-            // label4
+            // lbMaHS
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(47, 72);
-            label4.Name = "label4";
-            label4.Size = new Size(70, 15);
-            label4.TabIndex = 17;
-            label4.Text = "NguyenVan";
+            lbMaHS.AutoSize = true;
+            lbMaHS.Location = new Point(47, 72);
+            lbMaHS.Name = "lbMaHS";
+            lbMaHS.Size = new Size(70, 15);
+            lbMaHS.TabIndex = 17;
+            lbMaHS.Text = "NguyenVan";
             // 
             // label5
             // 
@@ -195,14 +232,14 @@
             label5.Text = "Mã hs";
             label5.Click += label5_Click;
             // 
-            // label2
+            // lbLop
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(368, 72);
-            label2.Name = "label2";
-            label2.Size = new Size(35, 15);
-            label2.TabIndex = 15;
-            label2.Text = "12C1";
+            lbLop.AutoSize = true;
+            lbLop.Location = new Point(368, 72);
+            lbLop.Name = "lbLop";
+            lbLop.Size = new Size(35, 15);
+            lbLop.TabIndex = 15;
+            lbLop.Text = "12C1";
             // 
             // label3
             // 
@@ -213,42 +250,43 @@
             label3.TabIndex = 14;
             label3.Text = "Lớp";
             // 
-            // label13
+            // lbDTB
             // 
-            label13.AutoSize = true;
-            label13.Location = new Point(477, 72);
-            label13.Name = "label13";
-            label13.Size = new Size(24, 15);
-            label13.TabIndex = 13;
-            label13.Text = "x.x";
+            lbDTB.AutoSize = true;
+            lbDTB.Location = new Point(477, 72);
+            lbDTB.Name = "lbDTB";
+            lbDTB.Size = new Size(24, 15);
+            lbDTB.TabIndex = 13;
+            lbDTB.Text = "x.x";
             // 
-            // button2
+            // btnCapNhat
             // 
-            button2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            button2.Location = new Point(955, 59);
-            button2.Name = "button2";
-            button2.Size = new Size(103, 27);
-            button2.TabIndex = 5;
-            button2.Text = "CẬP NHẬT";
-            button2.UseVisualStyleBackColor = true;
+            btnCapNhat.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            btnCapNhat.Location = new Point(955, 59);
+            btnCapNhat.Name = "btnCapNhat";
+            btnCapNhat.Size = new Size(103, 27);
+            btnCapNhat.TabIndex = 5;
+            btnCapNhat.Text = "CẬP NHẬT";
+            btnCapNhat.UseVisualStyleBackColor = true;
+            btnCapNhat.Click += btnCapNhat_Click;
             // 
-            // label11
+            // lbTen
             // 
-            label11.AutoSize = true;
-            label11.Location = new Point(284, 72);
-            label11.Name = "label11";
-            label11.Size = new Size(29, 15);
-            label11.TabIndex = 8;
-            label11.Text = "Anh";
+            lbTen.AutoSize = true;
+            lbTen.Location = new Point(284, 72);
+            lbTen.Name = "lbTen";
+            lbTen.Size = new Size(29, 15);
+            lbTen.TabIndex = 8;
+            lbTen.Text = "Anh";
             // 
-            // label10
+            // lbHoVaTen
             // 
-            label10.AutoSize = true;
-            label10.Location = new Point(164, 72);
-            label10.Name = "label10";
-            label10.Size = new Size(70, 15);
-            label10.TabIndex = 7;
-            label10.Text = "NguyenVan";
+            lbHoVaTen.AutoSize = true;
+            lbHoVaTen.Location = new Point(164, 72);
+            lbHoVaTen.Name = "lbHoVaTen";
+            lbHoVaTen.Size = new Size(70, 15);
+            lbHoVaTen.TabIndex = 7;
+            lbHoVaTen.Text = "NguyenVan";
             // 
             // label9
             // 
@@ -279,7 +317,7 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(listView1);
+            groupBox1.Controls.Add(lvHocSinh);
             groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox1.Location = new Point(13, 12);
             groupBox1.Name = "groupBox1";
@@ -288,119 +326,25 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Bảng Xếp Loại";
             // 
-            // listView1
+            // lvHocSinh
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader10, columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8 });
-            listView1.Location = new Point(26, 22);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(751, 338);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Details;
+            lvHocSinh.Columns.AddRange(new ColumnHeader[] { columnHeader10, columnHeader1, columnHeader2, columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8 });
+            lvHocSinh.FullRowSelect = true;
+            lvHocSinh.Location = new Point(26, 22);
+            lvHocSinh.MultiSelect = false;
+            lvHocSinh.Name = "lvHocSinh";
+            lvHocSinh.Size = new Size(751, 338);
+            lvHocSinh.TabIndex = 0;
+            lvHocSinh.UseCompatibleStateImageBehavior = false;
+            lvHocSinh.View = View.Details;
+            lvHocSinh.SelectedIndexChanged += lvHocSinh_SelectedIndexChanged;
             // 
-            // label1
+            // columnHeader10
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            label1.Location = new Point(76, 44);
-            label1.Name = "label1";
-            label1.Size = new Size(106, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Tìm kiếm theo tên:";
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(46, 62);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(175, 23);
-            textBox1.TabIndex = 1;
-            // 
-            // button1
-            // 
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            button1.Location = new Point(82, 236);
-            button1.Name = "button1";
-            button1.Size = new Size(100, 29);
-            button1.TabIndex = 2;
-            button1.Text = "TÌM KIẾM";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            label7.Location = new Point(95, 98);
-            label7.Name = "label7";
-            label7.Size = new Size(69, 15);
-            label7.TabIndex = 3;
-            label7.Text = "và theo lớp:";
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(46, 116);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(173, 23);
-            comboBox1.TabIndex = 4;
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(comboBox3);
-            groupBox2.Controls.Add(label15);
-            groupBox2.Controls.Add(comboBox2);
-            groupBox2.Controls.Add(label14);
-            groupBox2.Controls.Add(comboBox1);
-            groupBox2.Controls.Add(label7);
-            groupBox2.Controls.Add(button1);
-            groupBox2.Controls.Add(textBox1);
-            groupBox2.Controls.Add(label1);
-            groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            groupBox2.Location = new Point(833, 12);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(254, 294);
-            groupBox2.TabIndex = 5;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Tìm kiếm";
-            // 
-            // comboBox3
-            // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(137, 174);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(84, 23);
-            comboBox3.TabIndex = 8;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            label15.Location = new Point(130, 156);
-            label15.Name = "label15";
-            label15.Size = new Size(108, 15);
-            label15.TabIndex = 7;
-            label15.Text = "và theo hạnh kiểm:";
-            // 
-            // comboBox2
-            // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(46, 174);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(83, 23);
-            comboBox2.TabIndex = 6;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            label14.Location = new Point(38, 156);
-            label14.Name = "label14";
-            label14.Size = new Size(91, 15);
-            label14.TabIndex = 5;
-            label14.Text = "và theo học lực:";
+            columnHeader10.Text = "Năm";
             // 
             // columnHeader1
             // 
-            columnHeader1.DisplayIndex = 0;
             columnHeader1.Text = "Mã hs";
             // 
             // columnHeader2
@@ -421,72 +365,129 @@
             // 
             // columnHeader5
             // 
-            columnHeader5.DisplayIndex = 4;
             columnHeader5.Text = "Điểm tổng kết";
             columnHeader5.TextAlign = HorizontalAlignment.Center;
             columnHeader5.Width = 120;
             // 
             // columnHeader6
             // 
-            columnHeader6.DisplayIndex = 5;
             columnHeader6.Text = "Học lực";
             columnHeader6.TextAlign = HorizontalAlignment.Center;
             columnHeader6.Width = 100;
             // 
             // columnHeader7
             // 
-            columnHeader7.DisplayIndex = 6;
             columnHeader7.Text = "Hạnh kiểm";
             columnHeader7.TextAlign = HorizontalAlignment.Center;
             columnHeader7.Width = 100;
             // 
             // columnHeader8
             // 
-            columnHeader8.DisplayIndex = 7;
             columnHeader8.Text = "Học kì";
             columnHeader8.TextAlign = HorizontalAlignment.Center;
             columnHeader8.Width = 100;
             // 
-            // columnHeader10
+            // label1
             // 
-            columnHeader10.DisplayIndex = 8;
-            columnHeader10.Text = "Năm";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            label1.Location = new Point(76, 44);
+            label1.Name = "label1";
+            label1.Size = new Size(106, 15);
+            label1.TabIndex = 0;
+            label1.Text = "Tìm kiếm theo tên:";
             // 
-            // label17
+            // txbSearch
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(788, 72);
-            label17.Name = "label17";
-            label17.Size = new Size(68, 15);
-            label17.TabIndex = 23;
-            label17.Text = "2021-2022";
+            txbSearch.Location = new Point(46, 62);
+            txbSearch.Name = "txbSearch";
+            txbSearch.Size = new Size(175, 23);
+            txbSearch.TabIndex = 1;
+            txbSearch.KeyPress += txbSearch_KeyPress;
             // 
-            // label19
+            // btnTimKiem
             // 
-            label19.AutoSize = true;
-            label19.Location = new Point(800, 38);
-            label19.Name = "label19";
-            label19.Size = new Size(33, 15);
-            label19.TabIndex = 22;
-            label19.Text = "Năm";
+            btnTimKiem.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            btnTimKiem.Location = new Point(82, 236);
+            btnTimKiem.Name = "btnTimKiem";
+            btnTimKiem.Size = new Size(100, 29);
+            btnTimKiem.TabIndex = 2;
+            btnTimKiem.Text = "TÌM KIẾM";
+            btnTimKiem.UseVisualStyleBackColor = true;
+            btnTimKiem.Click += btnTimKiem_Click;
             // 
-            // label20
+            // label7
             // 
-            label20.AutoSize = true;
-            label20.Location = new Point(887, 71);
-            label20.Name = "label20";
-            label20.Size = new Size(14, 15);
-            label20.TabIndex = 25;
-            label20.Text = "1";
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            label7.Location = new Point(95, 98);
+            label7.Name = "label7";
+            label7.Size = new Size(69, 15);
+            label7.TabIndex = 3;
+            label7.Text = "và theo lớp:";
             // 
-            // label21
+            // cbbLop
             // 
-            label21.AutoSize = true;
-            label21.Location = new Point(874, 38);
-            label21.Name = "label21";
-            label21.Size = new Size(42, 15);
-            label21.TabIndex = 24;
-            label21.Text = "Học kì";
+            cbbLop.FormattingEnabled = true;
+            cbbLop.Location = new Point(46, 116);
+            cbbLop.Name = "cbbLop";
+            cbbLop.Size = new Size(173, 23);
+            cbbLop.TabIndex = 4;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(cbbHanhKiem);
+            groupBox2.Controls.Add(label15);
+            groupBox2.Controls.Add(cbbHocLuc);
+            groupBox2.Controls.Add(label14);
+            groupBox2.Controls.Add(cbbLop);
+            groupBox2.Controls.Add(label7);
+            groupBox2.Controls.Add(btnTimKiem);
+            groupBox2.Controls.Add(txbSearch);
+            groupBox2.Controls.Add(label1);
+            groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            groupBox2.Location = new Point(833, 12);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(254, 294);
+            groupBox2.TabIndex = 5;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Tìm kiếm";
+            // 
+            // cbbHanhKiem
+            // 
+            cbbHanhKiem.FormattingEnabled = true;
+            cbbHanhKiem.Location = new Point(137, 174);
+            cbbHanhKiem.Name = "cbbHanhKiem";
+            cbbHanhKiem.Size = new Size(84, 23);
+            cbbHanhKiem.TabIndex = 8;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            label15.Location = new Point(130, 156);
+            label15.Name = "label15";
+            label15.Size = new Size(108, 15);
+            label15.TabIndex = 7;
+            label15.Text = "và theo hạnh kiểm:";
+            // 
+            // cbbHocLuc
+            // 
+            cbbHocLuc.FormattingEnabled = true;
+            cbbHocLuc.Location = new Point(46, 174);
+            cbbHocLuc.Name = "cbbHocLuc";
+            cbbHocLuc.Size = new Size(83, 23);
+            cbbHocLuc.TabIndex = 6;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            label14.Location = new Point(38, 156);
+            label14.Name = "label14";
+            label14.Size = new Size(91, 15);
+            label14.TabIndex = 5;
+            label14.Text = "và theo học lực:";
             // 
             // frmXepLoai
             // 
@@ -498,7 +499,9 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "frmXepLoai";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmXepLoai";
+            Load += frmXepLoai_Load;
             groupBox4.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
@@ -511,36 +514,36 @@
         #endregion
 
         private GroupBox groupBox4;
-        private Button button4;
+        private Button btnTaiLai;
         private Button button3;
         private GroupBox groupBox3;
-        private Label label13;
-        private Button button2;
-        private Label label11;
-        private Label label10;
+        private Label lbDTB;
+        private Button btnCapNhat;
+        private Label lbTen;
+        private Label lbHoVaTen;
         private Label label9;
         private Label label8;
         private Label label6;
         private GroupBox groupBox1;
-        private ListView listView1;
+        private ListView lvHocSinh;
         private Label label1;
-        private TextBox textBox1;
-        private Button button1;
+        private TextBox txbSearch;
+        private Button btnTimKiem;
         private Label label7;
-        private ComboBox comboBox1;
+        private ComboBox cbbLop;
         private GroupBox groupBox2;
-        private ComboBox comboBox3;
+        private ComboBox cbbHanhKiem;
         private Label label15;
-        private ComboBox comboBox2;
+        private ComboBox cbbHocLuc;
         private Label label14;
-        private Label label4;
+        private Label lbMaHS;
         private Label label5;
-        private Label label2;
+        private Label lbLop;
         private Label label3;
         private Label label18;
-        private Label label12;
+        private Label lbHocLuc;
         private Label label16;
-        private ComboBox comboBox4;
+        private ComboBox cbbHK;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
         private ColumnHeader columnHeader3;
@@ -548,9 +551,9 @@
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
         private ColumnHeader columnHeader7;
-        private Label label20;
+        private Label lbHocKy;
         private Label label21;
-        private Label label17;
+        private Label lbNam;
         private Label label19;
         private ColumnHeader columnHeader10;
         private ColumnHeader columnHeader8;
