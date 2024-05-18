@@ -16,6 +16,9 @@ namespace QuanLiHocSinh
         public frmXepLoai(Account account)
         {
             InitializeComponent();
+            cbbLop.SelectedIndex = -1;
+            cbbHocLuc.SelectedIndex = -1;
+            cbbHanhKiem.SelectedIndex = -1;
             _account = account;
         }
 
@@ -38,21 +41,28 @@ namespace QuanLiHocSinh
             cbbLop.DataSource = LopDAO.Instance.GetAll();
             cbbLop.DisplayMember = "TENLOP";
             cbbLop.ValueMember = "IDLOP";
+            cbbLop.SelectedIndex = -1;
+
         }
 
         private void LoadHocLuc()
         {
             cbbHocLuc.DataSource = listHocLuc;
+            cbbHocLuc.SelectedIndex = -1;
         }
 
         private void LoadFilterHanhKiem()
         {
             cbbHanhKiem.DataSource = listHanhKiem;
+            cbbHanhKiem.SelectedIndex = -1;
+
         }
 
         private void LoadHanhKiem()
         {
             cbbHK.DataSource = listHanhKiem;
+
+            cbbHK.SelectedIndex = -1;
         }
 
         private void LoadDataTableFirst()
@@ -134,6 +144,9 @@ namespace QuanLiHocSinh
         private void btnTaiLai_Click(object sender, EventArgs e)
         {
             LoadDataTableFirst();
+            cbbLop.SelectedIndex = -1;
+            cbbHocLuc.SelectedIndex = -1;
+            cbbHanhKiem.SelectedIndex = -1;
         }
 
         private void btnCapNhat_Click(object sender, EventArgs e)

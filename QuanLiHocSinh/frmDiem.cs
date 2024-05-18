@@ -17,6 +17,8 @@ namespace QuanLiHocSinh
 
         private void LoadForm()
         {
+            cbbMon.SelectedIndex = -1;
+            cbbLop.SelectedIndex = -1;
             listDiem = new List<DiemModelView>();
             if (_account.role == "admin" || _account.role == "giaovien")
                 btnCapNhat.Enabled = true;
@@ -32,6 +34,8 @@ namespace QuanLiHocSinh
             cbbLop.DataSource = LopDAO.Instance.GetAll();
             cbbLop.DisplayMember = "TENLOP";
             cbbLop.ValueMember = "IDLOP";
+            
+            cbbLop.SelectedIndex = -1;
         }
 
         private void LoadMonHoc()
@@ -39,6 +43,8 @@ namespace QuanLiHocSinh
             cbbMon.DataSource = MonHocDAO.Instance.GetAll();
             cbbMon.DisplayMember = "TENMH";
             cbbMon.ValueMember = "IDMH";
+            cbbMon.SelectedIndex = -1;
+            
         }
 
         private void LoadDataTableFirst()
@@ -100,6 +106,8 @@ namespace QuanLiHocSinh
         private void btnLoad_Click(object sender, EventArgs e)
         {
             LoadDataTableFirst();
+            cbbMon.SelectedIndex = -1;
+            cbbLop.SelectedIndex = -1;
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
