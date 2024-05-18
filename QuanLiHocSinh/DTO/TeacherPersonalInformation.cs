@@ -21,6 +21,7 @@ namespace QuanLiHocSinh.DTO
             this.phoneNumber = "";
             this.salary = "";
             this.subjectName = "";
+            this.idHomeroomClass = "";
         }
         public TeacherPersonalInformation(DataRow data)
         {
@@ -35,6 +36,7 @@ namespace QuanLiHocSinh.DTO
             this.phoneNumber = data["SDT"].ToString();
             this.salary = data["LUONG"].ToString();
             this.subjectName = data["TENMH"].ToString();
+            this.idHomeroomClass = data["IDLOPCN"].ToString();
         }
         public string id { get; set; }
         public string lastname { get; set; }
@@ -47,5 +49,7 @@ namespace QuanLiHocSinh.DTO
         public string phoneNumber { get; set; }
         public string salary { get; set; }
         public string subjectName { get; set; }
+        public string idHomeroomClass { get; set; }
+
     }
 }
