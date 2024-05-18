@@ -1,4 +1,6 @@
-﻿using QuanLiHocSinh.DAO;
+﻿using OfficeOpenXml.Style;
+using OfficeOpenXml;
+using QuanLiHocSinh.DAO;
 using QuanLiHocSinh.DTO;
 using QuanLiHocSinh.DTO.ModelView;
 
@@ -162,7 +164,120 @@ namespace QuanLiHocSinh
 
         private void button3_Click(object sender, EventArgs e)
         {
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.RestoreDirectory = true;
 
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        FileInfo existingFile = new FileInfo(saveFileDialog.FileName);
+                        if (existingFile.Exists)
+                        {
+                            using (ExcelPackage package = new ExcelPackage(existingFile))
+                            {
+                                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault(ws => ws.Name == "Data");
+                                if (worksheet == null)
+                                {
+                                    worksheet = package.Workbook.Worksheets.Add("Data");
+                                }
+
+                                using (ExcelRange range = worksheet.Cells[1, 7, 1, 11])
+                                {
+                                    range.Merge = true;
+                                    range.Value = "Danh sách giáo viên";
+                                    range.Style.Font.Size = 30;
+                                    range.Style.Font.Name = "Calibri";
+                                }
+
+                                int col = 1;
+                                foreach (ColumnHeader columnHeader in lvHocSinh.Columns)
+                                {
+                                    ExcelRange cell = worksheet.Cells[3, col];
+                                    cell.Value = columnHeader.Text;
+                                    cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    cell.Style.Fill.BackgroundColor.SetColor(Color.LightSkyBlue);
+                                    cell.Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                                    col++;
+                                }
+
+                                int row = 4; // Bắt đầu từ hàng 4 để thêm dữ liệu
+                                foreach (ListViewItem item in lvHocSinh.Items)
+                                {
+                                    col = 1;
+                                    foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
+                                    {
+                                        ExcelRange cell = worksheet.Cells[row, col];
+                                        cell.Value = subItem.Text;
+                                        cell.Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                                        col++;
+                                    }
+                                    row++;
+                                }
+
+                                // Tự động điều chỉnh độ rộng của các cột để chứa đủ dữ liệu
+                                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                                package.Save();
+                                MessageBox.Show("Dữ liệu đã được ghi đè thành công.");
+                            }
+                        }
+                        else
+                        {
+                            using (ExcelPackage package = new ExcelPackage(existingFile))
+                            {
+                                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Data");
+
+                                using (ExcelRange range = worksheet.Cells[1, 7, 1, 11])
+                                {
+                                    range.Merge = true;
+                                    range.Value = "Danh sách giáo viên";
+                                    range.Style.Font.Size = 30;
+                                    range.Style.Font.Name = "Calibri";
+                                }
+
+                                int col = 1;
+                                foreach (ColumnHeader columnHeader in lvHocSinh.Columns)
+                                {
+                                    ExcelRange cell = worksheet.Cells[3, col];
+                                    cell.Value = columnHeader.Text;
+                                    cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    cell.Style.Fill.BackgroundColor.SetColor(Color.LightSkyBlue);
+                                    cell.Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                                    col++;
+                                }
+
+                                int row = 4; // Bắt đầu từ hàng 4 để thêm dữ liệu
+                                foreach (ListViewItem item in lvHocSinh.Items)
+                                {
+                                    col = 1;
+                                    foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
+                                    {
+                                        ExcelRange cell = worksheet.Cells[row, col];
+                                        cell.Value = subItem.Text;
+                                        cell.Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                                        col++;
+                                    }
+                                    row++;
+                                }
+
+                                // Tự động điều chỉnh độ rộng của các cột để chứa đủ dữ liệu
+                                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                                package.Save();
+                                MessageBox.Show("Dữ liệu đã được xuất thành công.");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+                    }
+                }
+            }
         }
     }
 }
