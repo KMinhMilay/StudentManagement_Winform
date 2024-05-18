@@ -70,6 +70,8 @@ END;
 go
 
 -- NGUYEN HOANG THUONG
+drop trigger TRIGGER_Diem_UpdateDiemTB
+go
 create trigger TRIGGER_Diem_UpdateDiemTB
 on DIEM
 after INSERT, UPDATE
@@ -84,10 +86,12 @@ begin
         SET DTB = ROUND((@diemqt + @diemgk * 2 + @diemck * 3) / 6, 2)
         WHERE IDDIEM = @iddiem
     end
+
 end
 go
 --KHANHMINH
-create trigger TRG_TINHDIEMTK ON DIEM 
+drop trigger TRG_TINHDIEMTK
+--create trigger TRG_TINHDIEMTK ON DIEM 
 AFTER UPDATE 
 AS 
 BEGIN
@@ -118,7 +122,7 @@ BEGIN
 	CLOSE c_MH;
 	DEALLOCATE c_MH;
 END
-go
+--go
 create trigger TRIGGER_XepLoai_UpdateDiemTBTongKet
 on DIEM
 after INSERT, Update
