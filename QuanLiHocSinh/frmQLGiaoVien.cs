@@ -54,6 +54,7 @@ namespace QuanLiHocSinh
         private void button3_Click(object sender, EventArgs e)
         {
             currentAction = "ADD";
+            btnAdd.BackColor = Color.LightGreen;
             FocusOnForm = true;
             listViewGiaoVien.Visible = false;
             showFrmAddGV();
@@ -63,6 +64,9 @@ namespace QuanLiHocSinh
         {
             currentAction = "";
             listViewGiaoVien.Visible = true;
+            btnAdd.BackColor = SystemColors.Control;
+            btnUpdate.BackColor = SystemColors.Control;
+            btnDelete.BackColor = SystemColors.Control;
             hideFrmAddGV();
             FocusOnForm = false;
             ClearForm();
@@ -72,6 +76,7 @@ namespace QuanLiHocSinh
         {
             currentAction = "UPDATE";
             //FocusOnForm();
+            btnUpdate.BackColor = Color.LightGreen;
             FocusOnForm = true;
         }
 
@@ -97,6 +102,7 @@ namespace QuanLiHocSinh
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            btnDelete.BackColor= Color.LightGreen;
             if (MessageBox.Show("Xóa thông tin giáo viên này?", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 if (TeacherDAO.Instance.DeleteTeacherSuccess(txbId.Text))

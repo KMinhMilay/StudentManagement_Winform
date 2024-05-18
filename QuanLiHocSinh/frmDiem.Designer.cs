@@ -506,6 +506,7 @@
             button3.TabIndex = 7;
             button3.Text = "THỐNG KÊ";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // frmDiem
             // 
