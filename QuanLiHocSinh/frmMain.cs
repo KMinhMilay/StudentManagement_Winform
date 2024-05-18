@@ -51,7 +51,7 @@ namespace QuanLiHocSinh
 
         private void btnDiem_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new frmDiem());
+            OpenChildForm(new frmDiem(this.account));
             label1.Text = btnDiem.Text;
 
 
@@ -59,7 +59,7 @@ namespace QuanLiHocSinh
 
         private void btnXepLoai_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new frmXepLoai());
+            OpenChildForm(new frmXepLoai(this.account));
             label1.Text = btnXepLoai.Text;
 
         }

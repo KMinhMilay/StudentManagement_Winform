@@ -819,3 +819,135 @@ begin
 end
 go
 exec SP_GetTranListByText 'o'
+
+-- NGUYEN HOANG THUONG
+create proc Proc_GetDiem
+as
+select d.IDDIEM, d.IDHK, hk.HOCKY, hk.IDNAM, CONCAT(n.NAMBATDAU, ' - ', N.NAMKETTHUC) as NAM,
+d.IDMH, m.TENMH, d.IDHS, CONCAT(hs.HO, ' ', hs.TEN) as HoTenHocSinh, hs.TEN, DIEMQT, DIEMGK, DIEMCK, DTB 
+from Diem d
+inner join HOCKY hk on d.IDHK = hk.IDHK
+inner join NAMHOC n on hk.IDNAM = n.IDNAM
+inner join MONHOC m on d.IDMH = m.IDMH
+inner join HOCSINH hs on d.IDHS = hs.IDHS
+go
+
+--exec Proc_GetDiem
+
+create proc Proc_GetDiem_Filter
+@tenhs nvarchar(255), @malop varchar(32), @mamon varchar(32)
+as
+select d.IDDIEM, d.IDHK, hk.HOCKY, hk.IDNAM, CONCAT(n.NAMBATDAU, ' - ', N.NAMKETTHUC) as NAM,
+d.IDMH, m.TENMH, d.IDHS, CONCAT(hs.HO, ' ', hs.TEN) as HoTenHocSinh, hs.TEN, DIEMQT, DIEMGK, DIEMCK, DTB 
+from Diem d
+inner join HOCKY hk on d.IDHK = hk.IDHK
+inner join NAMHOC n on hk.IDNAM = n.IDNAM
+inner join MONHOC m on d.IDMH = m.IDMH
+inner join HOCSINH hs on d.IDHS = hs.IDHS
+where CONCAT(hs.HO, ' ', hs.TEN) like '%' + @tenhs + '%'
+AND hs.IDLOP = @malop
+AND d.IDMH = @mamon
+go
+
+--exec Proc_GetDiem_Filter @tenhs = '', @mamon = 'HOA', @malop = '10A1'
+
+create proc Proc_Diem_Update
+@iddiem varchar(64), @diemqt float, @diemgk float, @diemck float
+as
+update DIEM
+SET DIEMQT = @diemqt,
+DIEMGK = @diemgk,
+DIEMCK = @diemck
+WHERE IDDIEM = @iddiem
+go
+
+
+create proc Proc_GetXepLoai
+as
+select x.IDXEPLOAI, CONCAT(n.NAMBATDAU, ' - ', N.NAMKETTHUC) as NAM, x.IDHS,
+CONCAT(hs.HO, ' ', hs.TEN) as HoTenHocSinh, hs.TEN, l.IDLOP,
+l.TENLOP, x.DIEMTONGKET, x.HOCLUC, x.HANHKIEM, x.IDHK, hk.HOCKY 
+from XEPLOAI x
+inner join HOCKY hk on x.IDHK = hk.IDHK
+inner join NAMHOC n on hk.IDNAM = n.IDNAM
+inner join HOCSINH hs on x.IDHS = hs.IDHS
+inner join LOP l on hs.IDLOP = l.IDLOP
+go
+
+create proc Proc_FilterXepLoai
+@tenhs nvarchar(64), @malop varchar(32), @hocluc nvarchar(16), @hanhkiem nvarchar(16)
+as
+select x.IDXEPLOAI, CONCAT(n.NAMBATDAU, ' - ', N.NAMKETTHUC) as NAM, x.IDHS, CONCAT(hs.HO, ' ', hs.TEN) as HoTenHocSinh, hs.TEN, l.IDLOP, l.TENLOP, x.DIEMTONGKET, x.HOCLUC, x.HANHKIEM, x.IDHK, hk.HOCKY 
+from XEPLOAI x
+inner join HOCKY hk on x.IDHK = hk.IDHK
+inner join NAMHOC n on hk.IDNAM = n.IDNAM
+inner join HOCSINH hs on x.IDHS = hs.IDHS
+inner join LOP l on hs.IDLOP = l.IDLOP
+where CONCAT(hs.HO, ' ', hs.TEN) like '%' + @tenhs + '%'
+AND x.HOCLUC like '%' + @hocluc + '%'
+AND x.HANHKIEM like '%' + @hanhkiem + '%'
+AND l.IDLOP = @malop
+go
+
+create trigger TRIGGER_XepLoai_UpdateDiemTBTongKet
+on DIEM
+after INSERT, Update
+as
+begin
+    declare @idhs varchar(32), @idhk int, @diemtongket float
+    select @idhs = IDHS, @idhk = IDHK from inserted
+
+    select @diemtongket = ROUND(AVG(DTB), 2) from DIEM
+    where IDHS = @idhs
+    and IDHK = @idhk
+
+    IF EXISTS(select IDXEPLOAI from XEPLOAI WHERE IDHS = @idhs and IDHK = @idhk)
+    begin
+        declare @hanhkiem nvarchar(32), @hocluc nvarchar(32)
+        select @hanhkiem = HANHKIEM from XEPLOAI WHERE IDHS = @idhs and IDHK = @idhk
+
+        IF @hanhkiem IS NULL OR @hanhkiem = 'Chua dánh giá'
+        BEGIN
+            UPDATE XEPLOAI SET DIEMTONGKET = @diemtongket WHERE IDHS = @idhs and IDHK = @idhk
+        END
+        ELSE
+        BEGIN
+            if(@diemtongket < 3.5)
+                set @hocluc = N'Kém'
+            else if(@diemtongket < 5)
+                set @hocluc = N'Y?u'
+            else if(@diemtongket < 6.5)
+                set @hocluc = N'Trung b?nh'
+            else if(@diemtongket < 8)
+            begin
+                if(@hanhkiem = N'Khá' OR @hanhkiem = N'Gi?i')
+                    set @hocluc = N'Khá'
+                else
+                    set @hocluc = N'Trung b?nh'
+            end
+            else
+            begin
+                if(@hanhkiem = N'Gi?i')
+                    set @hocluc = N'Gi?i'
+                else
+                    set @hocluc = N'Khá'
+            end
+            UPDATE XEPLOAI SET DIEMTONGKET = @diemtongket, HOCLUC = @hocluc WHERE IDHS = @idhs and IDHK = @idhk
+        END
+    end
+    ELSE
+    begin
+        insert into XEPLOAI(IDHK, IDHS, DIEMTONGKET)
+        values (@idhk, @idhs, @diemtongket)
+    end
+end
+go
+
+create proc Proc_XepLoai_Update
+@idxeploai int, @hanhkiem nvarchar(20), @hocluc nvarchar(20)
+as
+update XEPLOAI
+set HANHKIEM = @hanhkiem,
+HOCLUC = @hocluc
+where IDXEPLOAI = @idxeploai
+go
