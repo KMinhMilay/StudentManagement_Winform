@@ -83,10 +83,10 @@ namespace QuanLiHocSinh.DAO
             return list;
         }
 
-        public bool UpdateDiem(string idDiem, float diemQT, float diemGK, float diemCK)
+        public bool UpdateDiem(string idDiem, float diemQT, float diemGK, float diemCK, string idgv)
         {
-            string query = "exec Proc_Diem_Update @iddiem , @diemqt , @diemgk , @diemck";
-            return DataProvider.Instance.ExecuteNonQuery(query, new object[] { idDiem, diemQT, diemGK, diemCK }) > 0;
+            string query = "exec Proc_Diem_Update @iddiem , @diemqt , @diemgk , @diemck , @idgv";
+            return DataProvider.Instance.ExecuteNonQuery(query, new object[] { idDiem, diemQT, diemGK, diemCK, idgv }) > 0;
         }
     }
 }

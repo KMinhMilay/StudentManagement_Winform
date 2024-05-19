@@ -143,7 +143,7 @@ namespace QuanLiHocSinh
             float diemQT = (float)nDiemQT.Value;
             float diemGK = (float)nDiemGK.Value;
             float diemCK = (float)nDiemCK.Value;
-            if (DiemDAO.Instance.UpdateDiem(idDiem, diemQT, diemGK, diemCK))
+            if (DiemDAO.Instance.UpdateDiem(idDiem, diemQT, diemGK, diemCK, this._account.id))
             {
                 MessageBox.Show("Cập nhật điểm thành công");
                 LoadForm();
