@@ -14,7 +14,8 @@ namespace QuanLiHocSinh
         private List<string> listHanhKiem;
         private int row = -1;
         private Account _account;
-
+        private string userRole;
+        private string userName;
         public frmXepLoai(Account account)
         {
             InitializeComponent();
@@ -22,6 +23,24 @@ namespace QuanLiHocSinh
             cbbHocLuc.SelectedIndex = -1;
             cbbHanhKiem.SelectedIndex = -1;
             _account = account;
+            userName = _account.username;
+
+            if (_account.role != "hocsinh")
+            {
+                userRole = "0";
+                if (_account.role == "loptruong")
+                {
+                    userRole = "1";
+                }
+                else if (_account.role == "giaovienthuong" && account.username != "admin")
+                {
+                    userRole = "2";
+                }
+                else if (_account.role == "admin" && account.username == "admin")
+                {
+                    userRole = "3";
+                }
+            }
         }
 
         private void LoadForm()
@@ -69,7 +88,7 @@ namespace QuanLiHocSinh
 
         private void LoadDataTableFirst()
         {
-            listXL = XepLoaiDAO.Instance.GetAll();
+            listXL = XepLoaiDAO.Instance.GetAll(userRole,userName);
             LoadDataTable(listXL);
         }
 

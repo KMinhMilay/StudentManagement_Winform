@@ -260,19 +260,19 @@ EXEC SP_INS_GIAOVIEN 'GV007', N'Nguyễn Văn ', N'H', '1999-07-30', N'Nam', N'B
 EXEC SP_INS_GIAOVIEN 'GV008', N'Nguyễn Văn ', N'G', '1999-08-30', N'Nam', N'Bến Tre', N'23 Đường G, Quận 9', 'nguyenvang@email.com', '0123456789', '12C3', 'TOAN', 8000000, 'tendn8', '19990830',2
 EXEC SP_INS_GIAOVIEN 'GV009', N'Lê Văn ', N'K', '1997-10-20', N'Nam', N'Hà Nội', N'68 Đường K, Quận 3', 'levank@email.com', '0123456789', '11B1', 'HOA', 8000000, 'tendn9', '19971020',2
 
-EXEC SP_INS_HOCSINH 'HS1-10A1', N'Vũ Thị', N'A', '2010-06-10', N'Nữ', N'Hải Phòng', N'113 Đường F, Quận 6', 'vuthia@email.com', '0123456789', '10A1', 'X', 'GV001', 'DH', '0987654321', N'Phụ huynh A', 'hocsinh1', 'password1'
-EXEC SP_INS_HOCSINH 'HS1-11B1', N'Vũ Thị', N'A', '2010-06-10', N'Nữ', N'Hải Phòng', N'113 Đường F, Quận 6', 'vuthia@email.com', '0123456789', '11B1', 'X', 'GV009', 'DH', '0987654321', N'Phụ huynh A', 'hocsinh1', 'password1'
-EXEC SP_INS_HOCSINH 'HS2-10A2', N'Đặng Văn', N'B', '2011-07-15', N'Nam', N'Bình Dương', N'114 Đường G, Quận 7', 'dangvanb@email.com', '0123456789', '10A2', 'LT', 'GV006', 'DH', '0987654321', N'Phụ huynh B', 'hocsinh2', 'password2'
-EXEC SP_INS_HOCSINH 'HS2-11B2', N'Đặng Văn', N'B', '2011-07-15', N'Nam', N'Bình Dương', N'114 Đường G, Quận 7', 'dangvanb@email.com', '0123456789', '11B2', 'X', 'GV002', 'DH', '0987654321', N'Phụ huynh B', 'hocsinh2', 'password2'
-EXEC SP_INS_HOCSINH 'HS2-12C2', N'Đặng Văn', N'B', '2011-07-15', N'Nam', N'Bình Dương', N'114 Đường G, Quận 7', 'dangvanb@email.com', '0123456789', '12C2', 'X', 'GV005', 'DH', '0987654321', N'Phụ huynh B', 'hocsinh2', 'password2'
-EXEC SP_INS_HOCSINH 'HS3-10A1', N'Ngô Thị', N'C', '2012-08-20', N'Nữ', N'Đắk Lắk', N'115 Đường H, Quận 8', 'ngothic@email.com', '0123456789', '10A1', 'LT', 'GV001', 'DH', '0987654321', N'Phụ huynh C', 'hocsinh3', 'password3'
-EXEC SP_INS_HOCSINH 'HS4-10A1', N'Bùi Văn', N'D', '2013-09-25', N'Nam', N'Đồng Nai', N'116 Đường I, Quận 9', 'buivand@email.com', '0123456789', '10A1', 'LP','GV001', 'DH', '0987654321', N'Phụ huynh D', 'hocsinh4', 'password4'
-EXEC SP_INS_HOCSINH 'HS5-10A2', N'Lý Thị', N'E', '2014-10-30', N'Nữ', N'Bà Rịa - Vũng Tàu', N'117 Đường K, Quận 10', 'lythif@email.com', '0123456789', '10A2','LP','GV006', 'DH', '0987654321', N'Phụ huynh E', 'hocsinh5', 'password5'
-EXEC SP_INS_HOCSINH 'HS6-10A2', N'Trịnh Văn ', N'F', '2015-11-10', N'Nam', N'Long An', N'118 Đường F, Quận 11', 'trinhvanl@email.com', '0123456789', '10A2', 'X', 'GV006', 'BL', '0987654321', N'Phụ huynh F', 'hocsinh6', 'password6'
-EXEC SP_INS_HOCSINH 'HS7-10A2', N'Mai Thị ', N'G', '2016-12-15', N'Nữ', N'Tây Ninh', N'119 Đường G, Quận 12', 'maithim@email.com', '0123456789', '10A2', 'X', 'GV006', 'DH', '0987654321', N'Phụ huynh G', 'hocsinh7', 'password7'
-EXEC SP_INS_HOCSINH 'HS8-10A3', N'Đinh Văn ', N'H', '2017-01-20', N'Nam', N'An Giang', N'120 Đường H, Quận 13', 'dinhvann@email.com', '0123456789', '10A3', 'LP', 'GV007', 'NH', '0987654321', N'Phụ huynh H', 'hocsinh8', 'password8'
-EXEC SP_INS_HOCSINH 'HS9-10A3', N'Vương Thị ', N'I', '2018-02-25', N'Nữ', N'Kiên Giang', N'121 Đường I, Quận 14', 'vuongthip@email.com', '0123456789', '10A3', 'LT', 'GV007', 'DH', '0987654321', N'Phụ huynh I', 'hocsinh9', 'password9'
-EXEC SP_INS_HOCSINH 'HS10-10A3', N'Chu Văn ', N'K', '2019-03-30', N'Nam', N'Vĩnh Long', N'122 Đường K, Quận 15', 'chuvanq@email.com', '0123456789', '10A3', 'X','GV007', 'DH', '0987654321', N'Phụ huynh K', 'hocsinh10', 'password10'
+EXEC SP_INS_HOCSINH 'HS1-10A1', N'Vũ Thị', N'A', '2010-06-10', N'Nữ', N'Hải Phòng', N'113 Đường A, Quận 1', 'vuthia@email.com', '0123456789', '10A1', 'X', 'GV001', 'DH', '0987654321', N'Phụ huynh A', 'hocsinh1', 'password1'
+EXEC SP_INS_HOCSINH 'HS2-11B1', N'Vũ Thị', N'B', '2010-07-11', N'Nữ', N'Hải Phòng', N'113 Đường B, Quận 2', 'vuthib@email.com', '0123456789', '11B1', 'X', 'GV009', 'DH', '0987654321', N'Phụ huynh B', 'hocsinh2', 'password2'
+EXEC SP_INS_HOCSINH 'HS3-10A2', N'Đặng Văn', N'C', '2011-07-15', N'Nam', N'Bình Phước', N'114 Đường C, Quận 3', 'dangvanc@email.com', '0123456789', '10A2', 'LT', 'GV006', 'DH', '0987654321', N'Phụ huynh C', 'hocsinh3', 'password3'
+EXEC SP_INS_HOCSINH 'HS4-11B2', N'Đặng Văn', N'D', '2011-04-15', N'Nam', N'Bình Dương', N'14 Đường D, Quận 4', 'dangvand@email.com', '0123456789', '11B2', 'X', 'GV002', 'DH', '0987654321', N'Phụ huynh D', 'hocsinh4', 'password4'
+EXEC SP_INS_HOCSINH 'HS5-12C2', N'Đặng Văn', N'E', '2011-07-24', N'Nam', N'Bến Tre', N'24 Đường E, Quận 5', 'dangvane@email.com', '0123456789', '12C2', 'X', 'GV005', 'DH', '0987654321', N'Phụ huynh E', 'hocsinh5', 'password5'
+EXEC SP_INS_HOCSINH 'HS6-10A1', N'Ngô Thị', N'F', '2012-08-20', N'Nữ', N'Đắk Lắk', N'115 Đường F, Quận 6', 'ngothif@email.com', '0123456789', '10A1', 'LT', 'GV001', 'DH', '0987654321', N'Phụ huynh F', 'hocsinh6', 'password6'
+EXEC SP_INS_HOCSINH 'HS7-12C3', N'Bùi Văn', N'G', '2013-09-25', N'Nam', N'Đồng Nai', N'116 Đường G, Quận 7', 'buivang@email.com', '0123456789', '12C3', 'LP','GV008', 'DH', '0987654321', N'Phụ huynh G', 'hocsinh7', 'password7'
+EXEC SP_INS_HOCSINH 'HS8-10A2', N'Lý Thị', N'H', '2014-10-30', N'Nữ', N'Bà Rịa - Vũng Tàu', N'117 Đường H, Quận 8', 'lythih@email.com', '0123456789', '10A2','LP','GV006', 'DH', '0987654321', N'Phụ huynh H', 'hocsinh8', 'password8'
+EXEC SP_INS_HOCSINH 'HS9-10A2', N'Trịnh Văn ', N'K', '2015-11-10', N'Nam', N'Long An', N'118 Đường K, Quận 9', 'trinhvank@email.com', '0123456789', '10A2', 'X', 'GV006', 'BL', '0987654321', N'Phụ huynh K', 'hocsinh9', 'password9'
+EXEC SP_INS_HOCSINH 'HS10-11B3', N'Mai Thị ', N'L', '2016-12-15', N'Nữ', N'Tây Ninh', N'119 Đường L, Quận 10', 'maithil@email.com', '0123456789', '11B3', 'X', 'GV003', 'DH', '0987654321', N'Phụ huynh L', 'hocsinh10', 'password10'
+EXEC SP_INS_HOCSINH 'HS11-10A3', N'Đinh Văn ', N'M', '2017-01-20', N'Nam', N'An Giang', N'120 Đường M, Quận 11', 'dinhvanm@email.com', '0123456789', '10A3', 'LP', 'GV007', 'NH', '0987654321', N'Phụ huynh M', 'hocsinh11', 'password11'
+EXEC SP_INS_HOCSINH 'HS12-12C1', N'Vương Thị ', N'N', '2018-02-25', N'Nữ', N'Kiên Giang', N'121 Đường N, Quận 12', 'vuongthin@email.com', '0123456789', '12C1', 'LT', 'GV004', 'DH', '0987654321', N'Phụ huynh N', 'hocsinh12', 'password12'
+EXEC SP_INS_HOCSINH 'HS13-10A3', N'Chu Văn ', N'I', '2019-03-30', N'Nam', N'Vĩnh Long', N'122 Đường I, Quận 13', 'chuvani@email.com', '0123456789', '10A3', 'X','GV007', 'DH', '0987654321', N'Phụ huynh I', 'hocsinh13', 'password13'
 
 
 insert into DIEM values ('hs1toan20221',20221,'TOAN','HS1-10A1',null,null,null,null)
@@ -286,7 +286,17 @@ insert into DIEM values ('hs1dia20221',20221,'DIA','HS1-10A1',null,null,null,nul
 insert into DIEM values ('hs1gdcd20221',20221,'GDCD','HS1-10A1',null,null,null,null)
 insert into DIEM values ('hs1gdtc20221',20221,'GDTC','HS1-10A1',null,null,null,null)
 insert into DIEM values ('hs1gdqp20221',20221,'GDQP','HS1-10A1',null,null,null,null)
-
+insert into DIEM values ('hs3toan20221',20221,'TOAN','HS3-10A2',null,null,null,null)
+insert into DIEM values ('hs3van20221',20221,'VAN','HS3-10A2',null,null,null,null)
+insert into DIEM values ('hs3nn20221',20221,'NN','HS3-10A2',null,null,null,null)
+insert into DIEM values ('hs3sinh20221',20221,'SINH','HS3-10A2',null,null,null,null)
+insert into DIEM values ('hs3hoa20221',20221,'HOA','HS3-10A2',null,null,null,null)
+insert into DIEM values ('hs3ly20221',20221,'LY','HS3-10A2',null,null,null,null)
+insert into DIEM values ('hs3su20221',20221,'SU','HS3-10A2',null,null,null,null)
+insert into DIEM values ('hs3dia20221',20221,'DIA','HS3-10A2',null,null,null,null)
+insert into DIEM values ('hs3gdcd20221',20221,'GDCD','HS3-10A2',null,null,null,null)
+insert into DIEM values ('hs3gdtc20221',20221,'GDTC','HS3-10A2',null,null,null,null)
+insert into DIEM values ('hs3gdqp20221',20221,'GDQP','HS3-10A2',null,null,null,null)
 /*
 nhớ chỉnh lại thành
 HOCLUC nvarchar(16) default(N'Chưa đánh giá'),
@@ -302,13 +312,11 @@ IDXEPLOAI int primary key identity(1,1),
 	HANHKIEM nvarchar(16) default('Chưa đánh giá'),
 */
 insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET) values (20221,'HS1-10A1',null)
-go
-insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS2-10A2',null)
-go
-insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS3-10A1',null)
-insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS4-10A1',null)
-insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS5-10A2',null)
-insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS6-10A2',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS2-11B1',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS3-10A2',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS4-11B2',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS5-12C2',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS6-10A1',null)
 insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS7-10A2',null)
 insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS8-10A3',null)
 insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS9-10A3',null)

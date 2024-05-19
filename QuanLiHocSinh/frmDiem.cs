@@ -11,10 +11,30 @@ namespace QuanLiHocSinh
         private List<DiemModelView> listDiem;
         private int row = -1;
         private Account _account;
+        private string userRole;
+        private string userName;
         public frmDiem(Account account)
         {
             InitializeComponent();
             _account = account;
+            userName = _account.username;
+
+            if (_account.role != "hocsinh")
+            {
+                userRole = "0";
+                if (_account.role == "loptruong")
+                {
+                    userRole = "1";
+                }
+                else if (_account.role == "giaovienthuong" && account.username != "admin")
+                {
+                    userRole = "2";
+                }
+                else if (_account.role == "admin" && account.username == "admin")
+                {
+                    userRole = "3";
+                }
+            }
         }
 
         private void LoadForm()
@@ -22,7 +42,7 @@ namespace QuanLiHocSinh
             cbbMon.SelectedIndex = -1;
             cbbLop.SelectedIndex = -1;
             listDiem = new List<DiemModelView>();
-            if (_account.role == "admin" || _account.role == "giaovien")
+            if (_account.role == "admin" || _account.role == "giaovienthuong")
                 btnCapNhat.Enabled = true;
             else
                 btnCapNhat.Enabled = false;
@@ -51,7 +71,7 @@ namespace QuanLiHocSinh
 
         private void LoadDataTableFirst()
         {
-            listDiem = DiemDAO.Instance.GetAll();
+            listDiem = DiemDAO.Instance.GetAll(userRole,userName);
             LoadDataTable(listDiem);
         }
 

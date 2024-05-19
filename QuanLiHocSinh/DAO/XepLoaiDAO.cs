@@ -15,11 +15,11 @@ namespace QuanLiHocSinh.DAO
         }
         private XepLoaiDAO() { }
 
-        public List<XepLoaiModelView> GetAll()
+        public List<XepLoaiModelView> GetAll(string userRole, string userName)
         {
-            string query = "exec Proc_GetXepLoai";
+            string query = "exec Proc_GetXepLoai @UserRole , @UserName";
             List<XepLoaiModelView> list = new List<XepLoaiModelView>();
-            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query);
+            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] { userRole, userName });
             if (dataTable.Rows.Count > 0)
             {
                 foreach (DataRow row in dataTable.Rows)

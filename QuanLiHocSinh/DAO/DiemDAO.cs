@@ -51,11 +51,11 @@ namespace QuanLiHocSinh.DAO
             DataProvider.Instance.ExecuteNonQuery(query, parameters);
         }
 
-        public List<DiemModelView> GetAll()
+        public List<DiemModelView> GetAll(string userRole, string userName)
         {
-            string query = "exec Proc_GetDiem";
+            string query = "exec Proc_GetDiem @UserRole , @UserName";
             List<DiemModelView> list = new List<DiemModelView>();
-            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query);
+            DataTable dataTable = DataProvider.Instance.ExecuteQuery(query, new object[] {userRole, userName});
             if (dataTable.Rows.Count > 0)
             {
                 foreach (DataRow row in dataTable.Rows)

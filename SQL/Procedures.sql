@@ -824,21 +824,97 @@ begin
 end
 go
 
-
 -- NGUYEN HOANG THUONG
-create proc Proc_GetDiem
+create PROCEDURE Proc_GetDiem
+    @UserRole NVARCHAR(64),
+    @UserName NVARCHAR(64)
 WITH ENCRYPTION
-as
-select d.IDDIEM, d.IDHK, hk.HOCKY, hk.IDNAM, CONCAT(n.NAMBATDAU, ' - ', N.NAMKETTHUC) as NAM,
-d.IDMH, m.TENMH, d.IDHS, CONCAT(hs.HO, ' ', hs.TEN) as HoTenHocSinh, hs.TEN, DIEMQT, DIEMGK, DIEMCK, DTB 
-from Diem d
-inner join HOCKY hk on d.IDHK = hk.IDHK
-inner join NAMHOC n on hk.IDNAM = n.IDNAM
-inner join MONHOC m on d.IDMH = m.IDMH
-inner join HOCSINH hs on d.IDHS = hs.IDHS
-go
+AS
+BEGIN
+    DECLARE @UserID VARCHAR(64)
 
---exec Proc_GetDiem
+    -- Get UserID based on username and role
+    SELECT @UserID = IDGV FROM GIAOVIEN WHERE TENDN = @UserName AND VAITRO = @UserRole
+    IF @UserID IS NULL
+    BEGIN
+        IF @UserRole = '1'
+        BEGIN
+            SELECT @UserID = IDHS FROM HOCSINH WHERE TENDN = @UserName AND (IDCV = 'LT' OR IDCV = 'LP')
+        END
+        ELSE IF @UserRole = '0'
+        BEGIN
+            SELECT @UserID = IDHS FROM HOCSINH WHERE TENDN = @UserName
+        END
+    END
+
+    IF @UserID IS NULL -- If UserID not found
+    BEGIN
+        PRINT N'Không tìm thấy thông tin người dùng đúng với vai trò'
+    END
+    ELSE
+    BEGIN
+        IF @UserRole = '3' -- If admin
+        BEGIN
+            SELECT d.IDDIEM, d.IDHK, hk.HOCKY, hk.IDNAM, CONCAT(n.NAMBATDAU, ' - ', n.NAMKETTHUC) AS NAM,
+                   d.IDMH, m.TENMH, d.IDHS, CONCAT(hs.HO, ' ', hs.TEN) AS HoTenHocSinh, hs.TEN,
+                   DIEMQT, DIEMGK, DIEMCK, DTB 
+            FROM Diem d
+            INNER JOIN HOCKY hk ON d.IDHK = hk.IDHK
+            INNER JOIN NAMHOC n ON hk.IDNAM = n.IDNAM
+            INNER JOIN MONHOC m ON d.IDMH = m.IDMH
+            INNER JOIN HOCSINH hs ON d.IDHS = hs.IDHS
+        END
+        ELSE IF @UserRole = '2' -- If teacher
+        BEGIN
+            SELECT d.IDDIEM, d.IDHK, hk.HOCKY, hk.IDNAM, CONCAT(n.NAMBATDAU, ' - ', n.NAMKETTHUC) AS NAM,
+                   d.IDMH, m.TENMH, d.IDHS, CONCAT(hs.HO, ' ', hs.TEN) AS HoTenHocSinh, hs.TEN,
+                   DIEMQT, DIEMGK, DIEMCK, DTB 
+            FROM Diem d
+            INNER JOIN HOCKY hk ON d.IDHK = hk.IDHK
+            INNER JOIN NAMHOC n ON hk.IDNAM = n.IDNAM
+            INNER JOIN MONHOC m ON d.IDMH = m.IDMH
+            INNER JOIN HOCSINH hs ON d.IDHS = hs.IDHS
+            WHERE hs.IDGV = @UserID AND hs.isEnable = 'Yes'
+        END
+        ELSE IF @UserRole = '1' -- If class monitor or deputy
+        BEGIN
+            DECLARE @UserLopID NVARCHAR(64)
+            SELECT @UserLopID = (
+                SELECT MAX(IDLOP) AS LopCaoNhat
+                FROM HOCSINH
+                WHERE TENDN = @UserName AND (IDCV = 'LT' OR IDCV = 'LP')
+            )
+
+            SELECT d.IDDIEM, d.IDHK, hk.HOCKY, hk.IDNAM, CONCAT(n.NAMBATDAU, ' - ', n.NAMKETTHUC) AS NAM,
+                   d.IDMH, m.TENMH, d.IDHS, CONCAT(hs.HO, ' ', hs.TEN) AS HoTenHocSinh, hs.TEN,
+                   DIEMQT, DIEMGK, DIEMCK, DTB 
+            FROM Diem d
+            INNER JOIN HOCKY hk ON d.IDHK = hk.IDHK
+            INNER JOIN NAMHOC n ON hk.IDNAM = n.IDNAM
+            INNER JOIN MONHOC m ON d.IDMH = m.IDMH
+            INNER JOIN HOCSINH hs ON d.IDHS = hs.IDHS
+            WHERE hs.IDLOP = @UserLopID AND hs.isEnable = 'Yes'
+        END
+        ELSE IF @UserRole = '0' -- If student
+        BEGIN
+            SELECT d.IDDIEM, d.IDHK, hk.HOCKY, hk.IDNAM, CONCAT(n.NAMBATDAU, ' - ', n.NAMKETTHUC) AS NAM,
+                   d.IDMH, m.TENMH, d.IDHS, CONCAT(hs.HO, ' ', hs.TEN) AS HoTenHocSinh, hs.TEN,
+                   DIEMQT, DIEMGK, DIEMCK, DTB 
+            FROM Diem d
+            INNER JOIN HOCKY hk ON d.IDHK = hk.IDHK
+            INNER JOIN NAMHOC n ON hk.IDNAM = n.IDNAM
+            INNER JOIN MONHOC m ON d.IDMH = m.IDMH
+            INNER JOIN HOCSINH hs ON d.IDHS = hs.IDHS
+            WHERE hs.TENDN = @UserName AND hs.isEnable = 'Yes'
+        END
+        ELSE -- Default case for other roles or invalid roles
+        BEGIN
+            PRINT N'Bạn không có quyền truy cập'
+        END
+    END
+END
+GO
+--Proc_GetDiem '1', 'hocsinh2'
 
 create proc Proc_GetDiem_Filter
 @tenhs nvarchar(255), @malop varchar(32), @mamon varchar(32)
@@ -882,18 +958,96 @@ end
 go
 
 
-create proc Proc_GetXepLoai
+ALTER PROCEDURE Proc_GetXepLoai
+    @UserRole NVARCHAR(64),
+    @UserName NVARCHAR(64)
 WITH ENCRYPTION
-as
-select x.IDXEPLOAI, CONCAT(n.NAMBATDAU, ' - ', N.NAMKETTHUC) as NAM, x.IDHS,
-CONCAT(hs.HO, ' ', hs.TEN) as HoTenHocSinh, hs.TEN, l.IDLOP,
-l.TENLOP, x.DIEMTONGKET, x.HOCLUC, x.HANHKIEM, x.IDHK, hk.HOCKY 
-from XEPLOAI x
-inner join HOCKY hk on x.IDHK = hk.IDHK
-inner join NAMHOC n on hk.IDNAM = n.IDNAM
-inner join HOCSINH hs on x.IDHS = hs.IDHS
-inner join LOP l on hs.IDLOP = l.IDLOP
-go
+AS
+BEGIN
+    DECLARE @UserID VARCHAR(64)
+
+    -- Get UserID based on username and role
+    SELECT @UserID = IDGV FROM GIAOVIEN WHERE TENDN = @UserName AND VAITRO = @UserRole
+    IF @UserID IS NULL
+    BEGIN
+        IF @UserRole = '1'
+        BEGIN
+            SELECT @UserID = IDHS FROM HOCSINH WHERE TENDN = @UserName AND (IDCV = 'LT' OR IDCV = 'LP')
+        END
+        ELSE IF @UserRole = '0'
+        BEGIN
+            SELECT @UserID = IDHS FROM HOCSINH WHERE TENDN = @UserName
+        END
+    END
+
+    IF @UserID IS NULL -- If UserID not found
+    BEGIN
+        PRINT N'Không tìm thấy thông tin người dùng đúng với vai trò'
+    END
+    ELSE
+    BEGIN
+        IF @UserRole = '3' -- If admin
+        BEGIN
+            SELECT x.IDXEPLOAI, CONCAT(n.NAMBATDAU, ' - ', n.NAMKETTHUC) AS NAM, x.IDHS,
+                   CONCAT(hs.HO, ' ', hs.TEN) AS HoTenHocSinh, hs.TEN, l.IDLOP,
+                   l.TENLOP, x.DIEMTONGKET, x.HOCLUC, x.HANHKIEM, x.IDHK, hk.HOCKY 
+            FROM XEPLOAI x
+            INNER JOIN HOCKY hk ON x.IDHK = hk.IDHK
+            INNER JOIN NAMHOC n ON hk.IDNAM = n.IDNAM
+            INNER JOIN HOCSINH hs ON x.IDHS = hs.IDHS
+            INNER JOIN LOP l ON hs.IDLOP = l.IDLOP
+        END
+        ELSE IF @UserRole = '2' -- If teacher
+        BEGIN
+            SELECT x.IDXEPLOAI, CONCAT(n.NAMBATDAU, ' - ', n.NAMKETTHUC) AS NAM, x.IDHS,
+                   CONCAT(hs.HO, ' ', hs.TEN) AS HoTenHocSinh, hs.TEN, l.IDLOP,
+                   l.TENLOP, x.DIEMTONGKET, x.HOCLUC, x.HANHKIEM, x.IDHK, hk.HOCKY 
+            FROM XEPLOAI x
+            INNER JOIN HOCKY hk ON x.IDHK = hk.IDHK
+            INNER JOIN NAMHOC n ON hk.IDNAM = n.IDNAM
+            INNER JOIN HOCSINH hs ON x.IDHS = hs.IDHS
+            INNER JOIN LOP l ON hs.IDLOP = l.IDLOP
+            WHERE hs.IDGV = @UserID AND hs.isEnable = 'Yes'
+        END
+        ELSE IF @UserRole = '1' -- If class monitor or deputy
+        BEGIN
+            DECLARE @UserLopID NVARCHAR(64)
+            SELECT @UserLopID = (
+                SELECT MAX(IDLOP) AS LopCaoNhat
+                FROM HOCSINH
+                WHERE TENDN = @UserName AND (IDCV = 'LT' OR IDCV = 'LP')
+            )
+
+            SELECT x.IDXEPLOAI, CONCAT(n.NAMBATDAU, ' - ', n.NAMKETTHUC) AS NAM, x.IDHS,
+                   CONCAT(hs.HO, ' ', hs.TEN) AS HoTenHocSinh, hs.TEN, l.IDLOP,
+                   l.TENLOP, x.DIEMTONGKET, x.HOCLUC, x.HANHKIEM, x.IDHK, hk.HOCKY 
+            FROM XEPLOAI x
+            INNER JOIN HOCKY hk ON x.IDHK = hk.IDHK
+            INNER JOIN NAMHOC n ON hk.IDNAM = n.IDNAM
+            INNER JOIN HOCSINH hs ON x.IDHS = hs.IDHS
+            INNER JOIN LOP l ON hs.IDLOP = l.IDLOP
+            WHERE hs.IDLOP = @UserLopID AND hs.isEnable = 'Yes'
+        END
+        ELSE IF @UserRole = '0' -- If student
+        BEGIN
+            SELECT x.IDXEPLOAI, CONCAT(n.NAMBATDAU, ' - ', n.NAMKETTHUC) AS NAM, x.IDHS,
+                   CONCAT(hs.HO, ' ', hs.TEN) AS HoTenHocSinh, hs.TEN, l.IDLOP,
+                   l.TENLOP, x.DIEMTONGKET, x.HOCLUC, x.HANHKIEM, x.IDHK, hk.HOCKY 
+            FROM XEPLOAI x
+            INNER JOIN HOCKY hk ON x.IDHK = hk.IDHK
+            INNER JOIN NAMHOC n ON hk.IDNAM = n.IDNAM
+            INNER JOIN HOCSINH hs ON x.IDHS = hs.IDHS
+            INNER JOIN LOP l ON hs.IDLOP = l.IDLOP
+            WHERE hs.TENDN = @UserName AND hs.isEnable = 'Yes'
+        END
+        ELSE -- Default case for other roles or invalid roles
+        BEGIN
+            PRINT N'Bạn không có quyền truy cập'
+        END
+    END
+END
+GO
+
 
 create proc Proc_FilterXepLoai
 @tenhs nvarchar(64), @malop varchar(32), @hocluc nvarchar(16), @hanhkiem nvarchar(16)
