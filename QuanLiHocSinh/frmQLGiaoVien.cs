@@ -102,7 +102,7 @@ namespace QuanLiHocSinh
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            btnDelete.BackColor= Color.LightGreen;
+            btnDelete.BackColor = Color.LightGreen;
             if (MessageBox.Show("Xóa thông tin giáo viên này?", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 if (TeacherDAO.Instance.DeleteTeacherSuccess(txbId.Text))
@@ -355,102 +355,56 @@ namespace QuanLiHocSinh
             {
                 try
                 {
-                    FileInfo existingFile = new FileInfo(saveFileDialog.FileName);
-                    if (existingFile.Exists)
+                    FileInfo newFile = new FileInfo(saveFileDialog.FileName);
+
+                    // Ensure any existing file is deleted before creating a new one
+                    if (newFile.Exists)
                     {
-                        using (ExcelPackage package = new ExcelPackage(existingFile))
-                        {
-                            ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault(ws => ws.Name == "Data");
-                            if (worksheet == null)
-                            {
-                                worksheet = package.Workbook.Worksheets.Add("Data");
-                            }
-
-                            using (ExcelRange range = worksheet.Cells[1, 7, 1, 11])
-                            {
-                                range.Merge = true;
-                                range.Value = "Danh sách giáo viên";
-                                range.Style.Font.Size = 30;
-                                range.Style.Font.Name = "Calibri";
-                            }
-
-                            int col = 1;
-                            foreach (ColumnHeader columnHeader in listViewGiaoVien.Columns)
-                            {
-                                ExcelRange cell = worksheet.Cells[3, col];
-                                cell.Value = columnHeader.Text;
-                                cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                cell.Style.Fill.BackgroundColor.SetColor(Color.LightSkyBlue);
-                                cell.Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                col++;
-                            }
-
-                            int row = 4; // Bắt đầu từ hàng 4 để thêm dữ liệu
-                            foreach (ListViewItem item in listViewGiaoVien.Items)
-                            {
-                                col = 1;
-                                foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
-                                {
-                                    ExcelRange cell = worksheet.Cells[row, col];
-                                    cell.Value = subItem.Text;
-                                    cell.Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                    col++;
-                                }
-                                row++;
-                            }
-
-                            // Tự động điều chỉnh độ rộng của các cột để chứa đủ dữ liệu
-                            worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
-
-                            package.Save();
-                            MessageBox.Show("Dữ liệu đã được ghi đè thành công.");
-                        }
+                        newFile.Delete();
                     }
-                    else
+
+                    using (ExcelPackage package = new ExcelPackage(newFile))
                     {
-                        using (ExcelPackage package = new ExcelPackage(existingFile))
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Data");
+
+                        using (ExcelRange range = worksheet.Cells[1, 7, 1, 11])
                         {
-                            ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Data");
+                            range.Merge = true;
+                            range.Value = "Danh sách giáo viên";
+                            range.Style.Font.Size = 30;
+                            range.Style.Font.Name = "Calibri";
+                        }
 
-                            using (ExcelRange range = worksheet.Cells[1, 7, 1, 11])
-                            {
-                                range.Merge = true;
-                                range.Value = "Danh sách giáo viên";
-                                range.Style.Font.Size = 30;
-                                range.Style.Font.Name = "Calibri";
-                            }
+                        int col = 1;
+                        foreach (ColumnHeader columnHeader in listViewGiaoVien.Columns)
+                        {
+                            ExcelRange cell = worksheet.Cells[3, col];
+                            cell.Value = columnHeader.Text;
+                            cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            cell.Style.Fill.BackgroundColor.SetColor(Color.LightSkyBlue);
+                            cell.Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                            col++;
+                        }
 
-                            int col = 1;
-                            foreach (ColumnHeader columnHeader in listViewGiaoVien.Columns)
+                        int row = 4; // Bắt đầu từ hàng 4 để thêm dữ liệu
+                        foreach (ListViewItem item in listViewGiaoVien.Items)
+                        {
+                            col = 1;
+                            foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
                             {
-                                ExcelRange cell = worksheet.Cells[3, col];
-                                cell.Value = columnHeader.Text;
-                                cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                                cell.Style.Fill.BackgroundColor.SetColor(Color.LightSkyBlue);
+                                ExcelRange cell = worksheet.Cells[row, col];
+                                cell.Value = subItem.Text;
                                 cell.Style.Border.BorderAround(ExcelBorderStyle.Thin);
                                 col++;
                             }
-
-                            int row = 4; // Bắt đầu từ hàng 4 để thêm dữ liệu
-                            foreach (ListViewItem item in listViewGiaoVien.Items)
-                            {
-                                col = 1;
-                                foreach (ListViewItem.ListViewSubItem subItem in item.SubItems)
-                                {
-                                    ExcelRange cell = worksheet.Cells[row, col];
-                                    cell.Value = subItem.Text;
-                                    cell.Style.Border.BorderAround(ExcelBorderStyle.Thin);
-                                    col++;
-                                }
-                                row++;
-                            }
-
-                            // Tự động điều chỉnh độ rộng của các cột để chứa đủ dữ liệu
-                            worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
-
-                            package.Save();
-                            MessageBox.Show("Dữ liệu đã được xuất thành công.");
+                            row++;
                         }
+
+                        // Tự động điều chỉnh độ rộng của các cột để chứa đủ dữ liệu
+                        worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                        package.Save();
+                        MessageBox.Show("Dữ liệu đã được xuất thành công.");
                     }
                 }
                 catch (Exception ex)

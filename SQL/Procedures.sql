@@ -641,17 +641,15 @@ create PROCEDURE SP_GET_GIAOVIEN_BY_LOP
 	WITH ENCRYPTION
 AS
 BEGIN
-    SELECT
+    SELECT TOP 1
         GV.HO + ' ' + GV.TEN AS HoTen
     FROM
         GIAOVIEN GV
-    INNER JOIN
-        HOCSINH HS ON GV.IDLOPCN = HS.IDLOP
     WHERE
-        HS.IDLOP = @IDLop
+        GV.IDLOPCN = @IDLop
 END
 go
---SP_GET_GIAOVIEN_BY_LOP '10A2'
+--SP_GET_GIAOVIEN_BY_LOP '11B1'
 
 
 create PROCEDURE FindTeacherIDByFullName
@@ -926,22 +924,7 @@ where IDXEPLOAI = @idxeploai
     set @transaction_detail = N'[ ' + CONVERT(nvarchar, GETDATE(), 120) + ']: Giáo viên có mã ' + @idgv + N' đã cập nhật hạnh kiểm cho học sinh là ' + @hanhkiem
     exec SP_RecordTransaction @transaction_detail
 go
-create trigger TRIGGER_Diem_UpdateDiemTB
-on DIEM
-after INSERT, UPDATE
-as
-begin
-    declare @iddiem varchar(64), @diemqt float, @diemgk float, @diemck float
-    select @iddiem = IDDIEM, @diemqt = DIEMQT, @diemgk = DIEMGK, @diemck = DIEMCK from inserted
 
-    if(@diemqt IS NOT NULL AND @diemgk IS NOT NULL AND @diemck IS NOT NULL)
-    begin
-        UPDATE DIEM
-        SET DTB = ROUND((@diemqt + @diemgk * 2 + @diemck * 3) / 6, 2)
-        WHERE IDDIEM = @iddiem
-    end
-end
-go
 
 
 
