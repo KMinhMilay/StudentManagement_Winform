@@ -914,7 +914,7 @@ BEGIN
     END
 END
 GO
---Proc_GetDiem '1', 'hocsinh2'
+--Proc_GetDiem '2', 'tendn1'
 
 create proc Proc_GetDiem_Filter
 @tenhs nvarchar(255), @malop varchar(32), @mamon varchar(32)
@@ -946,7 +946,7 @@ DIEMCK = @diemck
 WHERE IDDIEM = @iddiem
  -- Ghi lại giao dịch
     declare @transaction_detail nvarchar(max)
-    set @transaction_detail = N'[ ' + CONVERT(nvarchar, GETDATE(), 120) + ']: Giáo viên có mã ' + @idgv + N' đã cập nhật điểm môn ' + @iddiem + N' - cột điểm ' + CASE 
+    set @transaction_detail = N'Giáo viên có mã ' + @idgv + N' đã cập nhật điểm môn ' + @iddiem + N' - cột điểm ' + CASE 
         WHEN @diemqt IS NOT NULL THEN N'điểm QT'
         WHEN @diemgk IS NOT NULL THEN N'điểm GK'
         WHEN @diemck IS NOT NULL THEN N'điểm CK'
@@ -958,7 +958,7 @@ end
 go
 
 
-ALTER PROCEDURE Proc_GetXepLoai
+create PROCEDURE Proc_GetXepLoai
     @UserRole NVARCHAR(64),
     @UserName NVARCHAR(64)
 WITH ENCRYPTION
