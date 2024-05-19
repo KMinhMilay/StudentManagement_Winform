@@ -267,7 +267,7 @@ namespace QuanLiHocSinh
                     {
                         ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Data");
 
-                        using (ExcelRange range = worksheet.Cells[1, 7, 1, 11])
+                        using (ExcelRange range = worksheet.Cells[1, 7, 1, 12])
                         {
                             range.Merge = true;
                             range.Value = "Thống kê xếp loại học sinh";
