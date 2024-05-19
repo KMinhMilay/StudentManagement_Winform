@@ -317,10 +317,13 @@ insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS3-10A2',null)
 insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS4-11B2',null)
 insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS5-12C2',null)
 insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS6-10A1',null)
-insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS7-10A2',null)
-insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS8-10A3',null)
-insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS9-10A3',null)
-insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS10-10A3',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS7-12C3',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS8-10A2',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS9-10A2',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS10-11B3',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS11-10A3',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS12-12C1',null)
+insert into XEPLOAI(IDHK,IDHS,DIEMTONGKET)  values (20221,'HS13-10A3',null)
 --select n.NAMBATDAU,n.NAMKETTHUC,h.HOCKY from NAMHOC n inner join HOCKY h 
 --ON n.IDNAM = h.IDNAM 
 
